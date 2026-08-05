@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Club — Работен График Август 2026</title>
+    <meta name="description" content="Персонален работен график за Виктор — Magic Club Casino, Август 2026">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* Casino night palette */
+            --bg-deep: #0a0c14;
+            --bg-card: #12151f;
+            --bg-card-hover: #181c2a;
+            --bg-surface: #1a1e2e;
+            --bg-glass: rgba(18, 21, 31, 0.75);
+
+            /* Accent colors for shifts */
+            --shift-1: #f0b429;     /* Gold — Day shift */
+            --shift-1-bg: rgba(240, 180, 41, 0.10);
+            --shift-1-glow: rgba(240, 180, 41, 0.25);
+
+            --shift-2: #7c5cfc;     /* Purple — Night shift */
+            --shift-2-bg: rgba(124, 92, 252, 0.10);
+            --shift-2-glow: rgba(124, 92, 252, 0.25);
+
+            --shift-m: #38bdf8;     /* Cyan — Mid shift */
+            --shift-m-bg: rgba(56, 189, 248, 0.10);
+            --shift-m-glow: rgba(56, 189, 248, 0.25);
+
+            --shift-p: #334155;     /* Muted — Rest */
+            --shift-p-bg: rgba(51, 65, 85, 0.10);
+            --shift-p-text: #64748b;
+
+            --shift-o: #10b981;     /* Green — Paid leave */
+            --shift-o-bg: rgba(16, 185, 129, 0.10);
+            --shift-o-glow: rgba(16, 185, 129, 0.25);
+
+            /* Text */
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #475569;
+
+            /* Borders & misc */
+            --border: rgba(148, 163, 184, 0.08);
+            --border-glow: rgba(124, 92, 252, 0.3);
+
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+
+            /* Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========== ANIMATED BACKGROUND ========== */
+        .bg-ambient {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-ambient::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            top: -200px; right: -200px;
+            background: radial-gradient(circle, rgba(124, 92, 252, 0.08) 0%, transparent 70%);
+            animation: floatA 20s ease-in-out infinite;
+        }
+
+        .bg-ambient::after {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            bottom: -150px; left: -150px;
+            background: radial-gradient(circle, rgba(240, 180, 41, 0.06) 0%, transparent 70%);
+            animation: floatB 25s ease-in-out infinite;
+        }
+
+        @keyframes floatA {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-80px, 60px) scale(1.15); }
+        }
+        @keyframes floatB {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, -80px) scale(1.1); }
+        }
+
+        /* ========== LAYOUT ========== */
+        .app-container {
+            position: relative;
+            z-index: 1;
+            max-width: 520px;
+            margin: 0 auto;
+            padding: var(--space-md);
+            padding-bottom: 100px;
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            text-align: center;
+            padding: var(--space-xl) 0 var(--space-lg);
+        }
+
+        .header-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: linear-gradient(135deg, rgba(124, 92, 252, 0.15), rgba(240, 180, 41, 0.1));
+            border: 1px solid rgba(124, 92, 252, 0.2);
+            border-radius: var(--radius-full);
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--shift-2);
+            margin-bottom: var(--space-md);
+        }
+
+        .header-eyebrow .diamond {
+            font-size: 0.6rem;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: var(--space-xs);
+        }
+
+        .header-sub {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 400;
+        }
+
+        .header-sub .name-highlight {
+            color: var(--shift-1);
+            font-weight: 600;
+        }
+
+        /* ========== STATS BAR ========== */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm) var(--space-xs);
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-1px);
+            border-color: rgba(148, 163, 184, 0.15);
+        }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .stat-item.shift-1 .stat-number { color: var(--shift-1); }
+        .stat-item.shift-2 .stat-number { color: var(--shift-2); }
+        .stat-item.shift-m .stat-number { color: var(--shift-m); }
+        .stat-item.shift-rest .stat-number { color: var(--shift-p-text); }
+
+        /* ========== FILTER TABS ========== */
+        .filter-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: var(--space-lg);
+            padding: 4px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .filter-tab {
+            flex: 1;
+            min-width: 0;
+            padding: 8px 4px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .filter-tab:hover {
+            color: var(--text-primary);
+            background: rgba(148, 163, 184, 0.06);
+        }
+
+        .filter-tab.active {
+            background: rgba(124, 92, 252, 0.15);
+            color: var(--shift-2);
+            box-shadow: 0 0 20px rgba(124, 92, 252, 0.1);
+        }
+
+        /* ========== TODAY INDICATOR ========== */
+        .today-jump {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            padding: 10px var(--space-md);
+            background: linear-gradient(135deg, rgba(124, 92, 252, 0.12), rgba(56, 189, 248, 0.08));
+            border: 1px solid rgba(124, 92, 252, 0.2);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .today-jump:hover {
+            background: linear-gradient(135deg, rgba(124, 92, 252, 0.18), rgba(56, 189, 248, 0.12));
+            border-color: rgba(124, 92, 252, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .today-jump .pulse-dot {
+            width: 8px; height: 8px;
+            background: var(--shift-2);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(124, 92, 252, 0.5); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(124, 92, 252, 0); }
+        }
+
+        /* ========== DAY CARDS ========== */
+        .days-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .day-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.4s ease both;
+        }
+
+        .day-card:hover {
+            border-color: rgba(148, 163, 184, 0.12);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .day-card.is-today {
+            border-color: var(--shift-2);
+            box-shadow: 0 0 30px rgba(124, 92, 252, 0.15), inset 0 0 30px rgba(124, 92, 252, 0.03);
+        }
+
+        .day-card.is-rest {
+            opacity: 0.6;
+        }
+
+        .day-card.is-rest:hover {
+            opacity: 0.85;
+        }
+
+        .day-card.hidden {
+            display: none;
+        }
+
+        /* Specific styles for shifts on the card level */
+        .day-card.shift-1 { border-left: 4px solid var(--shift-1); background: linear-gradient(90deg, rgba(240, 180, 41, 0.08) 0%, var(--bg-card) 20%); }
+        .day-card.shift-1 .day-date { background: rgba(240, 180, 41, 0.1); border-color: rgba(240, 180, 41, 0.2); }
+        .day-card.shift-1 .day-date-num { color: var(--shift-1); }
+
+        .day-card.shift-2 { border-left: 4px solid var(--shift-2); background: linear-gradient(90deg, rgba(124, 92, 252, 0.08) 0%, var(--bg-card) 20%); }
+        .day-card.shift-2 .day-date { background: rgba(124, 92, 252, 0.1); border-color: rgba(124, 92, 252, 0.2); }
+        .day-card.shift-2 .day-date-num { color: var(--shift-2); }
+
+        .day-card.shift-m { border-left: 4px solid var(--shift-m); background: linear-gradient(90deg, rgba(56, 189, 248, 0.08) 0%, var(--bg-card) 20%); }
+        .day-card.shift-m .day-date { background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.2); }
+        .day-card.shift-m .day-date-num { color: var(--shift-m); }
+
+        .day-card.shift-p { border-left: 4px solid var(--shift-p); }
+        .day-card.shift-o { border-left: 4px solid var(--shift-o); }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .day-card-main {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Date circle */
+        .day-date {
+            flex-shrink: 0;
+            width: 52px; height: 52px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+        }
+
+        .day-date-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .day-date-dow {
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .is-today .day-date {
+            background: linear-gradient(135deg, var(--shift-2), #6341e0);
+            border-color: transparent;
+        }
+
+        .is-today .day-date .day-date-dow {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Shift badge & info */
+        .day-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .day-shift-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .day-shift-badge .badge-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+        }
+
+        /* Badge colors per shift type */
+        .badge-1 { background: var(--shift-1-bg); color: var(--shift-1); border: 1px solid rgba(240, 180, 41, 0.2); }
+        .badge-1 .badge-dot { background: var(--shift-1); box-shadow: 0 0 6px var(--shift-1-glow); }
+
+        .badge-2 { background: var(--shift-2-bg); color: var(--shift-2); border: 1px solid rgba(124, 92, 252, 0.2); }
+        .badge-2 .badge-dot { background: var(--shift-2); box-shadow: 0 0 6px var(--shift-2-glow); }
+
+        .badge-m { background: var(--shift-m-bg); color: var(--shift-m); border: 1px solid rgba(56, 189, 248, 0.2); }
+        .badge-m .badge-dot { background: var(--shift-m); box-shadow: 0 0 6px var(--shift-m-glow); }
+
+        .badge-p { background: var(--shift-p-bg); color: var(--shift-p-text); border: 1px solid rgba(51, 65, 85, 0.15); }
+        .badge-p .badge-dot { background: var(--shift-p); }
+
+        .badge-o { background: var(--shift-o-bg); color: var(--shift-o); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .badge-o .badge-dot { background: var(--shift-o); box-shadow: 0 0 6px var(--shift-o-glow); }
+
+        .day-hours {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Chevron */
+        .day-chevron {
+            flex-shrink: 0;
+            width: 28px; height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .day-card.expanded .day-chevron {
+            transform: rotate(180deg);
+            color: var(--shift-2);
+        }
+
+        .day-chevron svg {
+            width: 16px; height: 16px;
+        }
+
+        /* ========== COLLEAGUES PANEL ========== */
+        .colleagues-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .day-card.expanded .colleagues-panel {
+            max-height: 600px;
+        }
+
+        .colleagues-inner {
+            padding: 0 var(--space-md) var(--space-md);
+        }
+
+        .colleagues-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--border);
+        }
+
+        .colleagues-header svg {
+            width: 14px; height: 14px;
+            color: var(--text-muted);
+        }
+
+        .colleagues-header span {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+        }
+
+        .colleague-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: 8px 10px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-sm);
+            margin-bottom: 4px;
+            transition: background 0.2s;
+        }
+
+        .colleague-row:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .colleague-avatar {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .colleague-avatar.av-1 { background: var(--shift-1-bg); color: var(--shift-1); border: 1px solid rgba(240,180,41,0.2); }
+        .colleague-avatar.av-2 { background: var(--shift-2-bg); color: var(--shift-2); border: 1px solid rgba(124,92,252,0.2); }
+        .colleague-avatar.av-m { background: var(--shift-m-bg); color: var(--shift-m); border: 1px solid rgba(56,189,248,0.2); }
+
+        .colleague-name {
+            flex: 1;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .colleague-shift-tag {
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+        }
+
+        .tag-1 { background: var(--shift-1-bg); color: var(--shift-1); }
+        .tag-2 { background: var(--shift-2-bg); color: var(--shift-2); }
+        .tag-m { background: var(--shift-m-bg); color: var(--shift-m); }
+
+        .overlap-badge {
+            font-size: 0.6rem;
+            padding: 1px 6px;
+            border-radius: var(--radius-full);
+            background: rgba(16, 185, 129, 0.12);
+            color: #10b981;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        .no-colleagues {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: var(--space-sm);
+            font-style: italic;
+        }
+
+        /* ========== WEEKEND MARKER ========== */
+        .weekend .day-date {
+            border-color: rgba(240, 180, 41, 0.15);
+        }
+
+        .weekend .day-date-dow {
+            color: var(--shift-1);
+        }
+
+        /* ========== LEGEND ========== */
+        .legend-section {
+            margin-top: var(--space-xl);
+            padding: var(--space-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+        }
+
+        .legend-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .legend-dot.l-1 { background: var(--shift-1); box-shadow: 0 0 8px var(--shift-1-glow); }
+        .legend-dot.l-2 { background: var(--shift-2); box-shadow: 0 0 8px var(--shift-2-glow); }
+        .legend-dot.l-m { background: var(--shift-m); box-shadow: 0 0 8px var(--shift-m-glow); }
+        .legend-dot.l-p { background: var(--shift-p); }
+        .legend-dot.l-o { background: var(--shift-o); box-shadow: 0 0 8px var(--shift-o-glow); }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.15); border-radius: 4px; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (min-width: 480px) {
+            .header h1 { font-size: 2rem; }
+        }
+
+        @media (max-width: 360px) {
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .filter-tab { font-size: 0.68rem; padding: 6px 2px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-ambient"></div>
+
+<div class="app-container">
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-eyebrow">
+            <span class="diamond">♦</span>
+            Magic Club Casino
+            <span class="diamond">♦</span>
+        </div>
+        <h1>Работен График</h1>
+        <p class="header-sub">Август 2026 · <span class="name-highlight">Виктор</span></p>
+    </header>
+
+    <!-- STATS -->
+    <div class="stats-bar" id="statsBar"></div>
+
+    <!-- FILTERS -->
+    <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-filter="all">Всички</button>
+        <button class="filter-tab" data-filter="work">На работа</button>
+        <button class="filter-tab" data-filter="1">Смяна 1</button>
+        <button class="filter-tab" data-filter="2">Смяна 2</button>
+        <button class="filter-tab" data-filter="М">Междинна</button>
+        <button class="filter-tab" data-filter="rest">Почивка</button>
+    </div>
+
+    <!-- TODAY JUMP -->
+    <div class="today-jump" id="todayJump" style="display:none;">
+        <span class="pulse-dot"></span>
+        <span id="todayJumpText">Към днес</span>
+    </div>
+
+    <!-- DAY CARDS -->
+    <div class="days-list" id="daysList"></div>
+
+    <!-- LEGEND -->
+    <div class="legend-section">
+        <div class="legend-title">Легенда</div>
+        <div class="legend-grid">
+            <div class="legend-item"><span class="legend-dot l-1"></span> 1 — 08:00–20:00</div>
+            <div class="legend-item"><span class="legend-dot l-2"></span> 2 — 20:00–08:00</div>
+            <div class="legend-item"><span class="legend-dot l-m"></span> М — 12:00–20:00</div>
+            <div class="legend-item"><span class="legend-dot l-p"></span> П — Почивка</div>
+            <div class="legend-item"><span class="legend-dot l-o"></span> О — Отпуск</div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ================================================================
+// EMBEDDED SCHEDULE DATA — August 2026
+// ================================================================
+const SCHEDULE = {
+    "Джордж":    ["П","2","2","П","1","1","2","П","П","1","2","П","1","1","П","П","О","О","О","О","О","П","П","2","2","П","М","1","П","П","1"],
+    "Жасмина":   ["М","П","П","2","2","П","О","О","О","О","О","О","О","О","2","2","П","П","М","2","П","М","2","2","П","П","1","П","1","М","П"],
+    "Алекс":     ["1","1","2","П","П","П","1","2","2","П","П","1","2","2","П","П","П","1","1","П","2","2","П","П","1","2","П","П","2","П","1"],
+    "Мелин":     ["П","М","1","2","П","П","1","1","П","П","1","2","П","П","1","М","2","П","П","1","2","2","П","П","М","2","П","П","М","1","2"],
+    "Кристиян":  ["П","П","М","1","П","2","2","П","1","П","М","2","П","П","М","1","2","П","П","М","1","П","1","1","П","М","2","2","П","П","2"],
+    "Хриска":    ["2","2","П","П","М","М","П","2","П","2","П","М","2","2","П","П","1","2","2","П","О","П","П","О","О","О","О","О","2","2","П"],
+    "Джан":      ["П","П","О","О","О","О","О","М","2","2","П","П","М","П","2","П","М","2","П","П","М","1","2","П","П","1","2","2","П","П","П"],
+    "Виктор":    ["2","П","П","М","2","2","П","П","М","М","2","П","П","М","П","2","П","М","2","2","П","П","М","М","2","П","П","М","П","2","2"]
+};
+
+const MY_NAME = "Виктор";
+
+// Shift metadata
+const SHIFTS = {
+    "1": { label: "Смяна 1", hours: "08:00 – 20:00", cls: "1", icon: "☀️", start: 8, end: 20 },
+    "2": { label: "Смяна 2", hours: "20:00 – 08:00", cls: "2", icon: "🌙", start: 20, end: 32 },
+    "М": { label: "Междинна", hours: "12:00 – 20:00", cls: "m", icon: "🕐", start: 12, end: 20 },
+    "П": { label: "Почивка", hours: "Неработен ден", cls: "p", icon: "😌", start: null, end: null },
+    "О": { label: "Отпуск", hours: "Платен отпуск", cls: "o", icon: "🏖️", start: null, end: null }
+};
+
+// Bulgarian day-of-week names
+const DOW_BG = ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+const DOW_FULL = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
+
+// Today's date (August 2026)
+const NOW = new Date();
+const CURRENT_YEAR = 2026;
+const CURRENT_MONTH = 7; // August (0-indexed)
+const TODAY_DAY = (NOW.getFullYear() === CURRENT_YEAR && NOW.getMonth() === CURRENT_MONTH) ? NOW.getDate() : null;
+
+// ================================================================
+// HELPER FUNCTIONS
+// ================================================================
+
+function normalizeShift(val) {
+    if (val === null || val === undefined) return "П";
+    let s = String(val).trim();
+    // Normalize Latin 'M' to Cyrillic 'М'
+    if (s === 'M') s = 'М';
+    return s;
+}
+
+function getMyShifts() {
+    return SCHEDULE[MY_NAME].map(normalizeShift);
+}
+
+function isWorkShift(s) {
+    return s === "1" || s === "2" || s === "М";
+}
+
+function shiftsOverlap(a, b) {
+    const sa = SHIFTS[a], sb = SHIFTS[b];
+    if (!sa || !sb || sa.start === null || sb.start === null) return false;
+    return sa.start < sb.end && sb.start < sa.end;
+}
+
+function getColleagues(dayIndex, myShift) {
+    const colleagues = [];
+    for (const [name, shifts] of Object.entries(SCHEDULE)) {
+        if (name === MY_NAME) continue;
+        const theirShift = normalizeShift(shifts[dayIndex]);
+        if (isWorkShift(theirShift)) {
+            const overlap = shiftsOverlap(myShift, theirShift);
+            colleagues.push({ name, shift: theirShift, overlap });
+        }
+    }
+    // Sort: overlapping first, then by name
+    colleagues.sort((a, b) => {
+        if (a.overlap !== b.overlap) return a.overlap ? -1 : 1;
+        return a.name.localeCompare(b.name, 'bg');
+    });
+    return colleagues;
+}
+
+function getInitials(name) {
+    return name.charAt(0).toUpperCase();
+}
+
+// ================================================================
+// BUILD STATS
+// ================================================================
+function buildStats() {
+    const myShifts = getMyShifts();
+    let s1 = 0, s2 = 0, sm = 0, rest = 0;
+    myShifts.forEach(s => {
+        if (s === "1") s1++;
+        else if (s === "2") s2++;
+        else if (s === "М") sm++;
+        else rest++;
+    });
+
+    const statsBar = document.getElementById('statsBar');
+    statsBar.innerHTML = `
+        <div class="stat-item shift-1">
+            <div class="stat-number">${s1}</div>
+            <div class="stat-label">Смяна 1</div>
+        </div>
+        <div class="stat-item shift-2">
+            <div class="stat-number">${s2}</div>
+            <div class="stat-label">Смяна 2</div>
+        </div>
+        <div class="stat-item shift-m">
+            <div class="stat-number">${sm}</div>
+            <div class="stat-label">Междинна</div>
+        </div>
+        <div class="stat-item shift-rest">
+            <div class="stat-number">${rest}</div>
+            <div class="stat-label">Почивка</div>
+        </div>
+    `;
+}
+
+// ================================================================
+// BUILD DAY CARDS
+// ================================================================
+function buildDayCards() {
+    const myShifts = getMyShifts();
+    const daysList = document.getElementById('daysList');
+    daysList.innerHTML = '';
+
+    for (let i = 0; i < 31; i++) {
+        const dayNum = i + 1;
+        const date = new Date(CURRENT_YEAR, CURRENT_MONTH, dayNum);
+        const dow = date.getDay();
+        const dowText = DOW_BG[dow];
+        const isWeekend = (dow === 0 || dow === 6);
+        const isToday = (dayNum === TODAY_DAY);
+        const myShift = myShifts[i];
+        const shiftMeta = SHIFTS[myShift] || SHIFTS["П"];
+        const working = isWorkShift(myShift);
+
+        // Card element
+        const card = document.createElement('div');
+        card.className = `day-card shift-${shiftMeta.cls}${isToday ? ' is-today' : ''}${!working ? ' is-rest' : ''}${isWeekend ? ' weekend' : ''}`;
+        card.dataset.day = dayNum;
+        card.dataset.shift = myShift;
+        card.dataset.working = working ? 'yes' : 'no';
+        card.style.animationDelay = `${i * 0.02}s`;
+
+        // Colleagues (only for working days)
+        let colleaguesHTML = '';
+        if (working) {
+            const colleagues = getColleagues(i, myShift);
+            if (colleagues.length > 0) {
+                const rows = colleagues.map(c => {
+                    const sm = SHIFTS[c.shift];
+                    return `
+                        <div class="colleague-row">
+                            <div class="colleague-avatar av-${sm.cls}">${getInitials(c.name)}</div>
+                            <span class="colleague-name">${c.name}</span>
+                            <span class="colleague-shift-tag tag-${sm.cls}">${sm.icon} ${c.shift === 'М' ? 'М' : c.shift}</span>
+                            ${c.overlap ? '<span class="overlap-badge">overlap</span>' : ''}
+                        </div>
+                    `;
+                }).join('');
+
+                colleaguesHTML = `
+                    <div class="colleagues-panel">
+                        <div class="colleagues-inner">
+                            <div class="colleagues-header">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <span>Колеги на смяна (${colleagues.length})</span>
+                            </div>
+                            ${rows}
+                        </div>
+                    </div>
+                `;
+            } else {
+                colleaguesHTML = `
+                    <div class="colleagues-panel">
+                        <div class="colleagues-inner">
+                            <div class="colleagues-header">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                <span>Колеги</span>
+                            </div>
+                            <div class="no-colleagues">Никой друг не работи днес</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        card.innerHTML = `
+            <div class="day-card-main">
+                <div class="day-date">
+                    <span class="day-date-num">${dayNum}</span>
+                    <span class="day-date-dow">${dowText}</span>
+                </div>
+                <div class="day-info">
+                    <div class="day-shift-badge badge-${shiftMeta.cls}">
+                        <span class="badge-dot"></span>
+                        ${shiftMeta.icon} ${shiftMeta.label}
+                    </div>
+                    <div class="day-hours">${shiftMeta.hours}</div>
+                </div>
+                ${working ? `
+                <div class="day-chevron">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </div>` : ''}
+            </div>
+            ${colleaguesHTML}
+        `;
+
+        // Toggle expand on click (only working days)
+        if (working) {
+            card.querySelector('.day-card-main').addEventListener('click', () => {
+                card.classList.toggle('expanded');
+            });
+        }
+
+        daysList.appendChild(card);
+    }
+}
+
+// ================================================================
+// FILTERS
+// ================================================================
+function setupFilters() {
+    const tabs = document.querySelectorAll('.filter-tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const filter = tab.dataset.filter;
+            const cards = document.querySelectorAll('.day-card');
+
+            cards.forEach(card => {
+                const shift = card.dataset.shift;
+                const working = card.dataset.working === 'yes';
+
+                let show = true;
+                if (filter === 'work') show = working;
+                else if (filter === 'rest') show = !working;
+                else if (filter === '1') show = shift === '1';
+                else if (filter === '2') show = shift === '2';
+                else if (filter === 'М') show = shift === 'М';
+
+                card.classList.toggle('hidden', !show);
+            });
+        });
+    });
+}
+
+// ================================================================
+// TODAY JUMP BUTTON
+// ================================================================
+function setupTodayJump() {
+    if (TODAY_DAY === null) return;
+
+    const jumpBtn = document.getElementById('todayJump');
+    const myShift = getMyShifts()[TODAY_DAY - 1];
+    const shiftMeta = SHIFTS[myShift] || SHIFTS["П"];
+    const jumpText = document.getElementById('todayJumpText');
+
+    jumpText.textContent = `Днес: ${DOW_FULL[new Date(CURRENT_YEAR, CURRENT_MONTH, TODAY_DAY).getDay()]}, ${TODAY_DAY} авг — ${shiftMeta.icon} ${shiftMeta.label}`;
+    jumpBtn.style.display = 'flex';
+
+    jumpBtn.addEventListener('click', () => {
+        const todayCard = document.querySelector('.day-card.is-today');
+        if (todayCard) {
+            todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            todayCard.style.transition = 'box-shadow 0.3s';
+            todayCard.style.boxShadow = '0 0 40px rgba(124, 92, 252, 0.4), inset 0 0 30px rgba(124, 92, 252, 0.05)';
+            setTimeout(() => {
+                todayCard.style.boxShadow = '';
+            }, 1200);
+        }
+    });
+}
+
+// ================================================================
+// INIT
+// ================================================================
+function init() {
+    buildStats();
+    buildDayCards();
+    setupFilters();
+    setupTodayJump();
+
+    // Auto-scroll to today on load
+    if (TODAY_DAY !== null) {
+        setTimeout(() => {
+            const todayCard = document.querySelector('.day-card.is-today');
+            if (todayCard) {
+                todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 500);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
