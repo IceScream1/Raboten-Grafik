@@ -1293,7 +1293,24 @@ function buildDayCards() {
 
     for (let i = 0; i < 31; i++) {
         const dayNum = i + 1;
-              // Colleagues (only for working days)
+        const date = new Date(CURRENT_YEAR, CURRENT_MONTH, dayNum);
+        const dow = date.getDay();
+        const dowText = DOW_BG[dow];
+        const isWeekend = (dow === 0 || dow === 6);
+        const isToday = (dayNum === TODAY_DAY);
+        const myShift = shifts[i];
+        const shiftMeta = SHIFTS[myShift] || SHIFTS["П"];
+        const working = isWorkShift(myShift);
+
+        // Card element
+        const card = document.createElement('div');
+        card.className = `day-card shift-${shiftMeta.cls}${isToday ? ' is-today' : ''}${!working ? ' is-rest' : ''}${isWeekend ? ' weekend' : ''}`;
+        card.dataset.day = dayNum;
+        card.dataset.shift = myShift;
+        card.dataset.working = working ? 'yes' : 'no';
+        card.style.animationDelay = `${i * 0.02}s`;
+
+        // Colleagues (only for working days)
         let colleaguesHTML = '';
         if (working) {
             const colleagues = getColleagues(i, myShift);
