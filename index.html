@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap"
         rel="stylesheet">
     <!-- Firebase Realtime Database Compat SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -25,56 +25,59 @@
         }
 
         :root {
-            /* Casino night palette */
-            --bg-deep: #0a0c14;
-            --bg-card: #12151f;
-            --bg-card-hover: #181c2a;
-            --bg-surface: #1a1e2e;
-            --bg-glass: rgba(18, 21, 31, 0.75);
+            /* Matte Dark Charcoal & Deep Casino Crimson Theme */
+            --bg-deep: #08080a;
+            --bg-card: #121216;
+            --bg-card-hover: #191920;
+            --bg-surface: #1a1a22;
 
-            /* Accent colors for shifts */
-            --shift-1: #f0b429;     /* Gold — Day shift */
-            --shift-1-bg: rgba(240, 180, 41, 0.10);
-            --shift-1-glow: rgba(240, 180, 41, 0.25);
+            /* Brand Red Core */
+            --brand-red: #c9183b;
+            --brand-red-dark: #880e26;
+            --brand-red-border: rgba(201, 24, 59, 0.45);
 
-            --shift-2: #7c5cfc;     /* Purple — Night shift */
-            --shift-2-bg: rgba(124, 92, 252, 0.10);
-            --shift-2-glow: rgba(124, 92, 252, 0.25);
+            /* HIGH-CONTRAST SHIFT COLORS (Instantly distinguishable) */
+            --shift-1: #f59e0b;          /* Bright Amber / Day */
+            --shift-1-bg: rgba(245, 158, 11, 0.14);
+            --shift-1-border: #f59e0b;
 
-            --shift-m: #38bdf8;     /* Cyan — Mid shift */
-            --shift-m-bg: rgba(56, 189, 248, 0.10);
-            --shift-m-glow: rgba(56, 189, 248, 0.25);
+            --shift-2: #e11d48;          /* Crimson Red / Night */
+            --shift-2-bg: rgba(225, 29, 72, 0.16);
+            --shift-2-border: #e11d48;
 
-            --shift-p: #334155;     /* Muted — Rest */
-            --shift-p-bg: rgba(51, 65, 85, 0.10);
-            --shift-p-text: #64748b;
+            --shift-m: #818cf8;          /* Indigo Violet / Mid-shift */
+            --shift-m-bg: rgba(129, 140, 248, 0.14);
+            --shift-m-border: #818cf8;
 
-            --shift-o: #10b981;     /* Green — Paid leave */
-            --shift-o-bg: rgba(16, 185, 129, 0.10);
-            --shift-o-glow: rgba(16, 185, 129, 0.25);
+            --shift-p: #475569;          /* Dim Slate / Rest */
+            --shift-p-bg: rgba(71, 85, 105, 0.08);
+            --shift-p-border: #334155;
+            --shift-p-text: #94a3b8;
+
+            --shift-o: #10b981;          /* Emerald Green / Leave */
+            --shift-o-bg: rgba(16, 185, 129, 0.14);
+            --shift-o-border: #10b981;
 
             /* Text */
-            --text-primary: #f1f5f9;
+            --text-primary: #ffffff;
             --text-secondary: #94a3b8;
-            --text-muted: #475569;
+            --text-muted: #64748b;
 
-            /* Borders & misc */
-            --border: rgba(148, 163, 184, 0.08);
-            --border-glow: rgba(124, 92, 252, 0.3);
+            /* Borders */
+            --border: rgba(255, 255, 255, 0.08);
 
             /* Spacing */
             --space-xs: 4px;
             --space-sm: 8px;
-            --space-md: 16px;
-            --space-lg: 24px;
-            --space-xl: 32px;
-            --space-2xl: 48px;
+            --space-md: 14px;
+            --space-lg: 20px;
+            --space-xl: 28px;
 
-            /* Radius */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
+            /* Sharp Radius */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 10px;
+            --radius-xl: 12px;
             --radius-full: 9999px;
         }
 
@@ -92,7 +95,23 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ========== ANIMATED BACKGROUND ========== */
+        /* ========== SVG ICONS ========== */
+        .icon-svg {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            vertical-align: middle;
+        }
+
+        .icon-svg svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Background ambient glow */
         .bg-ambient {
             position: fixed;
             top: 0;
@@ -101,87 +120,54 @@
             bottom: 0;
             z-index: 0;
             pointer-events: none;
-            overflow: hidden;
+            background: radial-gradient(circle at 50% -10%, rgba(201, 24, 59, 0.12) 0%, transparent 60%);
         }
 
-        .bg-ambient::before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            top: -200px;
-            right: -200px;
-            background: radial-gradient(circle, rgba(124, 92, 252, 0.08) 0%, transparent 70%);
-            animation: floatA 20s ease-in-out infinite;
-        }
-
-        .bg-ambient::after {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            bottom: -150px;
-            left: -150px;
-            background: radial-gradient(circle, rgba(240, 180, 41, 0.06) 0%, transparent 70%);
-            animation: floatB 25s ease-in-out infinite;
-        }
-
-        @keyframes floatA {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-80px, 60px) scale(1.15); }
-        }
-
-        @keyframes floatB {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(60px, -80px) scale(1.1); }
-        }
-
-        /* ========== LAYOUT ========== */
+        /* Layout */
         .app-container {
             position: relative;
             z-index: 1;
             max-width: 520px;
             margin: 0 auto;
             padding: var(--space-md);
-            padding-bottom: 100px;
+            padding-bottom: 90px;
         }
 
-        /* ========== HEADER ========== */
+        /* Header */
         .header {
             text-align: center;
-            padding: var(--space-xl) 0 var(--space-lg);
+            padding: var(--space-lg) 0 var(--space-md);
         }
 
         .header-eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-sm);
-            background: linear-gradient(135deg, rgba(124, 92, 252, 0.15), rgba(240, 180, 41, 0.1));
-            border: 1px solid rgba(124, 92, 252, 0.2);
+            gap: 6px;
+            background: rgba(201, 24, 59, 0.12);
+            border: 1px solid var(--brand-red-border);
             border-radius: var(--radius-full);
-            padding: 6px 16px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+            padding: 4px 14px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--shift-2);
-            margin-bottom: var(--space-md);
+            color: #f43f5e;
+            margin-bottom: var(--space-sm);
         }
 
         .header-eyebrow .diamond {
-            font-size: 0.6rem;
+            color: var(--brand-red);
+            font-size: 0.65rem;
         }
 
         .header h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.75rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.9rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            color: #ffffff;
             line-height: 1.2;
-            margin-bottom: var(--space-xs);
+            margin-bottom: 6px;
         }
 
         /* Sync Status Badge */
@@ -189,308 +175,146 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 10px;
+            padding: 3px 10px;
             border-radius: var(--radius-full);
-            font-size: 0.72rem;
-            font-weight: 600;
+            font-size: 0.7rem;
+            font-weight: 700;
             margin-bottom: 10px;
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16, 185, 129, 0.12);
             color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .sync-badge.syncing {
-            background: rgba(240, 180, 41, 0.1);
+            background: rgba(245, 158, 11, 0.12);
             color: var(--shift-1);
-            border-color: rgba(240, 180, 41, 0.25);
+            border-color: rgba(245, 158, 11, 0.35);
         }
 
         .sync-badge.error {
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(239, 68, 68, 0.12);
             color: #ef4444;
-            border-color: rgba(239, 68, 68, 0.25);
+            border-color: rgba(239, 68, 68, 0.35);
         }
 
         .sync-dot {
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: currentColor;
         }
 
-        /* ========== PERSON & MONTH SELECTORS ========== */
-        .person-select-wrapper {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        /* Selectors */
+        .selectors-row {
+            display: flex;
+            flex-direction: column;
             gap: 8px;
             margin-top: 10px;
-            background: rgba(18, 21, 31, 0.9);
-            border: 1px solid rgba(124, 92, 252, 0.35);
-            padding: 8px 18px;
-            border-radius: var(--radius-full);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
         }
 
-        .person-select-label {
-            font-size: 0.82rem;
+        .selector-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--brand-red);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+        }
+
+        .selector-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
             color: var(--text-secondary);
-            font-weight: 500;
         }
 
-        .person-select {
+        .custom-select {
             background: transparent;
-            color: var(--shift-1);
+            color: #ffffff;
             font-family: 'Outfit', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
+            font-size: 0.95rem;
+            font-weight: 800;
             border: none;
             outline: none;
             cursor: pointer;
-            padding-right: 4px;
+            text-align-last: right;
         }
 
-        .person-select option {
-            background: var(--bg-card);
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            font-weight: 500;
+        .custom-select option {
+            background: #181822;
+            color: #ffffff;
+            font-weight: 700;
         }
 
-        /* ========== TOP NAV TABS ========== */
+        /* Top Nav */
         .top-nav {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: var(--space-md);
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 6px;
-            border-radius: var(--radius-lg);
+            padding: 4px;
+            border-radius: var(--radius-md);
         }
 
         .nav-btn {
             flex: 1;
-            padding: 10px 12px;
-            border: none;
+            padding: 9px 12px;
+            border: 1px solid transparent;
             background: transparent;
             color: var(--text-secondary);
             font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border-radius: var(--radius-md);
+            font-size: 0.82rem;
+            font-weight: 800;
+            border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .nav-btn:hover {
             color: var(--text-primary);
-            background: rgba(148, 163, 184, 0.06);
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .nav-btn.active {
-            background: linear-gradient(135deg, rgba(124, 92, 252, 0.2), rgba(56, 189, 248, 0.15));
+            background: var(--brand-red-dark);
             color: #ffffff;
-            border: 1px solid rgba(124, 92, 252, 0.3);
-            box-shadow: 0 4px 15px rgba(124, 92, 252, 0.2);
+            border-color: var(--brand-red);
         }
 
-        /* ========== MONTH SELECTOR ========== */
-        .month-select-wrapper {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
-            margin-bottom: 6px;
-            background: rgba(124, 92, 252, 0.12);
-            border: 1px solid rgba(124, 92, 252, 0.35);
-            padding: 6px 16px;
-            border-radius: var(--radius-full);
-        }
-
-        .month-select-label {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .month-select {
-            background: transparent;
-            color: #ffffff;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            border: none;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .month-select option {
-            background: var(--bg-card);
-            color: var(--text-primary);
-        }
-
-        /* ========== SCHEDULE MANAGER PAGE ========== */
-        .manager-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-lg);
-        }
-
-        .manager-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .manager-subtitle {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            margin-bottom: var(--space-lg);
-            line-height: 1.4;
-        }
-
-        .month-picker-row {
-            display: flex;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-lg);
-            flex-wrap: wrap;
-            background: var(--bg-surface);
-            padding: var(--space-md);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-        }
-
-        .picker-col {
-            flex: 1;
-            min-width: 140px;
-        }
-
-        .picker-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            display: block;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
-
-        .picker-input,
-        .picker-select {
-            width: 100%;
-            padding: 10px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            outline: none;
-        }
-
-        .employee-input-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-            margin-bottom: var(--space-md);
-        }
-
-        .employee-input-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .employee-input-name {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--shift-1);
-        }
-
-        .employee-input-count {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-        }
-
-        .employee-shift-textarea {
-            width: 100%;
-            min-height: 52px;
-            padding: 8px 10px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.85rem;
-            margin-top: 4px;
-            resize: vertical;
-            line-height: 1.4;
-        }
-
-        .quick-shift-tools {
-            display: flex;
-            gap: 6px;
-            margin-top: 6px;
-            flex-wrap: wrap;
-        }
-
-        .quick-tool-btn {
-            padding: 4px 8px;
-            background: rgba(148, 163, 184, 0.1);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text-secondary);
-            font-size: 0.72rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .quick-tool-btn:hover {
-            background: rgba(124, 92, 252, 0.2);
-            color: #ffffff;
-            border-color: rgba(124, 92, 252, 0.4);
-        }
-
-        /* ========== TOTAL HOURS CARD ========== */
+        /* Total Hours Card */
         .total-hours-card {
             display: flex;
             align-items: center;
-            gap: var(--space-md);
-            background: linear-gradient(135deg, rgba(124, 92, 252, 0.15), rgba(56, 189, 248, 0.1));
-            border: 1px solid rgba(124, 92, 252, 0.25);
-            border-radius: var(--radius-lg);
-            padding: var(--space-md);
+            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--brand-red);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
             margin-bottom: var(--space-md);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .total-hours-icon {
-            font-size: 1.6rem;
-            background: rgba(124, 92, 252, 0.2);
-            width: 48px;
-            height: 48px;
+            width: 38px;
+            height: 38px;
+            background: rgba(201, 24, 59, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: var(--radius-md);
-            border: 1px solid rgba(124, 92, 252, 0.3);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--brand-red-border);
+            color: #f43f5e;
             flex-shrink: 0;
         }
 
@@ -500,31 +324,688 @@
         }
 
         .total-hours-label {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            font-weight: 600;
+            font-weight: 800;
         }
 
         .total-hours-val {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 900;
             color: #ffffff;
             line-height: 1.1;
+        }
+
+        /* Stats Bar & Filters */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: var(--space-md);
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 8px 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .stat-item:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            background: var(--bg-card-hover);
+        }
+
+        .stat-item.active {
+            border-color: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-item.shift-1 { border-top: 3px solid var(--shift-1); }
+        .stat-item.shift-2 { border-top: 3px solid var(--shift-2); }
+        .stat-item.shift-m { border-top: 3px solid var(--shift-m); }
+        .stat-item.shift-rest { border-top: 3px solid var(--shift-p); }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+
+        .stat-label {
+            font-size: 0.62rem;
+            color: var(--text-secondary);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .stat-item.shift-1 .stat-number { color: var(--shift-1); }
+        .stat-item.shift-2 .stat-number { color: var(--shift-2); }
+        .stat-item.shift-m .stat-number { color: var(--shift-m); }
+        .stat-item.shift-rest .stat-number { color: var(--shift-p-text); }
+
+        /* Today jump */
+        .today-jump {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: var(--space-md);
+            padding: 9px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--brand-red-border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .today-jump .pulse-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--brand-red);
+            border-radius: 50%;
+        }
+
+        /* Empty State */
+        .empty-staff-state {
+            text-align: center;
+            padding: var(--space-xl) var(--space-md);
+            background: var(--bg-card);
+            border: 1px dashed var(--brand-red-border);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .empty-staff-icon {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 12px;
+            background: rgba(201, 24, 59, 0.12);
+            border: 1px solid var(--brand-red-border);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f43f5e;
+        }
+
+        .empty-staff-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .empty-staff-text {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        /* ========== DAY CARDS (HIGH DISTINGUISHABILITY) ========== */
+        .days-list {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .day-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .day-card.hidden {
+            display: none;
+        }
+
+        /* 1st Shift: Solid Amber Bar & Amber Accent */
+        .day-card.shift-1 {
+            border-left: 5px solid var(--shift-1-border);
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, var(--bg-card) 30%);
+        }
+        .day-card.shift-1 .day-date {
+            border-color: rgba(245, 158, 11, 0.4);
+            background: rgba(245, 158, 11, 0.1);
+        }
+        .day-card.shift-1 .day-date-num {
+            color: var(--shift-1);
+        }
+
+        /* 2nd Shift: Solid Crimson Bar & Red Accent */
+        .day-card.shift-2 {
+            border-left: 5px solid var(--shift-2-border);
+            background: linear-gradient(90deg, rgba(225, 29, 72, 0.1) 0%, var(--bg-card) 30%);
+        }
+        .day-card.shift-2 .day-date {
+            border-color: rgba(225, 29, 72, 0.4);
+            background: rgba(225, 29, 72, 0.12);
+        }
+        .day-card.shift-2 .day-date-num {
+            color: var(--shift-2);
+        }
+
+        /* Mid Shift (М): Solid Indigo Bar & Violet Accent */
+        .day-card.shift-m {
+            border-left: 5px solid var(--shift-m-border);
+            background: linear-gradient(90deg, rgba(129, 140, 248, 0.08) 0%, var(--bg-card) 30%);
+        }
+        .day-card.shift-m .day-date {
+            border-color: rgba(129, 140, 248, 0.4);
+            background: rgba(129, 140, 248, 0.1);
+        }
+        .day-card.shift-m .day-date-num {
+            color: var(--shift-m);
+        }
+
+        /* Leave (О): Solid Emerald Bar */
+        .day-card.shift-o {
+            border-left: 5px solid var(--shift-o-border);
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, var(--bg-card) 30%);
+        }
+        .day-card.shift-o .day-date {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .day-card.shift-o .day-date-num {
+            color: var(--shift-o);
+        }
+
+        /* Rest (П): Muted Slate, heavily dimmed */
+        .day-card.shift-p {
+            border-left: 5px solid var(--shift-p-border);
+            opacity: 0.55;
+            background: var(--bg-deep);
+        }
+        .day-card.shift-p:hover {
+            opacity: 0.85;
+        }
+        .day-card.shift-p .day-date {
+            border-color: var(--border);
+            background: transparent;
+        }
+        .day-card.shift-p .day-date-num {
+            color: var(--shift-p-text);
+        }
+
+        /* Today Highlight Indicator */
+        .day-card.is-today {
+            box-shadow: 0 0 0 1px #ffffff, 0 0 15px rgba(225, 29, 72, 0.35);
+        }
+        .day-card.is-today .day-date {
+            background: var(--brand-red) !important;
+            border-color: #ffffff !important;
+        }
+        .day-card.is-today .day-date-num {
+            color: #ffffff !important;
+        }
+        .day-card.is-today .day-date-dow {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        .day-card-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .day-date {
+            flex-shrink: 0;
+            width: 46px;
+            height: 46px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .day-date-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .day-date-dow {
+            font-size: 0.6rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
             margin-top: 2px;
         }
 
-        /* ========== MODAL & TOAST ========== */
+        .day-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* DISTINCT SHIFT BADGES */
+        .day-shift-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            margin-bottom: 3px;
+            max-width: fit-content;
+            text-transform: uppercase;
+        }
+
+        .day-hours {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .badge-1 {
+            background: var(--shift-1-bg);
+            color: var(--shift-1);
+            border: 1px solid var(--shift-1-border);
+        }
+
+        .badge-2 {
+            background: var(--shift-2-bg);
+            color: var(--shift-2);
+            border: 1px solid var(--shift-2-border);
+        }
+
+        .badge-m {
+            background: var(--shift-m-bg);
+            color: var(--shift-m);
+            border: 1px solid var(--shift-m-border);
+        }
+
+        .badge-p {
+            background: var(--shift-p-bg);
+            color: var(--shift-p-text);
+            border: 1px solid var(--shift-p-border);
+        }
+
+        .badge-o {
+            background: var(--shift-o-bg);
+            color: var(--shift-o);
+            border: 1px solid var(--shift-o-border);
+        }
+
+        .day-edit-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #ffffff;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.72rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .day-edit-btn:hover {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+
+        .day-chevron {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: transform 0.2s ease;
+        }
+
+        .day-card.expanded .day-chevron {
+            transform: rotate(180deg);
+            color: #ffffff;
+        }
+
+        /* Colleagues Panel */
+        .colleagues-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .day-card.expanded .colleagues-panel {
+            max-height: 500px;
+        }
+
+        .colleagues-inner {
+            padding: 0 12px 10px;
+        }
+
+        .colleagues-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border);
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+        }
+
+        .colleague-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-sm);
+            margin-bottom: 4px;
+        }
+
+        .colleague-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .colleague-name {
+            flex: 1;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .colleague-shift-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: var(--radius-sm);
+        }
+
+        .tag-1 { background: var(--shift-1-bg); color: var(--shift-1); border: 1px solid var(--shift-1-border); }
+        .tag-2 { background: var(--shift-2-bg); color: var(--shift-2); border: 1px solid var(--shift-2-border); }
+        .tag-m { background: var(--shift-m-bg); color: var(--shift-m); border: 1px solid var(--shift-m-border); }
+
+        .colleague-swap-btn {
+            background: transparent;
+            border: 1px solid var(--brand-red-border);
+            color: #f43f5e;
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.68rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .colleague-swap-btn:hover {
+            background: var(--brand-red);
+            color: #ffffff;
+        }
+
+        .no-colleagues {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 6px;
+        }
+
+        /* Weekend header accent */
+        .weekend .day-date-dow {
+            color: var(--shift-1);
+        }
+
+        /* Legend */
+        .legend-section {
+            margin-top: var(--space-lg);
+            padding: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+
+        .legend-title {
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .legend-dot.l-1 { background: var(--shift-1); }
+        .legend-dot.l-2 { background: var(--shift-2); }
+        .legend-dot.l-m { background: var(--shift-m); }
+        .legend-dot.l-p { background: var(--shift-p); }
+        .legend-dot.l-o { background: var(--shift-o); }
+
+        .reset-btn {
+            margin-top: 10px;
+            width: 100%;
+            padding: 8px;
+            background: transparent;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .reset-btn:hover {
+            color: #f43f5e;
+            border-color: var(--brand-red);
+        }
+
+        /* Manager Tab */
+        .manager-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .manager-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .manager-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+            line-height: 1.35;
+        }
+
+        .month-picker-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+            background: var(--bg-surface);
+            padding: 10px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .picker-col {
+            flex: 1;
+            min-width: 130px;
+        }
+
+        .picker-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .picker-input,
+        .picker-select {
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .employee-input-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 10px;
+            margin-bottom: 8px;
+        }
+
+        .employee-input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .employee-input-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--shift-1);
+        }
+
+        .employee-input-count {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .employee-shift-textarea {
+            width: 100%;
+            min-height: 48px;
+            padding: 6px 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: monospace;
+            font-size: 0.82rem;
+            margin-top: 4px;
+            resize: vertical;
+        }
+
+        .quick-shift-tools {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .quick-tool-btn {
+            padding: 3px 6px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 0.68rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .quick-tool-btn:hover {
+            background: var(--brand-red-dark);
+            color: #ffffff;
+            border-color: var(--brand-red);
+        }
+
+        /* Modal & Dialogs */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(10, 12, 20, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -532,7 +1013,7 @@
             padding: var(--space-md);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .modal-overlay.active {
@@ -542,64 +1023,50 @@
 
         .modal-card {
             background: var(--bg-card);
-            border: 1px solid rgba(124, 92, 252, 0.35);
-            border-radius: var(--radius-xl);
+            border: 1px solid var(--brand-red-border);
+            border-radius: var(--radius-lg);
             width: 100%;
-            max-width: 440px;
-            padding: var(--space-lg);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            transform: translateY(20px) scale(0.95);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-card {
-            transform: translateY(0) scale(1);
+            max-width: 420px;
+            padding: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--space-md);
+            margin-bottom: 12px;
         }
 
         .modal-title {
             font-family: 'Outfit', sans-serif;
             font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-primary);
+            font-weight: 900;
+            color: #ffffff;
         }
 
         .modal-close {
             background: transparent;
             border: none;
             color: var(--text-muted);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            line-height: 1;
-            padding: 4px;
-            border-radius: 50%;
-            transition: color 0.2s;
-        }
-
-        .modal-close:hover {
-            color: var(--text-primary);
         }
 
         .edit-section-label {
-            font-size: 0.75rem;
-            font-weight: 600;
+            font-size: 0.7rem;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-secondary);
-            margin-bottom: var(--space-sm);
+            margin-bottom: 6px;
         }
 
         .shift-options-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: var(--space-lg);
+            gap: 6px;
+            margin-bottom: 12px;
         }
 
         .shift-option-btn {
@@ -607,981 +1074,170 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 10px 6px;
+            padding: 8px 4px;
             background: var(--bg-surface);
             border: 1px solid var(--border);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             color: var(--text-secondary);
-            font-family: 'Inter', sans-serif;
             cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .shift-option-btn:hover {
-            border-color: rgba(148, 163, 184, 0.2);
-            background: var(--bg-card-hover);
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
         }
 
         .shift-option-btn.selected {
-            border-color: var(--shift-2);
-            background: rgba(124, 92, 252, 0.15);
+            border-color: var(--brand-red);
+            background: var(--brand-red-dark);
             color: #ffffff;
-            box-shadow: 0 0 15px rgba(124, 92, 252, 0.2);
         }
 
         .shift-option-icon {
-            font-size: 1.2rem;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .shift-option-name {
-            font-size: 0.75rem;
-            font-weight: 600;
+            font-size: 0.72rem;
+            font-weight: 800;
         }
 
         .swap-wrapper {
-            margin-bottom: var(--space-lg);
+            margin-bottom: 14px;
             background: var(--bg-surface);
-            padding: var(--space-md);
-            border-radius: var(--radius-md);
+            padding: 10px;
+            border-radius: var(--radius-sm);
             border: 1px solid var(--border);
         }
 
         .colleagues-swap-list {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            max-height: 220px;
+            gap: 4px;
+            max-height: 180px;
             overflow-y: auto;
-            margin-top: 6px;
-            margin-bottom: 8px;
-            padding-right: 2px;
+            margin-top: 4px;
         }
 
         .colleague-swap-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 12px;
+            padding: 6px 8px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: all 0.2s ease;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .colleague-swap-item:hover {
-            background: var(--bg-card-hover);
-            border-color: rgba(124, 92, 252, 0.3);
         }
 
         .colleague-swap-item.selected {
-            border-color: var(--shift-2);
-            background: rgba(124, 92, 252, 0.18);
-            box-shadow: 0 0 15px rgba(124, 92, 252, 0.2);
-        }
-
-        .swap-item-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            border-color: var(--brand-red);
+            background: rgba(201, 24, 59, 0.2);
         }
 
         .swap-item-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Outfit', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 900;
+            background: var(--bg-surface);
             color: #ffffff;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            flex-shrink: 0;
         }
 
         .swap-item-name {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .swap-item-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 3px 8px;
-            border-radius: var(--radius-full);
-            font-size: 0.72rem;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .swap-item-check {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--shift-2);
-            color: #ffffff;
-            font-size: 0.65rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 0.78rem;
             font-weight: 800;
-            flex-shrink: 0;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: var(--space-sm);
+            color: #ffffff;
         }
 
         .btn-primary {
             flex: 1;
-            padding: 12px;
-            background: linear-gradient(135deg, var(--shift-2), #6341e0);
-            border: none;
-            border-radius: var(--radius-md);
+            padding: 10px;
+            background: var(--brand-red-dark);
+            border: 1px solid var(--brand-red);
+            border-radius: var(--radius-sm);
             color: #ffffff;
             font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.8rem;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(124, 92, 252, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(124, 92, 252, 0.4);
+            background: var(--brand-red);
         }
 
         .btn-secondary {
-            padding: 12px 16px;
+            padding: 10px 14px;
             background: var(--bg-surface);
             border: 1px solid var(--border);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             color: var(--text-secondary);
             font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.8rem;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-secondary:hover {
-            background: var(--bg-card-hover);
-            color: var(--text-primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .btn-remove-work {
             width: 100%;
-            padding: 12px;
-            margin-bottom: var(--space-md);
-            background: rgba(239, 68, 68, 0.12);
-            border: 1px solid rgba(239, 68, 68, 0.35);
-            border-radius: var(--radius-md);
+            padding: 9px;
+            margin-bottom: 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: var(--radius-sm);
             color: #ef4444;
             font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.78rem;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            box-shadow: 0 2px 10px rgba(239, 68, 68, 0.15);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-remove-work:hover {
-            background: rgba(239, 68, 68, 0.25);
-            border-color: rgba(239, 68, 68, 0.6);
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-        }
-
-        .day-edit-btn {
-            background: linear-gradient(135deg, rgba(124, 92, 252, 0.25), rgba(56, 189, 248, 0.18));
-            border: 1px solid rgba(124, 92, 252, 0.4);
-            color: #ffffff;
-            padding: 6px 10px;
-            border-radius: var(--radius-md);
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            margin-left: auto;
-            flex-shrink: 0;
-            min-height: 36px;
-            white-space: nowrap;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .day-edit-btn:active {
-            transform: scale(0.95);
-            background: rgba(124, 92, 252, 0.4);
-        }
-
-        .day-edit-btn:hover {
-            background: linear-gradient(135deg, rgba(124, 92, 252, 0.4), rgba(56, 189, 248, 0.3));
-            border-color: rgba(124, 92, 252, 0.6);
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(124, 92, 252, 0.35);
-        }
-
-        .colleague-swap-btn {
-            background: rgba(56, 189, 248, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--shift-m);
-            padding: 4px 10px;
-            border-radius: var(--radius-full);
-            font-size: 0.72rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-left: auto;
-            flex-shrink: 0;
-            min-height: 32px;
-            transition: all 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .colleague-swap-btn:hover {
-            background: rgba(56, 189, 248, 0.25);
-            border-color: var(--shift-m);
-            color: #ffffff;
         }
 
         .swap-preview {
-            margin-top: 10px;
-            padding: 10px 14px;
-            background: rgba(124, 92, 252, 0.12);
-            border: 1px solid rgba(124, 92, 252, 0.35);
-            border-radius: var(--radius-md);
-            font-size: 0.82rem;
-            color: var(--text-primary);
-            font-weight: 600;
-            text-align: center;
-            box-shadow: inset 0 0 15px rgba(124, 92, 252, 0.1);
-        }
-
-        .reset-btn {
-            margin-top: var(--space-md);
-            width: 100%;
-            padding: 10px;
-            background: transparent;
-            border: 1px dashed var(--border);
-            border-radius: var(--radius-md);
-            color: var(--text-muted);
-            font-family: 'Inter', sans-serif;
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(201, 24, 59, 0.15);
+            border: 1px solid var(--brand-red-border);
+            border-radius: var(--radius-sm);
             font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .reset-btn:hover {
-            color: var(--shift-1);
-            border-color: rgba(240, 180, 41, 0.4);
-            background: rgba(240, 180, 41, 0.05);
+            color: #ffffff;
+            font-weight: 800;
+            text-align: center;
         }
 
         .toast {
             position: fixed;
-            bottom: 24px;
+            bottom: 20px;
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: linear-gradient(135deg, #10b981, #059669);
+            transform: translateX(-50%) translateY(80px);
+            background: #059669;
             color: #ffffff;
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: var(--radius-full);
-            font-size: 0.85rem;
-            font-weight: 600;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            font-size: 0.8rem;
+            font-weight: 800;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
             z-index: 2000;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.25s ease;
             pointer-events: none;
         }
 
         .toast.show {
             transform: translateX(-50%) translateY(0);
-        }
-
-        /* ========== STATS BAR ========== */
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-sm);
-            margin-bottom: var(--space-lg);
-        }
-
-        .stat-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: var(--space-sm) var(--space-xs);
-            text-align: center;
-            transition: all 0.25s ease;
-            cursor: pointer;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            position: relative;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-2px);
-            border-color: rgba(148, 163, 184, 0.25);
-            background: var(--bg-card-hover);
-        }
-
-        .stat-item.active {
-            border-color: var(--shift-2);
-            background: rgba(124, 92, 252, 0.18);
-            box-shadow: 0 0 20px rgba(124, 92, 252, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .stat-item.shift-1.active {
-            border-color: var(--shift-1);
-            background: rgba(240, 180, 41, 0.18);
-            box-shadow: 0 0 20px rgba(240, 180, 41, 0.3);
-        }
-
-        .stat-item.shift-2.active {
-            border-color: var(--shift-2);
-            background: rgba(124, 92, 252, 0.18);
-            box-shadow: 0 0 20px rgba(124, 92, 252, 0.3);
-        }
-
-        .stat-item.shift-m.active {
-            border-color: var(--shift-m);
-            background: rgba(56, 189, 248, 0.18);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-        }
-
-        .stat-item.shift-rest.active {
-            border-color: #64748b;
-            background: rgba(51, 65, 85, 0.3);
-            box-shadow: 0 0 20px rgba(100, 116, 139, 0.3);
-        }
-
-        .stat-number {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.35rem;
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 2px;
-        }
-
-        .stat-label {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-
-        .stat-item.shift-1 .stat-number {
-            color: var(--shift-1);
-        }
-
-        .stat-item.shift-2 .stat-number {
-            color: var(--shift-2);
-        }
-
-        .stat-item.shift-m .stat-number {
-            color: var(--shift-m);
-        }
-
-        .stat-item.shift-rest .stat-number {
-            color: var(--shift-p-text);
-        }
-
-        /* ========== TODAY INDICATOR ========== */
-        .today-jump {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-lg);
-            padding: 10px var(--space-md);
-            background: linear-gradient(135deg, rgba(124, 92, 252, 0.12), rgba(56, 189, 248, 0.08));
-            border: 1px solid rgba(124, 92, 252, 0.2);
-            border-radius: var(--radius-lg);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-primary);
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .today-jump:hover {
-            background: linear-gradient(135deg, rgba(124, 92, 252, 0.18), rgba(56, 189, 248, 0.12));
-            border-color: rgba(124, 92, 252, 0.35);
-            transform: translateY(-1px);
-        }
-
-        .today-jump .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--shift-2);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                box-shadow: 0 0 0 0 rgba(124, 92, 252, 0.5);
-            }
-            50% {
-                opacity: 0.8;
-                box-shadow: 0 0 0 6px rgba(124, 92, 252, 0);
-            }
-        }
-
-        /* ========== DAY CARDS ========== */
-        .days-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-        }
-
-        .day-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.4s ease both;
-        }
-
-        .day-card:hover {
-            border-color: rgba(148, 163, 184, 0.12);
-            transform: translateY(-1px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-
-        .day-card.is-today {
-            border-color: var(--shift-2);
-            box-shadow: 0 0 30px rgba(124, 92, 252, 0.15), inset 0 0 30px rgba(124, 92, 252, 0.03);
-        }
-
-        .day-card.is-rest {
-            opacity: 0.6;
-        }
-
-        .day-card.is-rest:hover {
-            opacity: 0.85;
-        }
-
-        .day-card.hidden {
-            display: none;
-        }
-
-        .day-card.shift-1 {
-            border-left: 4px solid var(--shift-1);
-            background: linear-gradient(90deg, rgba(240, 180, 41, 0.08) 0%, var(--bg-card) 20%);
-        }
-
-        .day-card.shift-1 .day-date {
-            background: rgba(240, 180, 41, 0.1);
-            border-color: rgba(240, 180, 41, 0.2);
-        }
-
-        .day-card.shift-1 .day-date-num {
-            color: var(--shift-1);
-        }
-
-        .day-card.shift-2 {
-            border-left: 4px solid var(--shift-2);
-            background: linear-gradient(90deg, rgba(124, 92, 252, 0.08) 0%, var(--bg-card) 20%);
-        }
-
-        .day-card.shift-2 .day-date {
-            background: rgba(124, 92, 252, 0.1);
-            border-color: rgba(124, 92, 252, 0.2);
-        }
-
-        .day-card.shift-2 .day-date-num {
-            color: var(--shift-2);
-        }
-
-        .day-card.shift-m {
-            border-left: 4px solid var(--shift-m);
-            background: linear-gradient(90deg, rgba(56, 189, 248, 0.08) 0%, var(--bg-card) 20%);
-        }
-
-        .day-card.shift-m .day-date {
-            background: rgba(56, 189, 248, 0.1);
-            border-color: rgba(56, 189, 248, 0.2);
-        }
-
-        .day-card.shift-m .day-date-num {
-            color: var(--shift-m);
-        }
-
-        .day-card.shift-p {
-            border-left: 4px solid var(--shift-p);
-        }
-
-        .day-card.shift-o {
-            border-left: 4px solid var(--shift-o);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .day-card-main {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px var(--space-md);
-            cursor: pointer;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            width: 100%;
-        }
-
-        .day-date {
-            flex-shrink: 0;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--radius-md);
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-        }
-
-        .day-date-num {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .day-date-dow {
-            font-size: 0.6rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            margin-top: 2px;
-        }
-
-        .is-today .day-date {
-            background: linear-gradient(135deg, var(--shift-2), #6341e0);
-            border-color: transparent;
-        }
-
-        .is-today .day-date .day-date-dow {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .day-info {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .day-shift-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 3px 10px;
-            border-radius: var(--radius-full);
-            font-size: 0.78rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-            white-space: nowrap;
-            max-width: fit-content;
-        }
-
-        .day-hours {
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            white-space: nowrap;
-        }
-
-        .day-shift-badge .badge-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-
-        .badge-1 {
-            background: var(--shift-1-bg);
-            color: var(--shift-1);
-            border: 1px solid rgba(240, 180, 41, 0.2);
-        }
-
-        .badge-1 .badge-dot {
-            background: var(--shift-1);
-            box-shadow: 0 0 6px var(--shift-1-glow);
-        }
-
-        .badge-2 {
-            background: var(--shift-2-bg);
-            color: var(--shift-2);
-            border: 1px solid rgba(124, 92, 252, 0.2);
-        }
-
-        .badge-2 .badge-dot {
-            background: var(--shift-2);
-            box-shadow: 0 0 6px var(--shift-2-glow);
-        }
-
-        .badge-m {
-            background: var(--shift-m-bg);
-            color: var(--shift-m);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-
-        .badge-m .badge-dot {
-            background: var(--shift-m);
-            box-shadow: 0 0 6px var(--shift-m-glow);
-        }
-
-        .badge-p {
-            background: var(--shift-p-bg);
-            color: var(--shift-p-text);
-            border: 1px solid rgba(51, 65, 85, 0.15);
-        }
-
-        .badge-p .badge-dot {
-            background: var(--shift-p);
-        }
-
-        .badge-o {
-            background: var(--shift-o-bg);
-            color: var(--shift-o);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        .badge-o .badge-dot {
-            background: var(--shift-o);
-            box-shadow: 0 0 6px var(--shift-o-glow);
-        }
-
-        .day-chevron {
-            flex-shrink: 0;
-            width: 28px;
-            height: 28px;
-            display: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .day-card.expanded .day-chevron {
-            transform: rotate(180deg);
-            color: var(--shift-2);
-        }
-
-        .day-chevron svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* ========== COLLEAGUES PANEL ========== */
-        .colleagues-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .day-card.expanded .colleagues-panel {
-            max-height: 600px;
-        }
-
-        .colleagues-inner {
-            padding: 0 var(--space-md) var(--space-md);
-        }
-
-        .colleagues-header {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-sm);
-            padding-top: var(--space-sm);
-            border-top: 1px solid var(--border);
-        }
-
-        .colleagues-header svg {
-            width: 14px;
-            height: 14px;
-            color: var(--text-muted);
-        }
-
-        .colleagues-header span {
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-muted);
-        }
-
-        .colleague-row {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: 8px 10px;
-            background: var(--bg-surface);
-            border-radius: var(--radius-sm);
-            margin-bottom: 4px;
-            transition: background 0.2s;
-        }
-
-        .colleague-row:hover {
-            background: var(--bg-card-hover);
-        }
-
-        .colleague-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .colleague-avatar.av-1 {
-            background: var(--shift-1-bg);
-            color: var(--shift-1);
-            border: 1px solid rgba(240, 180, 41, 0.2);
-        }
-
-        .colleague-avatar.av-2 {
-            background: var(--shift-2-bg);
-            color: var(--shift-2);
-            border: 1px solid rgba(124, 92, 252, 0.2);
-        }
-
-        .colleague-avatar.av-m {
-            background: var(--shift-m-bg);
-            color: var(--shift-m);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-
-        .colleague-name {
-            flex: 1;
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .colleague-shift-tag {
-            font-size: 0.68rem;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: var(--radius-full);
-        }
-
-        .tag-1 {
-            background: var(--shift-1-bg);
-            color: var(--shift-1);
-        }
-
-        .tag-2 {
-            background: var(--shift-2-bg);
-            color: var(--shift-2);
-        }
-
-        .tag-m {
-            background: var(--shift-m-bg);
-            color: var(--shift-m);
-        }
-
-        .overlap-badge {
-            font-size: 0.6rem;
-            padding: 1px 6px;
-            border-radius: var(--radius-full);
-            background: rgba(16, 185, 129, 0.12);
-            color: #10b981;
-            font-weight: 600;
-            margin-left: 4px;
-        }
-
-        .no-colleagues {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            text-align: center;
-            padding: var(--space-sm);
-            font-style: italic;
-        }
-
-        .weekend .day-date {
-            border-color: rgba(240, 180, 41, 0.15);
-        }
-
-        .weekend .day-date-dow {
-            color: var(--shift-1);
-        }
-
-        /* ========== LEGEND ========== */
-        .legend-section {
-            margin-top: var(--space-xl);
-            padding: var(--space-md);
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-        }
-
-        .legend-title {
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-muted);
-            margin-bottom: var(--space-sm);
-        }
-
-        .legend-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-        }
-
-        .legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .legend-dot.l-1 {
-            background: var(--shift-1);
-            box-shadow: 0 0 8px var(--shift-1-glow);
-        }
-
-        .legend-dot.l-2 {
-            background: var(--shift-2);
-            box-shadow: 0 0 8px var(--shift-2-glow);
-        }
-
-        .legend-dot.l-m {
-            background: var(--shift-m);
-            box-shadow: 0 0 8px var(--shift-m-glow);
-        }
-
-        .legend-dot.l-p {
-            background: var(--shift-p);
-        }
-
-        .legend-dot.l-o {
-            background: var(--shift-o);
-            box-shadow: 0 0 8px var(--shift-o-glow);
-        }
-
-        /* ========== SCROLLBAR ========== */
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.15);
-            border-radius: 4px;
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (min-width: 480px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .app-container {
-                padding: 10px;
-                padding-bottom: 100px;
-            }
-
-            .day-card-main {
-                padding: 10px 8px;
-                gap: 6px;
-            }
-
-            .day-date {
-                width: 44px;
-                height: 44px;
-                border-radius: var(--radius-sm);
-            }
-
-            .day-date-num {
-                font-size: 1.1rem;
-            }
-
-            .day-date-dow {
-                font-size: 0.55rem;
-            }
-
-            .day-shift-badge {
-                font-size: 0.72rem;
-                padding: 2px 8px;
-                gap: 4px;
-            }
-
-            .day-hours {
-                font-size: 0.68rem;
-            }
-
-            .day-edit-btn {
-                padding: 5px 8px;
-                font-size: 0.72rem;
-                min-height: 34px;
-                gap: 3px;
-            }
-
-            .stat-number {
-                font-size: 1.15rem;
-            }
-
-            .stat-label {
-                font-size: 0.58rem;
-            }
         }
     </style>
 </head>
@@ -1595,16 +1251,29 @@
         <!-- TOP NAVIGATION TABS -->
         <nav class="top-nav">
             <button class="nav-btn active" id="navViewSchedule">
-                <span>📅</span> График
+                <span class="icon-svg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                </span>
+                График
             </button>
             <button class="nav-btn" id="navManageSchedule">
-                <span>⚙️</span> Въвеждане на график
+                <span class="icon-svg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </span>
+                Управление
             </button>
         </nav>
 
         <!-- VIEW SCHEDULE TAB -->
         <div id="viewScheduleTab">
-            <!-- HEADER -->
             <header class="header">
                 <div class="header-eyebrow">
                     <span class="diamond">♦</span>
@@ -1615,24 +1284,52 @@
 
                 <div id="syncStatus" class="sync-badge">
                     <span class="sync-dot"></span>
-                    <span id="syncText">Свързване с облака...</span>
+                    <span id="syncText">Свързване с базата данни...</span>
                 </div>
 
-                <br>
-                <div class="month-select-wrapper">
-                    <span class="month-select-label">📅 Месец:</span>
-                    <select id="monthSelect" class="month-select"></select>
-                </div>
-                <br>
-                <div class="person-select-wrapper">
-                    <label for="personSelect" class="person-select-label">Служител:</label>
-                    <select id="personSelect" class="person-select"></select>
+                <div class="selectors-row">
+                    <div class="selector-box">
+                        <span class="selector-label">
+                            <span class="icon-svg">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </span>
+                            Месец
+                        </span>
+                        <select id="monthSelect" class="custom-select"></select>
+                    </div>
+
+                    <div class="selector-box">
+                        <label for="personSelect" class="selector-label">
+                            <span class="icon-svg">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </span>
+                            Служител
+                        </label>
+                        <select id="personSelect" class="custom-select"></select>
+                    </div>
                 </div>
             </header>
 
             <!-- TOTAL HOURS -->
             <div class="total-hours-card">
-                <div class="total-hours-icon">⏱️</div>
+                <div class="total-hours-icon">
+                    <span class="icon-svg" style="width: 20px; height: 20px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="14" r="8"></circle>
+                            <line x1="12" y1="2" x2="12" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="14"></line>
+                            <line x1="15" y1="2" x2="9" y2="2"></line>
+                        </svg>
+                    </span>
+                </div>
                 <div class="total-hours-info">
                     <span class="total-hours-label" id="totalHoursTitle">Общо работни часове</span>
                     <span class="total-hours-val" id="totalHoursVal">0 ч.</span>
@@ -1653,15 +1350,22 @@
 
             <!-- LEGEND -->
             <div class="legend-section">
-                <div class="legend-title">Легенда</div>
+                <div class="legend-title">Легенда на смените</div>
                 <div class="legend-grid">
-                    <div class="legend-item"><span class="legend-dot l-1"></span> 1 — 08:00–20:00</div>
-                    <div class="legend-item"><span class="legend-dot l-2"></span> 2 — 20:00–08:00</div>
-                    <div class="legend-item"><span class="legend-dot l-m"></span> М — 12:00–20:00</div>
+                    <div class="legend-item"><span class="legend-dot l-1"></span> 1 — 08:00–20:00 (Дневна)</div>
+                    <div class="legend-item"><span class="legend-dot l-2"></span> 2 — 20:00–08:00 (Нощна)</div>
+                    <div class="legend-item"><span class="legend-dot l-m"></span> М — 12:00–20:00 (Междинна)</div>
                     <div class="legend-item"><span class="legend-dot l-p"></span> П — Почивка</div>
                     <div class="legend-item"><span class="legend-dot l-o"></span> О — Отпуск</div>
                 </div>
-                <button class="reset-btn" id="resetScheduleBtn">🔄 Върни началния график</button>
+                <button class="reset-btn" id="resetScheduleBtn">
+                    <span class="icon-svg">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19"></path>
+                        </svg>
+                    </span>
+                    Върни началния график
+                </button>
             </div>
         </div>
 
@@ -1669,13 +1373,18 @@
         <div id="manageScheduleTab" style="display: none;">
             <div class="manager-card">
                 <div class="manager-title">
-                    <span>⚙️</span> Въвеждане и Управление на График
+                    <span class="icon-svg" style="width: 18px; height: 18px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </span>
+                    Въвеждане на График
                 </div>
                 <div class="manager-subtitle">
-                    Въведете или редактирайте графика за всеки месец, добавяйте или премахвайте служители. Промените се синхронизират в реално време.
+                    Въведете или редактирайте графика за всеки месец. Всички данни се синхронизират незабавно с облачната база данни.
                 </div>
 
-                <!-- MONTH PICKER ROW -->
                 <div class="month-picker-row">
                     <div class="picker-col">
                         <label class="picker-label">Избери месец за редакция:</label>
@@ -1686,28 +1395,46 @@
                         <input type="month" id="newMonthInput" class="picker-input" value="2026-10">
                     </div>
                     <div style="display:flex; align-items:flex-end;">
-                        <button class="btn-primary" id="btnCreateMonth"
-                            style="padding: 10px 14px; white-space:nowrap;">+ Добави месец</button>
+                        <button class="btn-primary" id="btnCreateMonth" style="padding: 8px 12px; white-space:nowrap;">
+                            + Нов месец
+                        </button>
                     </div>
                 </div>
 
-                <!-- STAFF MANAGEMENT ROW -->
-                <div class="month-picker-row" style="margin-top: -10px; margin-bottom: 20px;">
+                <div class="month-picker-row" style="margin-top: -10px; margin-bottom: 16px;">
                     <div class="picker-col">
-                        <label class="picker-label">Добави нов служител:</label>
-                        <input type="text" id="newStaffNameInput" class="picker-input" placeholder="Име на служител (напр. Иван)">
+                        <label class="picker-label">Добави служител:</label>
+                        <input type="text" id="newStaffNameInput" class="picker-input" placeholder="Име (напр. Иван)">
                     </div>
                     <div style="display:flex; align-items:flex-end;">
-                        <button class="btn-primary" id="btnAddStaff" style="padding: 10px 14px; white-space:nowrap;">+ Добави служител</button>
+                        <button class="btn-primary" id="btnAddStaff" style="padding: 8px 12px; white-space:nowrap;">
+                            + Добави
+                        </button>
                     </div>
                 </div>
 
                 <div id="employeeInputsContainer"></div>
 
-                <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
-                    <button class="btn-primary" id="btnSaveManager" style="padding: 14px;">💾 Запази графика за месеца</button>
-                    <button class="btn-secondary" id="btnDeleteMonth"
-                        style="color: #ef4444; border-color: rgba(239,68,68,0.35);">🗑️ Изтрий този месец</button>
+                <div style="display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap;">
+                    <button class="btn-primary" id="btnSaveManager" style="padding: 12px;">
+                        <span class="icon-svg">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                <polyline points="7 3 7 8 15 8"></polyline>
+                            </svg>
+                        </span>
+                        Запази промените
+                    </button>
+                    <button class="btn-secondary" id="btnDeleteMonth" style="color: #ef4444; border-color: rgba(239,68,68,0.35);">
+                        <span class="icon-svg">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </span>
+                        Изтрий месеца
+                    </button>
                 </div>
             </div>
         </div>
@@ -1718,51 +1445,102 @@
     <div class="modal-overlay" id="editModal">
         <div class="modal-card">
             <div class="modal-header">
-                <h3 class="modal-title" id="modalTitle">Промяна на график</h3>
+                <h3 class="modal-title" id="modalTitle">Промяна на смяна</h3>
                 <button class="modal-close" id="modalClose">&times;</button>
             </div>
 
             <button class="btn-remove-work" id="btnRemoveWork">
-                🚫 Свали от работа (Почивка 'П')
+                <span class="icon-svg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                    </svg>
+                </span>
+                Почивка ('П')
             </button>
 
-            <div style="margin-bottom: var(--space-md);">
+            <div style="margin-bottom: 12px;">
                 <div class="edit-section-label">1. Избери нова смяна:</div>
                 <div class="shift-options-grid" id="shiftOptionsGrid">
                     <button class="shift-option-btn" data-shift="1">
-                        <span class="shift-option-icon">☀️</span>
+                        <span class="shift-option-icon">
+                            <span class="icon-svg" style="color: var(--shift-1);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                </svg>
+                            </span>
+                        </span>
                         <span class="shift-option-name">Смяна 1</span>
                     </button>
                     <button class="shift-option-btn" data-shift="2">
-                        <span class="shift-option-icon">🌙</span>
+                        <span class="shift-option-icon">
+                            <span class="icon-svg" style="color: var(--shift-2);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                </svg>
+                            </span>
+                        </span>
                         <span class="shift-option-name">Смяна 2</span>
                     </button>
                     <button class="shift-option-btn" data-shift="М">
-                        <span class="shift-option-icon">🕐</span>
+                        <span class="shift-option-icon">
+                            <span class="icon-svg" style="color: var(--shift-m);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </span>
+                        </span>
                         <span class="shift-option-name">Междинна</span>
                     </button>
                     <button class="shift-option-btn" data-shift="П">
-                        <span class="shift-option-icon">😌</span>
+                        <span class="shift-option-icon">
+                            <span class="icon-svg" style="color: var(--shift-p-text);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                    <line x1="6" y1="1" x2="6" y2="4"></line>
+                                    <line x1="10" y1="1" x2="10" y2="4"></line>
+                                    <line x1="14" y1="1" x2="14" y2="4"></line>
+                                </svg>
+                            </span>
+                        </span>
                         <span class="shift-option-name">Почивка</span>
                     </button>
                     <button class="shift-option-btn" data-shift="О">
-                        <span class="shift-option-icon">🏖️</span>
+                        <span class="shift-option-icon">
+                            <span class="icon-svg" style="color: var(--shift-o);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2v20"></path>
+                                    <path d="M12 18a3 3 0 0 0 3-3V7a3 3 0 0 0-6 0v8a3 3 0 0 0 3 3z"></path>
+                                    <path d="M19 12a7 7 0 0 0-14 0"></path>
+                                </svg>
+                            </span>
+                        </span>
                         <span class="shift-option-name">Отпуск</span>
                     </button>
                 </div>
             </div>
 
             <div class="swap-wrapper">
-                <div class="edit-section-label" style="margin-bottom: 4px;">2. Или размени с колега:</div>
+                <div class="edit-section-label">2. Или размени с колега:</div>
                 <div class="colleagues-swap-list" id="colleagueSwapList"></div>
                 <div class="swap-preview" id="swapPreview" style="display: none;">
                     <span id="swapPreviewText"></span>
                 </div>
             </div>
 
-            <div class="modal-actions">
+            <div style="display:flex; gap:8px;">
                 <button class="btn-secondary" id="modalCancel">Отказ</button>
-                <button class="btn-primary" id="modalSave">Запази промяната</button>
+                <button class="btn-primary" id="modalSave">Запази</button>
             </div>
         </div>
     </div>
@@ -1772,7 +1550,7 @@
 
     <script>
         // ================================================================
-        // FIREBASE REALTIME DATABASE SETUP
+        // FIREBASE REALTIME DATABASE CONFIGURATION
         // ================================================================
         const firebaseConfig = {
             apiKey: "AIzaSyDt1jd5fEeWg-K9Qrx46Fr3xn8iQwDbGvk",
@@ -1799,9 +1577,6 @@
             label.textContent = text;
         }
 
-        // ================================================================
-        // EMBEDDED MULTI-MONTH SCHEDULE DATA
-        // ================================================================
         const BULGARIAN_MONTHS = [
             "Януари", "Февруари", "Март", "Април", "Май", "Юни",
             "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"
@@ -1810,34 +1585,6 @@
         let CUSTOM_STAFF_LIST = JSON.parse(localStorage.getItem('magic_club_staff_list') || 'null') || [
             "Джордж", "Жасмина", "Алекс", "Мерлин", "Кристиян", "Хриска", "Джан", "Виктор"
         ];
-
-        function getAllStaff() {
-            const set = new Set(CUSTOM_STAFF_LIST);
-            Object.values(ALL_SCHEDULES || {}).forEach(monthObj => {
-                if (monthObj && typeof monthObj === 'object') {
-                    Object.keys(monthObj).forEach(name => set.add(name));
-                }
-            });
-            return Array.from(set);
-        }
-
-        function saveStaffList() {
-            localStorage.setItem('magic_club_staff_list', JSON.stringify(CUSTOM_STAFF_LIST));
-            staffRef.set(CUSTOM_STAFF_LIST);
-        }
-
-        function getMonthNameBG(yearMonthStr) {
-            if (!yearMonthStr || !yearMonthStr.includes('-')) return yearMonthStr;
-            const [year, month] = yearMonthStr.split('-');
-            const monthIndex = parseInt(month, 10) - 1;
-            return `${BULGARIAN_MONTHS[monthIndex]} ${year}`;
-        }
-
-        function getDaysInMonth(yearMonthStr) {
-            if (!yearMonthStr || !yearMonthStr.includes('-')) return 31;
-            const [year, month] = yearMonthStr.split('-').map(Number);
-            return new Date(year, month, 0).getDate();
-        }
 
         const DEFAULT_ALL_SCHEDULES = {
             "2026-08": {
@@ -1876,17 +1623,45 @@
 
         let ALL_SCHEDULES = loadLocalSchedules();
         let selectedMonthKey = "2026-08";
-        let selectedPerson = "Виктор";
+        let selectedPerson = ""; // Default state requires user to pick from staff
         let activeEditDayIndex = null;
         let activeSelectedShift = null;
         let activeFilter = 'all';
+
+        function getAllStaff() {
+            const set = new Set(CUSTOM_STAFF_LIST);
+            Object.values(ALL_SCHEDULES || {}).forEach(monthObj => {
+                if (monthObj && typeof monthObj === 'object') {
+                    Object.keys(monthObj).forEach(name => set.add(name));
+                }
+            });
+            return Array.from(set);
+        }
+
+        function saveStaffList() {
+            localStorage.setItem('magic_club_staff_list', JSON.stringify(CUSTOM_STAFF_LIST));
+            staffRef.set(CUSTOM_STAFF_LIST);
+        }
+
+        function getMonthNameBG(yearMonthStr) {
+            if (!yearMonthStr || !yearMonthStr.includes('-')) return yearMonthStr;
+            const [year, month] = yearMonthStr.split('-');
+            const monthIndex = parseInt(month, 10) - 1;
+            return `${BULGARIAN_MONTHS[monthIndex]} ${year}`;
+        }
+
+        function getDaysInMonth(yearMonthStr) {
+            if (!yearMonthStr || !yearMonthStr.includes('-')) return 31;
+            const [year, month] = yearMonthStr.split('-').map(Number);
+            return new Date(year, month, 0).getDate();
+        }
 
         function saveAllSchedules() {
             localStorage.setItem('magic_club_all_schedules_v3', JSON.stringify(ALL_SCHEDULES));
             updateSyncStatus('syncing', 'Синхронизиране...');
             schedulesRef.set(ALL_SCHEDULES)
                 .then(() => {
-                    updateSyncStatus('', 'Свързан (Облак ✅)');
+                    updateSyncStatus('', 'База данни: Свързана');
                 })
                 .catch((err) => {
                     console.error("Firebase write error:", err);
@@ -1895,9 +1670,8 @@
         }
 
         function initRealtimeSync() {
-            updateSyncStatus('syncing', 'Свързване с облака...');
+            updateSyncStatus('syncing', 'Свързване с базата данни...');
             
-            // Listen for staff list changes
             staffRef.on('value', (snapshot) => {
                 const sData = snapshot.val();
                 if (Array.isArray(sData) && sData.length > 0) {
@@ -1906,16 +1680,13 @@
                 }
             });
 
-            // Listen for schedules changes
             schedulesRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 if (data && typeof data === 'object') {
                     ALL_SCHEDULES = data;
                     localStorage.setItem('magic_club_all_schedules_v3', JSON.stringify(ALL_SCHEDULES));
-                } else {
-                    schedulesRef.set(ALL_SCHEDULES);
                 }
-                updateSyncStatus('', 'Свързан (Облак ✅)');
+                updateSyncStatus('', 'База данни: Свързана');
                 refreshUI();
             }, (error) => {
                 console.error("Firebase sync error:", error);
@@ -1935,13 +1706,48 @@
             setupTodayJump();
         }
 
-        // Shift metadata
+        // SVG Icons dictionary
         const SHIFTS = {
-            "1": { label: "Смяна 1", hours: "08:00 – 20:00", cls: "1", icon: "☀️", start: 8, end: 20 },
-            "2": { label: "Смяна 2", hours: "20:00 – 08:00", cls: "2", icon: "🌙", start: 20, end: 32 },
-            "М": { label: "Междинна", hours: "12:00 – 20:00", cls: "m", icon: "🕐", start: 12, end: 20 },
-            "П": { label: "Почивка", hours: "Неработен ден", cls: "p", icon: "😌", start: null, end: null },
-            "О": { label: "Отпуск", hours: "Платен отпуск", cls: "o", icon: "🏖️", start: null, end: null }
+            "1": { 
+                label: "1 • Дневна", 
+                hours: "08:00 – 20:00", 
+                cls: "1", 
+                icon: `<span class="icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>`, 
+                start: 8, 
+                end: 20 
+            },
+            "2": { 
+                label: "2 • Нощна", 
+                hours: "20:00 – 08:00", 
+                cls: "2", 
+                icon: `<span class="icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>`, 
+                start: 20, 
+                end: 32 
+            },
+            "М": { 
+                label: "М • Междинна", 
+                hours: "12:00 – 20:00", 
+                cls: "m", 
+                icon: `<span class="icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>`, 
+                start: 12, 
+                end: 20 
+            },
+            "П": { 
+                label: "П • Почивка", 
+                hours: "Неработен ден", 
+                cls: "p", 
+                icon: `<span class="icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg></span>`, 
+                start: null, 
+                end: null 
+            },
+            "О": { 
+                label: "О • Отпуск", 
+                hours: "Платен отпуск", 
+                cls: "o", 
+                icon: `<span class="icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"></path><path d="M12 18a3 3 0 0 0 3-3V7a3 3 0 0 0-6 0v8a3 3 0 0 0 3 3z"></path><path d="M19 12a7 7 0 0 0-14 0"></path></svg></span>`, 
+                start: null, 
+                end: null 
+            }
         };
 
         const DOW_BG = ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
@@ -1960,6 +1766,7 @@
         }
 
         function getPersonShifts(person = selectedPerson) {
+            if (!person) return [];
             const sched = getCurrentSchedule();
             const arr = sched[person] || [];
             return arr.map(normalizeShift);
@@ -1995,7 +1802,7 @@
         }
 
         function getInitials(name) {
-            return name.charAt(0).toUpperCase();
+            return name ? name.charAt(0).toUpperCase() : "?";
         }
 
         // ================================================================
@@ -2069,7 +1876,7 @@
         }
 
         // ================================================================
-        // PERSON SELECTOR (Always includes all staff)
+        // PERSON SELECTOR (Default to Select Someone)
         // ================================================================
         function setupPersonSelector() {
             const select = document.getElementById('personSelect');
@@ -2078,9 +1885,14 @@
 
             const names = getAllStaff();
 
-            if (names.length > 0 && !names.includes(selectedPerson)) {
-                selectedPerson = names[0];
+            const defaultOpt = document.createElement('option');
+            defaultOpt.value = "";
+            defaultOpt.textContent = "— Изберете служител —";
+            defaultOpt.disabled = true;
+            if (!selectedPerson) {
+                defaultOpt.selected = true;
             }
+            select.appendChild(defaultOpt);
 
             names.forEach(name => {
                 const option = document.createElement('option');
@@ -2105,6 +1917,20 @@
         // STATS BAR
         // ================================================================
         function buildStats() {
+            const statsBar = document.getElementById('statsBar');
+            const totalHoursElem = document.getElementById('totalHoursVal');
+
+            if (!selectedPerson) {
+                if (totalHoursElem) totalHoursElem.textContent = "0 ч.";
+                statsBar.innerHTML = `
+                    <div class="stat-item shift-1"><div class="stat-number">0</div><div class="stat-label">Смяна 1</div></div>
+                    <div class="stat-item shift-2"><div class="stat-number">0</div><div class="stat-label">Смяна 2</div></div>
+                    <div class="stat-item shift-m"><div class="stat-number">0</div><div class="stat-label">Междинна</div></div>
+                    <div class="stat-item shift-rest"><div class="stat-number">0</div><div class="stat-label">Почивка</div></div>
+                `;
+                return;
+            }
+
             const shifts = getPersonShifts(selectedPerson);
             let s1 = 0, s2 = 0, sm = 0, rest = 0;
             shifts.forEach(s => {
@@ -2115,10 +1941,8 @@
             });
 
             const totalHours = (s1 * 12) + (s2 * 12) + (sm * 8);
-            const totalHoursElem = document.getElementById('totalHoursVal');
             if (totalHoursElem) totalHoursElem.textContent = `${totalHours} ч.`;
 
-            const statsBar = document.getElementById('statsBar');
             statsBar.innerHTML = `
                 <div class="stat-item shift-1 ${activeFilter === '1' ? 'active' : ''}" data-filter="1" title="Филтър Смяна 1">
                     <div class="stat-number">${s1}</div>
@@ -2168,11 +1992,32 @@
         // BUILD DAY CARDS
         // ================================================================
         function buildDayCards() {
+            const daysList = document.getElementById('daysList');
+            daysList.innerHTML = '';
+
+            if (!selectedPerson) {
+                daysList.innerHTML = `
+                    <div class="empty-staff-state">
+                        <div class="empty-staff-icon">
+                            <span class="icon-svg" style="width: 22px; height: 22px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <h3 class="empty-staff-title">Изберете служител</h3>
+                        <p class="empty-staff-text">Моля, изберете име от менюто горе, за да видите персоналния график.</p>
+                    </div>
+                `;
+                return;
+            }
+
             const [year, month] = selectedMonthKey.split('-').map(Number);
             const totalDaysInMonth = getDaysInMonth(selectedMonthKey);
             const shifts = getPersonShifts(selectedPerson);
-            const daysList = document.getElementById('daysList');
-            daysList.innerHTML = '';
 
             for (let i = 0; i < totalDaysInMonth; i++) {
                 const dayNum = i + 1;
@@ -2190,7 +2035,6 @@
                 card.dataset.day = dayNum;
                 card.dataset.shift = myShift;
                 card.dataset.working = working ? 'yes' : 'no';
-                card.style.animationDelay = `${i * 0.015}s`;
 
                 let colleaguesHTML = '';
                 if (working) {
@@ -2200,11 +2044,20 @@
                             const sm = SHIFTS[c.shift];
                             return `
                                 <div class="colleague-row">
-                                    <div class="colleague-avatar av-${sm.cls}">${getInitials(c.name)}</div>
+                                    <div class="colleague-avatar">${getInitials(c.name)}</div>
                                     <span class="colleague-name">${c.name}</span>
                                     <span class="colleague-shift-tag tag-${sm.cls}">${sm.icon} ${c.shift === 'М' ? 'М' : c.shift}</span>
-                                    ${c.overlap ? '<span class="overlap-badge">overlap</span>' : ''}
-                                    <button class="colleague-swap-btn" data-name="${c.name}">🔄 Размени</button>
+                                    <button class="colleague-swap-btn" data-name="${c.name}">
+                                        <span class="icon-svg">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="16 3 21 8 16 13"></polyline>
+                                                <line x1="21" y1="8" x2="9" y2="8"></line>
+                                                <polyline points="8 21 3 16 8 11"></polyline>
+                                                <line x1="3" y1="16" x2="15" y2="16"></line>
+                                            </svg>
+                                        </span>
+                                        Размени
+                                    </button>
                                 </div>
                             `;
                         }).join('');
@@ -2213,7 +2066,6 @@
                             <div class="colleagues-panel">
                                 <div class="colleagues-inner">
                                     <div class="colleagues-header">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                                         <span>Колеги на смяна (${colleagues.length})</span>
                                     </div>
                                     ${rows}
@@ -2224,11 +2076,8 @@
                         colleaguesHTML = `
                             <div class="colleagues-panel">
                                 <div class="colleagues-inner">
-                                    <div class="colleagues-header">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                                        <span>Колеги</span>
-                                    </div>
-                                    <div class="no-colleagues">Никой друг не работи днес</div>
+                                    <div class="colleagues-header"><span>Колеги</span></div>
+                                    <div class="no-colleagues">Няма други колеги на смяна</div>
                                 </div>
                             </div>
                         `;
@@ -2243,18 +2092,20 @@
                         </div>
                         <div class="day-info">
                             <div class="day-shift-badge badge-${shiftMeta.cls}">
-                                <span class="badge-dot"></span>
-                                ${shiftMeta.icon} ${shiftMeta.label}
+                                ${shiftMeta.icon}
+                                <span>${shiftMeta.label}</span>
                             </div>
                             <div class="day-hours">${shiftMeta.hours}</div>
                         </div>
-                        <button class="day-edit-btn" title="Промени / Размени смяна">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        <button class="day-edit-btn" title="Промени смяна">
+                            <span class="icon-svg">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </span>
                             Промяна
                         </button>
                         ${working ? `
-                        <div class="day-chevron" title="Виж колегите">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <div class="day-chevron">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                                 <polyline points="6 9 12 15 18 9"/>
                             </svg>
                         </div>` : ''}
@@ -2300,7 +2151,7 @@
             selectedSwapColleague = preselectedColleague || "";
 
             const monthName = getMonthNameBG(selectedMonthKey);
-            document.getElementById('modalTitle').textContent = `График: ${selectedPerson} (${dayNum} ${monthName})`;
+            document.getElementById('modalTitle').textContent = `${selectedPerson} (${dayNum} ${monthName})`;
 
             const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
             shiftOptionBtns.forEach(btn => {
@@ -2334,16 +2185,13 @@
                     item.dataset.name = name;
 
                     item.innerHTML = `
-                        <div class="swap-item-left">
-                            <div class="swap-item-avatar av-${shiftMeta.cls}">${getInitials(name)}</div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <div class="swap-item-avatar">${getInitials(name)}</div>
                             <span class="swap-item-name">${name}</span>
                         </div>
-                        <div style="display:flex; align-items:center; gap:6px;">
-                            <span class="swap-item-badge badge-${shiftMeta.cls}">
-                                ${shiftMeta.icon} ${shiftMeta.label}
-                            </span>
-                            ${isSelected ? '<span class="swap-item-check">✓</span>' : ''}
-                        </div>
+                        <span class="colleague-shift-tag tag-${shiftMeta.cls}">
+                            ${shiftMeta.icon} ${shiftMeta.label}
+                        </span>
                     `;
 
                     item.addEventListener('click', () => {
@@ -2379,7 +2227,7 @@
                 const myMeta = SHIFTS[myShiftVal] || SHIFTS["П"];
                 const colMeta = SHIFTS[colleagueShiftVal] || SHIFTS["П"];
 
-                previewText.textContent = `${selectedPerson} (${myMeta.icon} ${myMeta.label}) ⇄ ${colleagueName} (${colMeta.icon} ${colMeta.label})`;
+                previewText.innerHTML = `${selectedPerson} (${myMeta.label}) ⇄ ${colleagueName} (${colMeta.label})`;
                 previewBox.style.display = 'block';
             } else if (previewBox) {
                 previewBox.style.display = 'none';
@@ -2395,7 +2243,7 @@
         }
 
         function saveModalChanges() {
-            if (activeEditDayIndex === null) return;
+            if (activeEditDayIndex === null || !selectedPerson) return;
             const dayNum = activeEditDayIndex + 1;
             const daysCount = getDaysInMonth(selectedMonthKey);
             if (!ALL_SCHEDULES[selectedMonthKey]) ALL_SCHEDULES[selectedMonthKey] = {};
@@ -2443,7 +2291,7 @@
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 3000);
+            }, 2500);
         }
 
         function setupModalListeners() {
@@ -2483,16 +2331,17 @@
             const btn = document.getElementById('resetScheduleBtn');
             if (!btn) return;
             btn.addEventListener('click', () => {
-                if (confirm("Сигурни ли сте, че искате да върнете началния график? Това ще се отрази за всички в базата данни.")) {
+                if (confirm("Сигурни ли сте, че искате да върнете началния график? Промените ще се запишат в базата данни.")) {
                     ALL_SCHEDULES = JSON.parse(JSON.stringify(DEFAULT_ALL_SCHEDULES));
                     CUSTOM_STAFF_LIST = [
                         "Джордж", "Жасмина", "Алекс", "Мерлин", "Кристиян", "Хриска", "Джан", "Виктор"
                     ];
                     activeFilter = 'all';
+                    selectedPerson = "";
                     saveStaffList();
                     saveAllSchedules();
                     refreshUI();
-                    showToast("Графикът е върнат към началния!");
+                    showToast("Графикът е възстановен!");
                 }
             });
         }
@@ -2542,18 +2391,18 @@
                 card.innerHTML = `
                     <div class="employee-input-header">
                         <span class="employee-input-name">${name}</span>
-                        <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
                             <span class="employee-input-count" id="count_${name}">${validShifts.length} / ${daysCount} дни</span>
-                            <button class="quick-tool-btn btn-delete-staff" data-name="${name}" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.4);" title="Премахни служителя">✕ Премахни</button>
+                            <button class="quick-tool-btn btn-delete-staff" data-name="${name}" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.4);" title="Премахни">✕</button>
                         </div>
                     </div>
-                    <textarea class="employee-shift-textarea" id="input_${name}" placeholder="Въведете смени: 1, 2, П, М...">${shiftsStr}</textarea>
+                    <textarea class="employee-shift-textarea" id="input_${name}" placeholder="Смени: 1, 2, П, М...">${shiftsStr}</textarea>
                     <div class="quick-shift-tools">
-                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="1">+ Смяна 1</button>
-                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="2">+ Смяна 2</button>
-                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="М">+ Междинна</button>
-                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="П">+ Почивка</button>
-                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="О">+ Отпуск</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="1">+ 1</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="2">+ 2</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="М">+ М</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="П">+ П</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="О">+ О</button>
                         <button class="quick-tool-btn" type="button" data-name="${name}" data-val="clear" style="color:#ef4444;">Изчисти</button>
                     </div>
                 `;
@@ -2566,12 +2415,11 @@
                 });
             });
 
-            // Delete staff member
             container.querySelectorAll('.btn-delete-staff').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     const staffName = btn.dataset.name;
-                    if (confirm(`Сигурни ли сте, че искате да премахнете ${staffName} от системата?`)) {
+                    if (confirm(`Премахване на ${staffName}?`)) {
                         CUSTOM_STAFF_LIST = CUSTOM_STAFF_LIST.filter(n => n !== staffName);
                         saveStaffList();
 
@@ -2582,19 +2430,17 @@
                         });
 
                         if (selectedPerson === staffName) {
-                            const remaining = getAllStaff();
-                            selectedPerson = remaining.length > 0 ? remaining[0] : "";
+                            selectedPerson = "";
                         }
 
                         saveAllSchedules();
                         refreshUI();
                         renderManagerPage();
-                        showToast(`Служител ${staffName} беше премахнат.`);
+                        showToast(`Служител ${staffName} е премахнат.`);
                     }
                 });
             });
 
-            // Quick shift insert tools
             container.querySelectorAll('.quick-tool-btn:not(.btn-delete-staff)').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const name = btn.dataset.name;
@@ -2633,11 +2479,7 @@
             textarea.dispatchEvent(new Event('input'));
         }
 
-        // ================================================================
-        // MANAGER BUTTONS
-        // ================================================================
         function setupManagerListeners() {
-            // Add new staff member
             const btnAddStaff = document.getElementById('btnAddStaff');
             if (btnAddStaff) {
                 btnAddStaff.onclick = () => {
@@ -2646,13 +2488,13 @@
                     const newName = input.value.trim();
 
                     if (!newName) {
-                        alert("Моля, въведете име на служителя!");
+                        alert("Въведете име!");
                         return;
                     }
 
                     const staff = getAllStaff();
                     if (staff.includes(newName)) {
-                        alert(`Служител с име ${newName} вече съществува!`);
+                        alert(`Служител ${newName} вече съществува!`);
                         return;
                     }
 
@@ -2669,11 +2511,10 @@
                     saveAllSchedules();
                     refreshUI();
                     renderManagerPage();
-                    showToast(`Служител ${newName} беше добавен успешно!`);
+                    showToast(`Служител ${newName} е добавен!`);
                 };
             }
 
-            // Create new month
             const btnCreate = document.getElementById('btnCreateMonth');
             if (btnCreate) {
                 btnCreate.onclick = () => {
@@ -2696,11 +2537,10 @@
                     saveAllSchedules();
                     refreshUI();
                     renderManagerPage();
-                    showToast(`Създаден е нов месец: ${getMonthNameBG(newKey)}!`);
+                    showToast(`Създаден: ${getMonthNameBG(newKey)}!`);
                 };
             }
 
-            // Save schedule for current month
             const btnSave = document.getElementById('btnSaveManager');
             if (btnSave) {
                 btnSave.onclick = () => {
@@ -2724,7 +2564,6 @@
                 };
             }
 
-            // Delete current month
             const btnDelete = document.getElementById('btnDeleteMonth');
             if (btnDelete) {
                 btnDelete.onclick = () => {
@@ -2733,7 +2572,7 @@
                         alert("Не можете да изтриете единствения месец!");
                         return;
                     }
-                    if (confirm(`Сигурни ли сте, че искате да изтриете месец ${getMonthNameBG(selectedMonthKey)}?`)) {
+                    if (confirm(`Изтриване на месец ${getMonthNameBG(selectedMonthKey)}?`)) {
                         delete ALL_SCHEDULES[selectedMonthKey];
                         selectedMonthKey = Object.keys(ALL_SCHEDULES).sort()[0];
                         saveAllSchedules();
@@ -2745,9 +2584,6 @@
             }
         }
 
-        // ================================================================
-        // FILTERS
-        // ================================================================
         function applyFilter(filter) {
             const cards = document.querySelectorAll('.day-card');
             cards.forEach(card => {
@@ -2765,15 +2601,17 @@
             });
         }
 
-        // ================================================================
-        // TODAY JUMP
-        // ================================================================
         function setupTodayJump() {
-            const [year, month] = selectedMonthKey.split('-').map(Number);
-            const isCurrentMonth = (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month);
-
             const jumpBtn = document.getElementById('todayJump');
             if (!jumpBtn) return;
+
+            if (!selectedPerson) {
+                jumpBtn.style.display = 'none';
+                return;
+            }
+
+            const [year, month] = selectedMonthKey.split('-').map(Number);
+            const isCurrentMonth = (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month);
 
             if (!isCurrentMonth) {
                 jumpBtn.style.display = 'none';
@@ -2786,25 +2624,17 @@
             const shiftMeta = SHIFTS[myShift] || SHIFTS["П"];
             const jumpText = document.getElementById('todayJumpText');
 
-            jumpText.textContent = `Днес: ${DOW_FULL[NOW.getDay()]}, ${todayDay} ${getMonthNameBG(selectedMonthKey)} — ${shiftMeta.icon} ${shiftMeta.label}`;
+            jumpText.innerHTML = `Днес: ${DOW_FULL[NOW.getDay()]}, ${todayDay} ${getMonthNameBG(selectedMonthKey)} — ${shiftMeta.label}`;
             jumpBtn.style.display = 'flex';
 
             jumpBtn.onclick = () => {
                 const todayCard = document.querySelector('.day-card.is-today');
                 if (todayCard) {
                     todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    todayCard.style.transition = 'box-shadow 0.3s';
-                    todayCard.style.boxShadow = '0 0 40px rgba(124, 92, 252, 0.4), inset 0 0 30px rgba(124, 92, 252, 0.05)';
-                    setTimeout(() => {
-                        todayCard.style.boxShadow = '';
-                    }, 1200);
                 }
             };
         }
 
-        // ================================================================
-        // INITIALIZATION
-        // ================================================================
         function init() {
             setupNavigation();
             setupModalListeners();
@@ -2812,16 +2642,6 @@
             setupManagerListeners();
             refreshUI();
             initRealtimeSync();
-
-            const [year, month] = selectedMonthKey.split('-').map(Number);
-            if (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month) {
-                setTimeout(() => {
-                    const todayCard = document.querySelector('.day-card.is-today');
-                    if (todayCard) {
-                        todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 500);
-            }
         }
 
         document.addEventListener('DOMContentLoaded', init);
