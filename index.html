@@ -2154,7 +2154,7 @@ function setupManagerListeners() {
             const newMonthSched = {};
             const staff = Object.keys(ALL_SCHEDULES[selectedMonthKey] || DEFAULT_ALL_SCHEDULES["2026-08"]);
             staff.forEach(name => {
-                newMonthSched[name] = Array(daysCount).fill("П");
+                newMonthSched[name] = [];
             });
 
             ALL_SCHEDULES[newKey] = newMonthSched;
@@ -2162,7 +2162,7 @@ function setupManagerListeners() {
             saveAllSchedules();
             setupMonthSelector();
             renderManagerPage();
-            showToast(`Създаден е нов месец: ${getMonthNameBG(newKey)}!`);
+            showToast(`Създаден е нов месец: ${getMonthNameBG(newKey)}! (Въведете смени от Ден 1)`);
         };
     }
 
