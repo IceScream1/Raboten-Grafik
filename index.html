@@ -1818,6 +1818,20 @@
             "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"
         ];
 
+        const STAFF_LIST = [
+            "Джордж", "Жасмина", "Алекс", "Мерлин", "Кристиян", "Хриска", "Джан", "Виктор"
+        ];
+
+        function getAllStaff() {
+            const set = new Set(STAFF_LIST);
+            Object.values(ALL_SCHEDULES || {}).forEach(monthObj => {
+                if (monthObj && typeof monthObj === 'object') {
+                    Object.keys(monthObj).forEach(name => set.add(name));
+                }
+            });
+            return Array.from(set);
+        }
+
         function getMonthNameBG(yearMonthStr) {
             if (!yearMonthStr || !yearMonthStr.includes('-')) return yearMonthStr;
             const [year, month] = yearMonthStr.split('-');
@@ -2049,14 +2063,14 @@
         }
 
         // ================================================================
-        // PERSON SELECTOR
+        // PERSON SELECTOR (Always includes all staff)
         // ================================================================
         function setupPersonSelector() {
             const select = document.getElementById('personSelect');
             if (!select) return;
             select.innerHTML = '';
-            const sched = getCurrentSchedule();
-            const names = Object.keys(sched);
+
+            const names = getAllStaff();
 
             if (names.length > 0 && !names.includes(selectedPerson)) {
                 selectedPerson = names[0];
@@ -2490,19 +2504,21 @@
 
             const daysCount = getDaysInMonth(monthKey);
             const monthSched = ALL_SCHEDULES[monthKey] || {};
+            const staff = getAllStaff();
 
-            Object.keys(monthSched).forEach(name => {
-                const shifts = monthSched[name] || [];
-                const shiftsStr = shifts.join(', ');
+            staff.forEach(name => {
+                const rawShifts = monthSched[name] || [];
+                const validShifts = rawShifts.filter(s => s && s.trim() !== "");
+                const shiftsStr = validShifts.join(', ');
 
                 const card = document.createElement('div');
                 card.className = 'employee-input-card';
                 card.innerHTML = `
             <div class="employee-input-header">
                 <span class="employee-input-name">${name}</span>
-                <span class="employee-input-count" id="count_${name}">${shifts.length} / ${daysCount} дни</span>
+                <span class="employee-input-count" id="count_${name}">${validShifts.length} / ${daysCount} дни</span>
             </div>
-            <textarea class="employee-shift-textarea" id="input_${name}" placeholder="1, 2, П, М...">${shiftsStr}</textarea>
+            <textarea class="employee-shift-textarea" id="input_${name}" placeholder="Въведете смени: 1, 2, П, М...">${shiftsStr}</textarea>
             <div class="quick-shift-tools">
                 <button class="quick-tool-btn" type="button" data-name="${name}" data-val="1">+ Смяна 1</button>
                 <button class="quick-tool-btn" type="button" data-name="${name}" data-val="2">+ Смяна 2</button>
@@ -2555,6 +2571,9 @@
             textarea.dispatchEvent(new Event('input'));
         }
 
+        // ================================================================
+        // MANAGER BUTTONS (Prevents Firebase from deleting empty users)
+        // ================================================================
         function setupManagerListeners() {
             const btnCreate = document.getElementById('btnCreateMonth');
             if (btnCreate) {
@@ -2569,9 +2588,9 @@
                     }
 
                     const newMonthSched = {};
-                    const staff = Object.keys(ALL_SCHEDULES[selectedMonthKey] || DEFAULT_ALL_SCHEDULES["2026-08"]);
-                    staff.forEach(name => {
-                        newMonthSched[name] = []; // Starts completely empty
+                    getAllStaff().forEach(name => {
+                        // [""] preserves the key in Firebase without filling false shifts
+                        newMonthSched[name] = [""];
                     });
 
                     ALL_SCHEDULES[newKey] = newMonthSched;
@@ -2579,7 +2598,7 @@
                     saveAllSchedules();
                     refreshUI();
                     renderManagerPage();
-                    showToast(`Създаден е нов месец: ${getMonthNameBG(newKey)}! (Полетата са празни)`);
+                    showToast(`Създаден е нов месец: ${getMonthNameBG(newKey)}!`);
                 };
             }
 
@@ -2588,14 +2607,15 @@
                 btnSave.onclick = () => {
                     const monthKey = selectedMonthKey;
                     const daysCount = getDaysInMonth(monthKey);
-                    const monthSched = ALL_SCHEDULES[monthKey] || {};
+                    if (!ALL_SCHEDULES[monthKey]) ALL_SCHEDULES[monthKey] = {};
+                    const monthSched = ALL_SCHEDULES[monthKey];
 
-                    Object.keys(monthSched).forEach(name => {
+                    getAllStaff().forEach(name => {
                         const textarea = document.getElementById(`input_${name}`);
                         if (textarea) {
                             const parsed = parseShiftsInput(textarea.value);
-                            // Saves exactly what was typed without padding with 'П'
-                            monthSched[name] = parsed.slice(0, daysCount);
+                            // Use [""] placeholder if empty so Firebase does not purge the person
+                            monthSched[name] = parsed.length > 0 ? parsed.slice(0, daysCount) : [""];
                         }
                     });
 
@@ -2624,6 +2644,49 @@
                     }
                 };
             }
+        }
+
+        const btnSave = document.getElementById('btnSaveManager');
+        if (btnSave) {
+            btnSave.onclick = () => {
+                const monthKey = selectedMonthKey;
+                const daysCount = getDaysInMonth(monthKey);
+                const monthSched = ALL_SCHEDULES[monthKey] || {};
+
+                Object.keys(monthSched).forEach(name => {
+                    const textarea = document.getElementById(`input_${name}`);
+                    if (textarea) {
+                        const parsed = parseShiftsInput(textarea.value);
+                        // Saves exactly what was typed without padding with 'П'
+                        monthSched[name] = parsed.slice(0, daysCount);
+                    }
+                });
+
+                ALL_SCHEDULES[monthKey] = monthSched;
+                saveAllSchedules();
+                refreshUI();
+                showToast(`Графикът за ${getMonthNameBG(monthKey)} е запазен!`);
+            };
+        }
+
+        const btnDelete = document.getElementById('btnDeleteMonth');
+        if (btnDelete) {
+            btnDelete.onclick = () => {
+                const keys = Object.keys(ALL_SCHEDULES);
+                if (keys.length <= 1) {
+                    alert("Не можете да изтриете единствения месец!");
+                    return;
+                }
+                if (confirm(`Сигурни ли сте, че искате да изтриете месец ${getMonthNameBG(selectedMonthKey)}?`)) {
+                    delete ALL_SCHEDULES[selectedMonthKey];
+                    selectedMonthKey = Object.keys(ALL_SCHEDULES).sort()[0];
+                    saveAllSchedules();
+                    refreshUI();
+                    renderManagerPage();
+                    showToast("Месецът е изтрит!");
+                }
+            };
+        }
         }
 
         // ================================================================
