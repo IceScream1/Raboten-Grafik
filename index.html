@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Club — Работен График Август 2026</title>
-    <meta name="description" content="Персонален работен график за Виктор — Magic Club Casino, Август 2026">
+    <title>Magic Club — Работен График</title>
+    <meta name="description" content="Персонален работен график — Magic Club Casino">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -33,28 +33,23 @@
             --bg-glass: rgba(18, 21, 31, 0.75);
 
             /* Accent colors for shifts */
-            --shift-1: #f0b429;
-            /* Gold — Day shift */
+            --shift-1: #f0b429;     /* Gold — Day shift */
             --shift-1-bg: rgba(240, 180, 41, 0.10);
             --shift-1-glow: rgba(240, 180, 41, 0.25);
 
-            --shift-2: #7c5cfc;
-            /* Purple — Night shift */
+            --shift-2: #7c5cfc;     /* Purple — Night shift */
             --shift-2-bg: rgba(124, 92, 252, 0.10);
             --shift-2-glow: rgba(124, 92, 252, 0.25);
 
-            --shift-m: #38bdf8;
-            /* Cyan — Mid shift */
+            --shift-m: #38bdf8;     /* Cyan — Mid shift */
             --shift-m-bg: rgba(56, 189, 248, 0.10);
             --shift-m-glow: rgba(56, 189, 248, 0.25);
 
-            --shift-p: #334155;
-            /* Muted — Rest */
+            --shift-p: #334155;     /* Muted — Rest */
             --shift-p-bg: rgba(51, 65, 85, 0.10);
             --shift-p-text: #64748b;
 
-            --shift-o: #10b981;
-            /* Green — Paid leave */
+            --shift-o: #10b981;     /* Green — Paid leave */
             --shift-o-bg: rgba(16, 185, 129, 0.10);
             --shift-o-glow: rgba(16, 185, 129, 0.25);
 
@@ -132,27 +127,13 @@
         }
 
         @keyframes floatA {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate(-80px, 60px) scale(1.15);
-            }
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-80px, 60px) scale(1.15); }
         }
 
         @keyframes floatB {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate(60px, -80px) scale(1.1);
-            }
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, -80px) scale(1.1); }
         }
 
         /* ========== LAYOUT ========== */
@@ -1060,13 +1041,10 @@
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
+            0%, 100% {
                 opacity: 1;
                 box-shadow: 0 0 0 0 rgba(124, 92, 252, 0.5);
             }
-
             50% {
                 opacity: 0.8;
                 box-shadow: 0 0 0 6px rgba(124, 92, 252, 0);
@@ -1167,7 +1145,6 @@
                 opacity: 0;
                 transform: translateY(12px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -1316,6 +1293,7 @@
             flex-shrink: 0;
             width: 28px;
             height: 28px;
+            display: center;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1694,10 +1672,10 @@
                     <span>⚙️</span> Въвеждане и Управление на График
                 </div>
                 <div class="manager-subtitle">
-                    Въведете или редактирайте графика за всеки нов месец. Промените се синхронизират в реално време за
-                    всички колеги.
+                    Въведете или редактирайте графика за всеки месец, добавяйте или премахвайте служители. Промените се синхронизират в реално време.
                 </div>
 
+                <!-- MONTH PICKER ROW -->
                 <div class="month-picker-row">
                     <div class="picker-col">
                         <label class="picker-label">Избери месец за редакция:</label>
@@ -1709,15 +1687,25 @@
                     </div>
                     <div style="display:flex; align-items:flex-end;">
                         <button class="btn-primary" id="btnCreateMonth"
-                            style="padding: 10px 14px; white-space:nowrap;">+ Добави</button>
+                            style="padding: 10px 14px; white-space:nowrap;">+ Добави месец</button>
+                    </div>
+                </div>
+
+                <!-- STAFF MANAGEMENT ROW -->
+                <div class="month-picker-row" style="margin-top: -10px; margin-bottom: 20px;">
+                    <div class="picker-col">
+                        <label class="picker-label">Добави нов служител:</label>
+                        <input type="text" id="newStaffNameInput" class="picker-input" placeholder="Име на служител (напр. Иван)">
+                    </div>
+                    <div style="display:flex; align-items:flex-end;">
+                        <button class="btn-primary" id="btnAddStaff" style="padding: 10px 14px; white-space:nowrap;">+ Добави служител</button>
                     </div>
                 </div>
 
                 <div id="employeeInputsContainer"></div>
 
                 <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
-                    <button class="btn-primary" id="btnSaveManager" style="padding: 14px;">💾 Запази графика за
-                        месеца</button>
+                    <button class="btn-primary" id="btnSaveManager" style="padding: 14px;">💾 Запази графика за месеца</button>
                     <button class="btn-secondary" id="btnDeleteMonth"
                         style="color: #ef4444; border-color: rgba(239,68,68,0.35);">🗑️ Изтрий този месец</button>
                 </div>
@@ -1801,6 +1789,7 @@
         }
         const database = firebase.database();
         const schedulesRef = database.ref("schedules");
+        const staffRef = database.ref("staffList");
 
         function updateSyncStatus(status, text) {
             const badge = document.getElementById('syncStatus');
@@ -1818,18 +1807,23 @@
             "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"
         ];
 
-        const STAFF_LIST = [
+        let CUSTOM_STAFF_LIST = JSON.parse(localStorage.getItem('magic_club_staff_list') || 'null') || [
             "Джордж", "Жасмина", "Алекс", "Мерлин", "Кристиян", "Хриска", "Джан", "Виктор"
         ];
 
         function getAllStaff() {
-            const set = new Set(STAFF_LIST);
+            const set = new Set(CUSTOM_STAFF_LIST);
             Object.values(ALL_SCHEDULES || {}).forEach(monthObj => {
                 if (monthObj && typeof monthObj === 'object') {
                     Object.keys(monthObj).forEach(name => set.add(name));
                 }
             });
             return Array.from(set);
+        }
+
+        function saveStaffList() {
+            localStorage.setItem('magic_club_staff_list', JSON.stringify(CUSTOM_STAFF_LIST));
+            staffRef.set(CUSTOM_STAFF_LIST);
         }
 
         function getMonthNameBG(yearMonthStr) {
@@ -1902,13 +1896,23 @@
 
         function initRealtimeSync() {
             updateSyncStatus('syncing', 'Свързване с облака...');
+            
+            // Listen for staff list changes
+            staffRef.on('value', (snapshot) => {
+                const sData = snapshot.val();
+                if (Array.isArray(sData) && sData.length > 0) {
+                    CUSTOM_STAFF_LIST = sData;
+                    localStorage.setItem('magic_club_staff_list', JSON.stringify(CUSTOM_STAFF_LIST));
+                }
+            });
+
+            // Listen for schedules changes
             schedulesRef.on('value', (snapshot) => {
                 const data = snapshot.val();
-                if (data) {
+                if (data && typeof data === 'object') {
                     ALL_SCHEDULES = data;
                     localStorage.setItem('magic_club_all_schedules_v3', JSON.stringify(ALL_SCHEDULES));
                 } else {
-                    // First time setup in Firebase
                     schedulesRef.set(ALL_SCHEDULES);
                 }
                 updateSyncStatus('', 'Свързан (Облак ✅)');
@@ -1945,7 +1949,7 @@
         const NOW = new Date();
 
         function normalizeShift(val) {
-            if (val === null || val === undefined) return "П";
+            if (val === null || val === undefined || String(val).trim() === "") return "П";
             let s = String(val).trim();
             if (s === 'M') s = 'М';
             return s;
@@ -1957,7 +1961,8 @@
 
         function getPersonShifts(person = selectedPerson) {
             const sched = getCurrentSchedule();
-            return (sched[person] || []).map(normalizeShift);
+            const arr = sched[person] || [];
+            return arr.map(normalizeShift);
         }
 
         function isWorkShift(s) {
@@ -1975,7 +1980,8 @@
             const currentSched = getCurrentSchedule();
             for (const [name, shifts] of Object.entries(currentSched)) {
                 if (name === selectedPerson) continue;
-                const theirShift = normalizeShift(shifts[dayIndex]);
+                const shiftsArr = Array.isArray(shifts) ? shifts : [];
+                const theirShift = normalizeShift(shiftsArr[dayIndex]);
                 if (isWorkShift(theirShift)) {
                     const overlap = shiftsOverlap(myShift, theirShift);
                     colleagues.push({ name, shift: theirShift, overlap });
@@ -2114,23 +2120,23 @@
 
             const statsBar = document.getElementById('statsBar');
             statsBar.innerHTML = `
-        <div class="stat-item shift-1 ${activeFilter === '1' ? 'active' : ''}" data-filter="1" title="Филтър Смяна 1">
-            <div class="stat-number">${s1}</div>
-            <div class="stat-label">Смяна 1</div>
-        </div>
-        <div class="stat-item shift-2 ${activeFilter === '2' ? 'active' : ''}" data-filter="2" title="Филтър Смяна 2">
-            <div class="stat-number">${s2}</div>
-            <div class="stat-label">Смяна 2</div>
-        </div>
-        <div class="stat-item shift-m ${activeFilter === 'М' ? 'active' : ''}" data-filter="М" title="Филтър Междинна">
-            <div class="stat-number">${sm}</div>
-            <div class="stat-label">Междинна</div>
-        </div>
-        <div class="stat-item shift-rest ${activeFilter === 'rest' ? 'active' : ''}" data-filter="rest" title="Филтър Почивка">
-            <div class="stat-number">${rest}</div>
-            <div class="stat-label">Почивка</div>
-        </div>
-    `;
+                <div class="stat-item shift-1 ${activeFilter === '1' ? 'active' : ''}" data-filter="1" title="Филтър Смяна 1">
+                    <div class="stat-number">${s1}</div>
+                    <div class="stat-label">Смяна 1</div>
+                </div>
+                <div class="stat-item shift-2 ${activeFilter === '2' ? 'active' : ''}" data-filter="2" title="Филтър Смяна 2">
+                    <div class="stat-number">${s2}</div>
+                    <div class="stat-label">Смяна 2</div>
+                </div>
+                <div class="stat-item shift-m ${activeFilter === 'М' ? 'active' : ''}" data-filter="М" title="Филтър Междинна">
+                    <div class="stat-number">${sm}</div>
+                    <div class="stat-label">Междинна</div>
+                </div>
+                <div class="stat-item shift-rest ${activeFilter === 'rest' ? 'active' : ''}" data-filter="rest" title="Филтър Почивка">
+                    <div class="stat-number">${rest}</div>
+                    <div class="stat-label">Почивка</div>
+                </div>
+            `;
 
             setupStatFilters();
         }
@@ -2193,68 +2199,68 @@
                         const rows = colleagues.map(c => {
                             const sm = SHIFTS[c.shift];
                             return `
-                        <div class="colleague-row">
-                            <div class="colleague-avatar av-${sm.cls}">${getInitials(c.name)}</div>
-                            <span class="colleague-name">${c.name}</span>
-                            <span class="colleague-shift-tag tag-${sm.cls}">${sm.icon} ${c.shift === 'М' ? 'М' : c.shift}</span>
-                            ${c.overlap ? '<span class="overlap-badge">overlap</span>' : ''}
-                            <button class="colleague-swap-btn" data-name="${c.name}">🔄 Размени</button>
-                        </div>
-                    `;
+                                <div class="colleague-row">
+                                    <div class="colleague-avatar av-${sm.cls}">${getInitials(c.name)}</div>
+                                    <span class="colleague-name">${c.name}</span>
+                                    <span class="colleague-shift-tag tag-${sm.cls}">${sm.icon} ${c.shift === 'М' ? 'М' : c.shift}</span>
+                                    ${c.overlap ? '<span class="overlap-badge">overlap</span>' : ''}
+                                    <button class="colleague-swap-btn" data-name="${c.name}">🔄 Размени</button>
+                                </div>
+                            `;
                         }).join('');
 
                         colleaguesHTML = `
-                    <div class="colleagues-panel">
-                        <div class="colleagues-inner">
-                            <div class="colleagues-header">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                                <span>Колеги на смяна (${colleagues.length})</span>
+                            <div class="colleagues-panel">
+                                <div class="colleagues-inner">
+                                    <div class="colleagues-header">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                        <span>Колеги на смяна (${colleagues.length})</span>
+                                    </div>
+                                    ${rows}
+                                </div>
                             </div>
-                            ${rows}
-                        </div>
-                    </div>
-                `;
+                        `;
                     } else {
                         colleaguesHTML = `
-                    <div class="colleagues-panel">
-                        <div class="colleagues-inner">
-                            <div class="colleagues-header">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                                <span>Колеги</span>
+                            <div class="colleagues-panel">
+                                <div class="colleagues-inner">
+                                    <div class="colleagues-header">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                        <span>Колеги</span>
+                                    </div>
+                                    <div class="no-colleagues">Никой друг не работи днес</div>
+                                </div>
                             </div>
-                            <div class="no-colleagues">Никой друг не работи днес</div>
-                        </div>
-                    </div>
-                `;
+                        `;
                     }
                 }
 
                 card.innerHTML = `
-            <div class="day-card-main">
-                <div class="day-date">
-                    <span class="day-date-num">${dayNum}</span>
-                    <span class="day-date-dow">${dowText}</span>
-                </div>
-                <div class="day-info">
-                    <div class="day-shift-badge badge-${shiftMeta.cls}">
-                        <span class="badge-dot"></span>
-                        ${shiftMeta.icon} ${shiftMeta.label}
+                    <div class="day-card-main">
+                        <div class="day-date">
+                            <span class="day-date-num">${dayNum}</span>
+                            <span class="day-date-dow">${dowText}</span>
+                        </div>
+                        <div class="day-info">
+                            <div class="day-shift-badge badge-${shiftMeta.cls}">
+                                <span class="badge-dot"></span>
+                                ${shiftMeta.icon} ${shiftMeta.label}
+                            </div>
+                            <div class="day-hours">${shiftMeta.hours}</div>
+                        </div>
+                        <button class="day-edit-btn" title="Промени / Размени смяна">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            Промяна
+                        </button>
+                        ${working ? `
+                        <div class="day-chevron" title="Виж колегите">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>` : ''}
                     </div>
-                    <div class="day-hours">${shiftMeta.hours}</div>
-                </div>
-                <button class="day-edit-btn" title="Промени / Размени смяна">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                    Промяна
-                </button>
-                ${working ? `
-                <div class="day-chevron" title="Виж колегите">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"/>
-                    </svg>
-                </div>` : ''}
-            </div>
-            ${colleaguesHTML}
-        `;
+                    ${colleaguesHTML}
+                `;
 
                 const editBtn = card.querySelector('.day-edit-btn');
                 if (editBtn) {
@@ -2316,9 +2322,10 @@
             container.innerHTML = '';
 
             const currentSched = getCurrentSchedule();
-            Object.keys(currentSched).forEach(name => {
+            getAllStaff().forEach(name => {
                 if (name !== selectedPerson) {
-                    const colleagueShiftVal = normalizeShift(currentSched[name][dayIndex]);
+                    const shiftsArr = Array.isArray(currentSched[name]) ? currentSched[name] : [];
+                    const colleagueShiftVal = normalizeShift(shiftsArr[dayIndex]);
                     const shiftMeta = SHIFTS[colleagueShiftVal] || SHIFTS["П"];
                     const isSelected = (name === selectedSwapColleague);
 
@@ -2327,17 +2334,17 @@
                     item.dataset.name = name;
 
                     item.innerHTML = `
-                <div class="swap-item-left">
-                    <div class="swap-item-avatar av-${shiftMeta.cls}">${getInitials(name)}</div>
-                    <span class="swap-item-name">${name}</span>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <span class="swap-item-badge badge-${shiftMeta.cls}">
-                        ${shiftMeta.icon} ${shiftMeta.label}
-                    </span>
-                    ${isSelected ? '<span class="swap-item-check">✓</span>' : ''}
-                </div>
-            `;
+                        <div class="swap-item-left">
+                            <div class="swap-item-avatar av-${shiftMeta.cls}">${getInitials(name)}</div>
+                            <span class="swap-item-name">${name}</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <span class="swap-item-badge badge-${shiftMeta.cls}">
+                                ${shiftMeta.icon} ${shiftMeta.label}
+                            </span>
+                            ${isSelected ? '<span class="swap-item-check">✓</span>' : ''}
+                        </div>
+                    `;
 
                     item.addEventListener('click', () => {
                         if (selectedSwapColleague === name) {
@@ -2363,8 +2370,11 @@
 
             if (selectedSwapColleague && activeEditDayIndex !== null && currentSched[selectedPerson]) {
                 const colleagueName = selectedSwapColleague;
-                const myShiftVal = normalizeShift(currentSched[selectedPerson][activeEditDayIndex]);
-                const colleagueShiftVal = normalizeShift(currentSched[colleagueName][activeEditDayIndex]);
+                const myShifts = Array.isArray(currentSched[selectedPerson]) ? currentSched[selectedPerson] : [];
+                const colShifts = Array.isArray(currentSched[colleagueName]) ? currentSched[colleagueName] : [];
+
+                const myShiftVal = normalizeShift(myShifts[activeEditDayIndex]);
+                const colleagueShiftVal = normalizeShift(colShifts[activeEditDayIndex]);
 
                 const myMeta = SHIFTS[myShiftVal] || SHIFTS["П"];
                 const colMeta = SHIFTS[colleagueShiftVal] || SHIFTS["П"];
@@ -2387,11 +2397,20 @@
         function saveModalChanges() {
             if (activeEditDayIndex === null) return;
             const dayNum = activeEditDayIndex + 1;
+            const daysCount = getDaysInMonth(selectedMonthKey);
+            if (!ALL_SCHEDULES[selectedMonthKey]) ALL_SCHEDULES[selectedMonthKey] = {};
             const currentSched = ALL_SCHEDULES[selectedMonthKey];
 
-            if (selectedSwapColleague && currentSched[selectedPerson] && currentSched[selectedSwapColleague]) {
-                const personShift = currentSched[selectedPerson][activeEditDayIndex];
-                const colleagueShift = currentSched[selectedSwapColleague][activeEditDayIndex];
+            if (selectedSwapColleague) {
+                if (!Array.isArray(currentSched[selectedPerson])) {
+                    currentSched[selectedPerson] = Array(daysCount).fill('П');
+                }
+                if (!Array.isArray(currentSched[selectedSwapColleague])) {
+                    currentSched[selectedSwapColleague] = Array(daysCount).fill('П');
+                }
+
+                const personShift = normalizeShift(currentSched[selectedPerson][activeEditDayIndex]);
+                const colleagueShift = normalizeShift(currentSched[selectedSwapColleague][activeEditDayIndex]);
 
                 currentSched[selectedPerson][activeEditDayIndex] = colleagueShift;
                 currentSched[selectedSwapColleague][activeEditDayIndex] = personShift;
@@ -2402,7 +2421,10 @@
                 buildDayCards();
                 setupTodayJump();
                 showToast(`Разменена смяна: ${selectedPerson} ⇄ ${selectedSwapColleague} (${dayNum} ден)!`);
-            } else if (currentSched[selectedPerson]) {
+            } else {
+                if (!Array.isArray(currentSched[selectedPerson])) {
+                    currentSched[selectedPerson] = Array(daysCount).fill('П');
+                }
                 currentSched[selectedPerson][activeEditDayIndex] = activeSelectedShift;
 
                 saveAllSchedules();
@@ -2463,7 +2485,11 @@
             btn.addEventListener('click', () => {
                 if (confirm("Сигурни ли сте, че искате да върнете началния график? Това ще се отрази за всички в базата данни.")) {
                     ALL_SCHEDULES = JSON.parse(JSON.stringify(DEFAULT_ALL_SCHEDULES));
+                    CUSTOM_STAFF_LIST = [
+                        "Джордж", "Жасмина", "Алекс", "Мерлин", "Кристиян", "Хриска", "Джан", "Виктор"
+                    ];
                     activeFilter = 'all';
+                    saveStaffList();
                     saveAllSchedules();
                     refreshUI();
                     showToast("Графикът е върнат към началния!");
@@ -2507,27 +2533,30 @@
             const staff = getAllStaff();
 
             staff.forEach(name => {
-                const rawShifts = monthSched[name] || [];
-                const validShifts = rawShifts.filter(s => s && s.trim() !== "");
+                const rawShifts = Array.isArray(monthSched[name]) ? monthSched[name] : [];
+                const validShifts = rawShifts.filter(s => s && String(s).trim() !== "");
                 const shiftsStr = validShifts.join(', ');
 
                 const card = document.createElement('div');
                 card.className = 'employee-input-card';
                 card.innerHTML = `
-            <div class="employee-input-header">
-                <span class="employee-input-name">${name}</span>
-                <span class="employee-input-count" id="count_${name}">${validShifts.length} / ${daysCount} дни</span>
-            </div>
-            <textarea class="employee-shift-textarea" id="input_${name}" placeholder="Въведете смени: 1, 2, П, М...">${shiftsStr}</textarea>
-            <div class="quick-shift-tools">
-                <button class="quick-tool-btn" type="button" data-name="${name}" data-val="1">+ Смяна 1</button>
-                <button class="quick-tool-btn" type="button" data-name="${name}" data-val="2">+ Смяна 2</button>
-                <button class="quick-tool-btn" type="button" data-name="${name}" data-val="М">+ Междинна</button>
-                <button class="quick-tool-btn" type="button" data-name="${name}" data-val="П">+ Почивка</button>
-                <button class="quick-tool-btn" type="button" data-name="${name}" data-val="О">+ Отпуск</button>
-                <button class="quick-tool-btn" type="button" data-name="${name}" data-val="clear" style="color:#ef4444;">Изчисти</button>
-            </div>
-        `;
+                    <div class="employee-input-header">
+                        <span class="employee-input-name">${name}</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="employee-input-count" id="count_${name}">${validShifts.length} / ${daysCount} дни</span>
+                            <button class="quick-tool-btn btn-delete-staff" data-name="${name}" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.4);" title="Премахни служителя">✕ Премахни</button>
+                        </div>
+                    </div>
+                    <textarea class="employee-shift-textarea" id="input_${name}" placeholder="Въведете смени: 1, 2, П, М...">${shiftsStr}</textarea>
+                    <div class="quick-shift-tools">
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="1">+ Смяна 1</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="2">+ Смяна 2</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="М">+ Междинна</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="П">+ Почивка</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="О">+ Отпуск</button>
+                        <button class="quick-tool-btn" type="button" data-name="${name}" data-val="clear" style="color:#ef4444;">Изчисти</button>
+                    </div>
+                `;
                 container.appendChild(card);
 
                 const textarea = card.querySelector('textarea');
@@ -2537,7 +2566,36 @@
                 });
             });
 
-            container.querySelectorAll('.quick-tool-btn').forEach(btn => {
+            // Delete staff member
+            container.querySelectorAll('.btn-delete-staff').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const staffName = btn.dataset.name;
+                    if (confirm(`Сигурни ли сте, че искате да премахнете ${staffName} от системата?`)) {
+                        CUSTOM_STAFF_LIST = CUSTOM_STAFF_LIST.filter(n => n !== staffName);
+                        saveStaffList();
+
+                        Object.keys(ALL_SCHEDULES).forEach(mKey => {
+                            if (ALL_SCHEDULES[mKey] && ALL_SCHEDULES[mKey][staffName]) {
+                                delete ALL_SCHEDULES[mKey][staffName];
+                            }
+                        });
+
+                        if (selectedPerson === staffName) {
+                            const remaining = getAllStaff();
+                            selectedPerson = remaining.length > 0 ? remaining[0] : "";
+                        }
+
+                        saveAllSchedules();
+                        refreshUI();
+                        renderManagerPage();
+                        showToast(`Служител ${staffName} беше премахнат.`);
+                    }
+                });
+            });
+
+            // Quick shift insert tools
+            container.querySelectorAll('.quick-tool-btn:not(.btn-delete-staff)').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const name = btn.dataset.name;
                     const val = btn.dataset.val;
@@ -2552,7 +2610,11 @@
 
         function parseShiftsInput(str) {
             if (!str) return [];
-            return str.split(/[\s,\n]+/).map(s => s.trim()).filter(Boolean).map(normalizeShift);
+            return str
+                .split(/[\s,\n]+/)
+                .map(s => s.trim())
+                .filter(Boolean)
+                .map(normalizeShift);
         }
 
         function appendShift(name, shiftVal) {
@@ -2572,9 +2634,46 @@
         }
 
         // ================================================================
-        // MANAGER BUTTONS (Prevents Firebase from deleting empty users)
+        // MANAGER BUTTONS
         // ================================================================
         function setupManagerListeners() {
+            // Add new staff member
+            const btnAddStaff = document.getElementById('btnAddStaff');
+            if (btnAddStaff) {
+                btnAddStaff.onclick = () => {
+                    const input = document.getElementById('newStaffNameInput');
+                    if (!input) return;
+                    const newName = input.value.trim();
+
+                    if (!newName) {
+                        alert("Моля, въведете име на служителя!");
+                        return;
+                    }
+
+                    const staff = getAllStaff();
+                    if (staff.includes(newName)) {
+                        alert(`Служител с име ${newName} вече съществува!`);
+                        return;
+                    }
+
+                    CUSTOM_STAFF_LIST.push(newName);
+                    saveStaffList();
+
+                    Object.keys(ALL_SCHEDULES).forEach(mKey => {
+                        if (ALL_SCHEDULES[mKey]) {
+                            ALL_SCHEDULES[mKey][newName] = [""];
+                        }
+                    });
+
+                    input.value = "";
+                    saveAllSchedules();
+                    refreshUI();
+                    renderManagerPage();
+                    showToast(`Служител ${newName} беше добавен успешно!`);
+                };
+            }
+
+            // Create new month
             const btnCreate = document.getElementById('btnCreateMonth');
             if (btnCreate) {
                 btnCreate.onclick = () => {
@@ -2589,7 +2688,6 @@
 
                     const newMonthSched = {};
                     getAllStaff().forEach(name => {
-                        // [""] preserves the key in Firebase without filling false shifts
                         newMonthSched[name] = [""];
                     });
 
@@ -2602,6 +2700,7 @@
                 };
             }
 
+            // Save schedule for current month
             const btnSave = document.getElementById('btnSaveManager');
             if (btnSave) {
                 btnSave.onclick = () => {
@@ -2614,7 +2713,6 @@
                         const textarea = document.getElementById(`input_${name}`);
                         if (textarea) {
                             const parsed = parseShiftsInput(textarea.value);
-                            // Use [""] placeholder if empty so Firebase does not purge the person
                             monthSched[name] = parsed.length > 0 ? parsed.slice(0, daysCount) : [""];
                         }
                     });
@@ -2626,6 +2724,7 @@
                 };
             }
 
+            // Delete current month
             const btnDelete = document.getElementById('btnDeleteMonth');
             if (btnDelete) {
                 btnDelete.onclick = () => {
@@ -2644,49 +2743,6 @@
                     }
                 };
             }
-        }
-
-        const btnSave = document.getElementById('btnSaveManager');
-        if (btnSave) {
-            btnSave.onclick = () => {
-                const monthKey = selectedMonthKey;
-                const daysCount = getDaysInMonth(monthKey);
-                const monthSched = ALL_SCHEDULES[monthKey] || {};
-
-                Object.keys(monthSched).forEach(name => {
-                    const textarea = document.getElementById(`input_${name}`);
-                    if (textarea) {
-                        const parsed = parseShiftsInput(textarea.value);
-                        // Saves exactly what was typed without padding with 'П'
-                        monthSched[name] = parsed.slice(0, daysCount);
-                    }
-                });
-
-                ALL_SCHEDULES[monthKey] = monthSched;
-                saveAllSchedules();
-                refreshUI();
-                showToast(`Графикът за ${getMonthNameBG(monthKey)} е запазен!`);
-            };
-        }
-
-        const btnDelete = document.getElementById('btnDeleteMonth');
-        if (btnDelete) {
-            btnDelete.onclick = () => {
-                const keys = Object.keys(ALL_SCHEDULES);
-                if (keys.length <= 1) {
-                    alert("Не можете да изтриете единствения месец!");
-                    return;
-                }
-                if (confirm(`Сигурни ли сте, че искате да изтриете месец ${getMonthNameBG(selectedMonthKey)}?`)) {
-                    delete ALL_SCHEDULES[selectedMonthKey];
-                    selectedMonthKey = Object.keys(ALL_SCHEDULES).sort()[0];
-                    saveAllSchedules();
-                    refreshUI();
-                    renderManagerPage();
-                    showToast("Месецът е изтрит!");
-                }
-            };
-        }
         }
 
         // ================================================================
