@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="bg">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,21 @@
     <meta name="description" content="Персонален работен график за Виктор — Magic Club Casino, Август 2026">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <!-- Firebase Realtime Database Compat SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
     <style>
         /* ========== RESET & BASE ========== */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
             /* Casino night palette */
@@ -24,23 +33,28 @@
             --bg-glass: rgba(18, 21, 31, 0.75);
 
             /* Accent colors for shifts */
-            --shift-1: #f0b429;     /* Gold — Day shift */
+            --shift-1: #f0b429;
+            /* Gold — Day shift */
             --shift-1-bg: rgba(240, 180, 41, 0.10);
             --shift-1-glow: rgba(240, 180, 41, 0.25);
 
-            --shift-2: #7c5cfc;     /* Purple — Night shift */
+            --shift-2: #7c5cfc;
+            /* Purple — Night shift */
             --shift-2-bg: rgba(124, 92, 252, 0.10);
             --shift-2-glow: rgba(124, 92, 252, 0.25);
 
-            --shift-m: #38bdf8;     /* Cyan — Mid shift */
+            --shift-m: #38bdf8;
+            /* Cyan — Mid shift */
             --shift-m-bg: rgba(56, 189, 248, 0.10);
             --shift-m-glow: rgba(56, 189, 248, 0.25);
 
-            --shift-p: #334155;     /* Muted — Rest */
+            --shift-p: #334155;
+            /* Muted — Rest */
             --shift-p-bg: rgba(51, 65, 85, 0.10);
             --shift-p-text: #64748b;
 
-            --shift-o: #10b981;     /* Green — Paid leave */
+            --shift-o: #10b981;
+            /* Green — Paid leave */
             --shift-o-bg: rgba(16, 185, 129, 0.10);
             --shift-o-glow: rgba(16, 185, 129, 0.25);
 
@@ -86,7 +100,10 @@
         /* ========== ANIMATED BACKGROUND ========== */
         .bg-ambient {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
@@ -95,8 +112,10 @@
         .bg-ambient::before {
             content: '';
             position: absolute;
-            width: 600px; height: 600px;
-            top: -200px; right: -200px;
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -200px;
             background: radial-gradient(circle, rgba(124, 92, 252, 0.08) 0%, transparent 70%);
             animation: floatA 20s ease-in-out infinite;
         }
@@ -104,19 +123,36 @@
         .bg-ambient::after {
             content: '';
             position: absolute;
-            width: 500px; height: 500px;
-            bottom: -150px; left: -150px;
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
             background: radial-gradient(circle, rgba(240, 180, 41, 0.06) 0%, transparent 70%);
             animation: floatB 25s ease-in-out infinite;
         }
 
         @keyframes floatA {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-80px, 60px) scale(1.15); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(-80px, 60px) scale(1.15);
+            }
         }
+
         @keyframes floatB {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(60px, -80px) scale(1.1); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(60px, -80px) scale(1.1);
+            }
         }
 
         /* ========== LAYOUT ========== */
@@ -371,7 +407,8 @@
             font-weight: 500;
         }
 
-        .picker-input, .picker-select {
+        .picker-input,
+        .picker-select {
             width: 100%;
             padding: 10px;
             background: var(--bg-card);
@@ -501,7 +538,10 @@
         /* ========== MODAL & TOAST ========== */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(10, 12, 20, 0.85);
             backdrop-filter: blur(8px);
             z-index: 1000;
@@ -669,7 +709,8 @@
         }
 
         .swap-item-avatar {
-            width: 30px; height: 30px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -701,7 +742,8 @@
         }
 
         .swap-item-check {
-            width: 18px; height: 18px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: var(--shift-2);
             color: #ffffff;
@@ -969,10 +1011,21 @@
             letter-spacing: 0.04em;
         }
 
-        .stat-item.shift-1 .stat-number { color: var(--shift-1); }
-        .stat-item.shift-2 .stat-number { color: var(--shift-2); }
-        .stat-item.shift-m .stat-number { color: var(--shift-m); }
-        .stat-item.shift-rest .stat-number { color: var(--shift-p-text); }
+        .stat-item.shift-1 .stat-number {
+            color: var(--shift-1);
+        }
+
+        .stat-item.shift-2 .stat-number {
+            color: var(--shift-2);
+        }
+
+        .stat-item.shift-m .stat-number {
+            color: var(--shift-m);
+        }
+
+        .stat-item.shift-rest .stat-number {
+            color: var(--shift-p-text);
+        }
 
         /* ========== TODAY INDICATOR ========== */
         .today-jump {
@@ -999,15 +1052,25 @@
         }
 
         .today-jump .pulse-dot {
-            width: 8px; height: 8px;
+            width: 8px;
+            height: 8px;
             background: var(--shift-2);
             border-radius: 50%;
             animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(124, 92, 252, 0.5); }
-            50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(124, 92, 252, 0); }
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(124, 92, 252, 0.5);
+            }
+
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 0 6px rgba(124, 92, 252, 0);
+            }
         }
 
         /* ========== DAY CARDS ========== */
@@ -1029,7 +1092,7 @@
         .day-card:hover {
             border-color: rgba(148, 163, 184, 0.12);
             transform: translateY(-1px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         .day-card.is-today {
@@ -1049,24 +1112,66 @@
             display: none;
         }
 
-        .day-card.shift-1 { border-left: 4px solid var(--shift-1); background: linear-gradient(90deg, rgba(240, 180, 41, 0.08) 0%, var(--bg-card) 20%); }
-        .day-card.shift-1 .day-date { background: rgba(240, 180, 41, 0.1); border-color: rgba(240, 180, 41, 0.2); }
-        .day-card.shift-1 .day-date-num { color: var(--shift-1); }
+        .day-card.shift-1 {
+            border-left: 4px solid var(--shift-1);
+            background: linear-gradient(90deg, rgba(240, 180, 41, 0.08) 0%, var(--bg-card) 20%);
+        }
 
-        .day-card.shift-2 { border-left: 4px solid var(--shift-2); background: linear-gradient(90deg, rgba(124, 92, 252, 0.08) 0%, var(--bg-card) 20%); }
-        .day-card.shift-2 .day-date { background: rgba(124, 92, 252, 0.1); border-color: rgba(124, 92, 252, 0.2); }
-        .day-card.shift-2 .day-date-num { color: var(--shift-2); }
+        .day-card.shift-1 .day-date {
+            background: rgba(240, 180, 41, 0.1);
+            border-color: rgba(240, 180, 41, 0.2);
+        }
 
-        .day-card.shift-m { border-left: 4px solid var(--shift-m); background: linear-gradient(90deg, rgba(56, 189, 248, 0.08) 0%, var(--bg-card) 20%); }
-        .day-card.shift-m .day-date { background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.2); }
-        .day-card.shift-m .day-date-num { color: var(--shift-m); }
+        .day-card.shift-1 .day-date-num {
+            color: var(--shift-1);
+        }
 
-        .day-card.shift-p { border-left: 4px solid var(--shift-p); }
-        .day-card.shift-o { border-left: 4px solid var(--shift-o); }
+        .day-card.shift-2 {
+            border-left: 4px solid var(--shift-2);
+            background: linear-gradient(90deg, rgba(124, 92, 252, 0.08) 0%, var(--bg-card) 20%);
+        }
+
+        .day-card.shift-2 .day-date {
+            background: rgba(124, 92, 252, 0.1);
+            border-color: rgba(124, 92, 252, 0.2);
+        }
+
+        .day-card.shift-2 .day-date-num {
+            color: var(--shift-2);
+        }
+
+        .day-card.shift-m {
+            border-left: 4px solid var(--shift-m);
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.08) 0%, var(--bg-card) 20%);
+        }
+
+        .day-card.shift-m .day-date {
+            background: rgba(56, 189, 248, 0.1);
+            border-color: rgba(56, 189, 248, 0.2);
+        }
+
+        .day-card.shift-m .day-date-num {
+            color: var(--shift-m);
+        }
+
+        .day-card.shift-p {
+            border-left: 4px solid var(--shift-p);
+        }
+
+        .day-card.shift-o {
+            border-left: 4px solid var(--shift-o);
+        }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .day-card-main {
@@ -1082,7 +1187,8 @@
 
         .day-date {
             flex-shrink: 0;
-            width: 50px; height: 50px;
+            width: 50px;
+            height: 50px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1114,7 +1220,7 @@
         }
 
         .is-today .day-date .day-date-dow {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .day-info {
@@ -1147,28 +1253,69 @@
         }
 
         .day-shift-badge .badge-dot {
-            width: 6px; height: 6px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
         }
 
-        .badge-1 { background: var(--shift-1-bg); color: var(--shift-1); border: 1px solid rgba(240, 180, 41, 0.2); }
-        .badge-1 .badge-dot { background: var(--shift-1); box-shadow: 0 0 6px var(--shift-1-glow); }
+        .badge-1 {
+            background: var(--shift-1-bg);
+            color: var(--shift-1);
+            border: 1px solid rgba(240, 180, 41, 0.2);
+        }
 
-        .badge-2 { background: var(--shift-2-bg); color: var(--shift-2); border: 1px solid rgba(124, 92, 252, 0.2); }
-        .badge-2 .badge-dot { background: var(--shift-2); box-shadow: 0 0 6px var(--shift-2-glow); }
+        .badge-1 .badge-dot {
+            background: var(--shift-1);
+            box-shadow: 0 0 6px var(--shift-1-glow);
+        }
 
-        .badge-m { background: var(--shift-m-bg); color: var(--shift-m); border: 1px solid rgba(56, 189, 248, 0.2); }
-        .badge-m .badge-dot { background: var(--shift-m); box-shadow: 0 0 6px var(--shift-m-glow); }
+        .badge-2 {
+            background: var(--shift-2-bg);
+            color: var(--shift-2);
+            border: 1px solid rgba(124, 92, 252, 0.2);
+        }
 
-        .badge-p { background: var(--shift-p-bg); color: var(--shift-p-text); border: 1px solid rgba(51, 65, 85, 0.15); }
-        .badge-p .badge-dot { background: var(--shift-p); }
+        .badge-2 .badge-dot {
+            background: var(--shift-2);
+            box-shadow: 0 0 6px var(--shift-2-glow);
+        }
 
-        .badge-o { background: var(--shift-o-bg); color: var(--shift-o); border: 1px solid rgba(16, 185, 129, 0.2); }
-        .badge-o .badge-dot { background: var(--shift-o); box-shadow: 0 0 6px var(--shift-o-glow); }
+        .badge-m {
+            background: var(--shift-m-bg);
+            color: var(--shift-m);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .badge-m .badge-dot {
+            background: var(--shift-m);
+            box-shadow: 0 0 6px var(--shift-m-glow);
+        }
+
+        .badge-p {
+            background: var(--shift-p-bg);
+            color: var(--shift-p-text);
+            border: 1px solid rgba(51, 65, 85, 0.15);
+        }
+
+        .badge-p .badge-dot {
+            background: var(--shift-p);
+        }
+
+        .badge-o {
+            background: var(--shift-o-bg);
+            color: var(--shift-o);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badge-o .badge-dot {
+            background: var(--shift-o);
+            box-shadow: 0 0 6px var(--shift-o-glow);
+        }
 
         .day-chevron {
             flex-shrink: 0;
-            width: 28px; height: 28px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1182,7 +1329,8 @@
         }
 
         .day-chevron svg {
-            width: 16px; height: 16px;
+            width: 16px;
+            height: 16px;
         }
 
         /* ========== COLLEAGUES PANEL ========== */
@@ -1210,7 +1358,8 @@
         }
 
         .colleagues-header svg {
-            width: 14px; height: 14px;
+            width: 14px;
+            height: 14px;
             color: var(--text-muted);
         }
 
@@ -1238,7 +1387,8 @@
         }
 
         .colleague-avatar {
-            width: 30px; height: 30px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1248,9 +1398,23 @@
             flex-shrink: 0;
         }
 
-        .colleague-avatar.av-1 { background: var(--shift-1-bg); color: var(--shift-1); border: 1px solid rgba(240,180,41,0.2); }
-        .colleague-avatar.av-2 { background: var(--shift-2-bg); color: var(--shift-2); border: 1px solid rgba(124,92,252,0.2); }
-        .colleague-avatar.av-m { background: var(--shift-m-bg); color: var(--shift-m); border: 1px solid rgba(56,189,248,0.2); }
+        .colleague-avatar.av-1 {
+            background: var(--shift-1-bg);
+            color: var(--shift-1);
+            border: 1px solid rgba(240, 180, 41, 0.2);
+        }
+
+        .colleague-avatar.av-2 {
+            background: var(--shift-2-bg);
+            color: var(--shift-2);
+            border: 1px solid rgba(124, 92, 252, 0.2);
+        }
+
+        .colleague-avatar.av-m {
+            background: var(--shift-m-bg);
+            color: var(--shift-m);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
 
         .colleague-name {
             flex: 1;
@@ -1266,9 +1430,20 @@
             border-radius: var(--radius-full);
         }
 
-        .tag-1 { background: var(--shift-1-bg); color: var(--shift-1); }
-        .tag-2 { background: var(--shift-2-bg); color: var(--shift-2); }
-        .tag-m { background: var(--shift-m-bg); color: var(--shift-m); }
+        .tag-1 {
+            background: var(--shift-1-bg);
+            color: var(--shift-1);
+        }
+
+        .tag-2 {
+            background: var(--shift-2-bg);
+            color: var(--shift-2);
+        }
+
+        .tag-m {
+            background: var(--shift-m-bg);
+            color: var(--shift-m);
+        }
 
         .overlap-badge {
             font-size: 0.6rem;
@@ -1329,25 +1504,55 @@
         }
 
         .legend-dot {
-            width: 10px; height: 10px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             flex-shrink: 0;
         }
 
-        .legend-dot.l-1 { background: var(--shift-1); box-shadow: 0 0 8px var(--shift-1-glow); }
-        .legend-dot.l-2 { background: var(--shift-2); box-shadow: 0 0 8px var(--shift-2-glow); }
-        .legend-dot.l-m { background: var(--shift-m); box-shadow: 0 0 8px var(--shift-m-glow); }
-        .legend-dot.l-p { background: var(--shift-p); }
-        .legend-dot.l-o { background: var(--shift-o); box-shadow: 0 0 8px var(--shift-o-glow); }
+        .legend-dot.l-1 {
+            background: var(--shift-1);
+            box-shadow: 0 0 8px var(--shift-1-glow);
+        }
+
+        .legend-dot.l-2 {
+            background: var(--shift-2);
+            box-shadow: 0 0 8px var(--shift-2-glow);
+        }
+
+        .legend-dot.l-m {
+            background: var(--shift-m);
+            box-shadow: 0 0 8px var(--shift-m-glow);
+        }
+
+        .legend-dot.l-p {
+            background: var(--shift-p);
+        }
+
+        .legend-dot.l-o {
+            background: var(--shift-o);
+            box-shadow: 0 0 8px var(--shift-o-glow);
+        }
 
         /* ========== SCROLLBAR ========== */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.15); border-radius: 4px; }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.15);
+            border-radius: 4px;
+        }
 
         /* ========== RESPONSIVE ========== */
         @media (min-width: 480px) {
-            .header h1 { font-size: 2rem; }
+            .header h1 {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1402,494 +1607,499 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="bg-ambient"></div>
+    <div class="bg-ambient"></div>
 
-<div class="app-container">
+    <div class="app-container">
 
-    <!-- TOP NAVIGATION TABS -->
-    <nav class="top-nav">
-        <button class="nav-btn active" id="navViewSchedule">
-            <span>📅</span> График
-        </button>
-        <button class="nav-btn" id="navManageSchedule">
-            <span>⚙️</span> Въвеждане на график
-        </button>
-    </nav>
+        <!-- TOP NAVIGATION TABS -->
+        <nav class="top-nav">
+            <button class="nav-btn active" id="navViewSchedule">
+                <span>📅</span> График
+            </button>
+            <button class="nav-btn" id="navManageSchedule">
+                <span>⚙️</span> Въвеждане на график
+            </button>
+        </nav>
 
-    <!-- VIEW SCHEDULE TAB -->
-    <div id="viewScheduleTab">
-        <!-- HEADER -->
-        <header class="header">
-            <div class="header-eyebrow">
-                <span class="diamond">♦</span>
-                Magic Club Casino
-                <span class="diamond">♦</span>
-            </div>
-            <h1>Работен График</h1>
-            
-            <div id="syncStatus" class="sync-badge">
-                <span class="sync-dot"></span>
-                <span id="syncText">Свързване с облака...</span>
-            </div>
-
-            <br>
-            <div class="month-select-wrapper">
-                <span class="month-select-label">📅 Месец:</span>
-                <select id="monthSelect" class="month-select"></select>
-            </div>
-            <br>
-            <div class="person-select-wrapper">
-                <label for="personSelect" class="person-select-label">Служител:</label>
-                <select id="personSelect" class="person-select"></select>
-            </div>
-        </header>
-
-        <!-- TOTAL HOURS -->
-        <div class="total-hours-card">
-            <div class="total-hours-icon">⏱️</div>
-            <div class="total-hours-info">
-                <span class="total-hours-label" id="totalHoursTitle">Общо работни часове</span>
-                <span class="total-hours-val" id="totalHoursVal">0 ч.</span>
-            </div>
-        </div>
-
-        <!-- STATS (CALCULATOR & FILTERS) -->
-        <div class="stats-bar" id="statsBar"></div>
-
-        <!-- TODAY JUMP -->
-        <div class="today-jump" id="todayJump" style="display:none;">
-            <span class="pulse-dot"></span>
-            <span id="todayJumpText">Към днес</span>
-        </div>
-
-        <!-- DAY CARDS -->
-        <div class="days-list" id="daysList"></div>
-
-        <!-- LEGEND -->
-        <div class="legend-section">
-            <div class="legend-title">Легенда</div>
-            <div class="legend-grid">
-                <div class="legend-item"><span class="legend-dot l-1"></span> 1 — 08:00–20:00</div>
-                <div class="legend-item"><span class="legend-dot l-2"></span> 2 — 20:00–08:00</div>
-                <div class="legend-item"><span class="legend-dot l-m"></span> М — 12:00–20:00</div>
-                <div class="legend-item"><span class="legend-dot l-p"></span> П — Почивка</div>
-                <div class="legend-item"><span class="legend-dot l-o"></span> О — Отпуск</div>
-            </div>
-            <button class="reset-btn" id="resetScheduleBtn">🔄 Върни началния график</button>
-        </div>
-    </div>
-
-    <!-- MANAGE SCHEDULE TAB -->
-    <div id="manageScheduleTab" style="display: none;">
-        <div class="manager-card">
-            <div class="manager-title">
-                <span>⚙️</span> Въвеждане и Управление на График
-            </div>
-            <div class="manager-subtitle">
-                Въведете или редактирайте графика за всеки нов месец. Промените се синхронизират в реално време за всички колеги.
-            </div>
-
-            <div class="month-picker-row">
-                <div class="picker-col">
-                    <label class="picker-label">Избери месец за редакция:</label>
-                    <select id="manageMonthSelect" class="picker-select"></select>
+        <!-- VIEW SCHEDULE TAB -->
+        <div id="viewScheduleTab">
+            <!-- HEADER -->
+            <header class="header">
+                <div class="header-eyebrow">
+                    <span class="diamond">♦</span>
+                    Magic Club Casino
+                    <span class="diamond">♦</span>
                 </div>
-                <div class="picker-col">
-                    <label class="picker-label">Създай нов месец:</label>
-                    <input type="month" id="newMonthInput" class="picker-input" value="2026-10">
+                <h1>Работен График</h1>
+
+                <div id="syncStatus" class="sync-badge">
+                    <span class="sync-dot"></span>
+                    <span id="syncText">Свързване с облака...</span>
                 </div>
-                <div style="display:flex; align-items:flex-end;">
-                    <button class="btn-primary" id="btnCreateMonth" style="padding: 10px 14px; white-space:nowrap;">+ Добави</button>
+
+                <br>
+                <div class="month-select-wrapper">
+                    <span class="month-select-label">📅 Месец:</span>
+                    <select id="monthSelect" class="month-select"></select>
+                </div>
+                <br>
+                <div class="person-select-wrapper">
+                    <label for="personSelect" class="person-select-label">Служител:</label>
+                    <select id="personSelect" class="person-select"></select>
+                </div>
+            </header>
+
+            <!-- TOTAL HOURS -->
+            <div class="total-hours-card">
+                <div class="total-hours-icon">⏱️</div>
+                <div class="total-hours-info">
+                    <span class="total-hours-label" id="totalHoursTitle">Общо работни часове</span>
+                    <span class="total-hours-val" id="totalHoursVal">0 ч.</span>
                 </div>
             </div>
 
-            <div id="employeeInputsContainer"></div>
+            <!-- STATS (CALCULATOR & FILTERS) -->
+            <div class="stats-bar" id="statsBar"></div>
 
-            <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
-                <button class="btn-primary" id="btnSaveManager" style="padding: 14px;">💾 Запази графика за месеца</button>
-                <button class="btn-secondary" id="btnDeleteMonth" style="color: #ef4444; border-color: rgba(239,68,68,0.35);">🗑️ Изтрий този месец</button>
+            <!-- TODAY JUMP -->
+            <div class="today-jump" id="todayJump" style="display:none;">
+                <span class="pulse-dot"></span>
+                <span id="todayJumpText">Към днес</span>
+            </div>
+
+            <!-- DAY CARDS -->
+            <div class="days-list" id="daysList"></div>
+
+            <!-- LEGEND -->
+            <div class="legend-section">
+                <div class="legend-title">Легенда</div>
+                <div class="legend-grid">
+                    <div class="legend-item"><span class="legend-dot l-1"></span> 1 — 08:00–20:00</div>
+                    <div class="legend-item"><span class="legend-dot l-2"></span> 2 — 20:00–08:00</div>
+                    <div class="legend-item"><span class="legend-dot l-m"></span> М — 12:00–20:00</div>
+                    <div class="legend-item"><span class="legend-dot l-p"></span> П — Почивка</div>
+                    <div class="legend-item"><span class="legend-dot l-o"></span> О — Отпуск</div>
+                </div>
+                <button class="reset-btn" id="resetScheduleBtn">🔄 Върни началния график</button>
+            </div>
+        </div>
+
+        <!-- MANAGE SCHEDULE TAB -->
+        <div id="manageScheduleTab" style="display: none;">
+            <div class="manager-card">
+                <div class="manager-title">
+                    <span>⚙️</span> Въвеждане и Управление на График
+                </div>
+                <div class="manager-subtitle">
+                    Въведете или редактирайте графика за всеки нов месец. Промените се синхронизират в реално време за
+                    всички колеги.
+                </div>
+
+                <div class="month-picker-row">
+                    <div class="picker-col">
+                        <label class="picker-label">Избери месец за редакция:</label>
+                        <select id="manageMonthSelect" class="picker-select"></select>
+                    </div>
+                    <div class="picker-col">
+                        <label class="picker-label">Създай нов месец:</label>
+                        <input type="month" id="newMonthInput" class="picker-input" value="2026-10">
+                    </div>
+                    <div style="display:flex; align-items:flex-end;">
+                        <button class="btn-primary" id="btnCreateMonth"
+                            style="padding: 10px 14px; white-space:nowrap;">+ Добави</button>
+                    </div>
+                </div>
+
+                <div id="employeeInputsContainer"></div>
+
+                <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+                    <button class="btn-primary" id="btnSaveManager" style="padding: 14px;">💾 Запази графика за
+                        месеца</button>
+                    <button class="btn-secondary" id="btnDeleteMonth"
+                        style="color: #ef4444; border-color: rgba(239,68,68,0.35);">🗑️ Изтрий този месец</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- EDIT MODAL -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Промяна на график</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+
+            <button class="btn-remove-work" id="btnRemoveWork">
+                🚫 Свали от работа (Почивка 'П')
+            </button>
+
+            <div style="margin-bottom: var(--space-md);">
+                <div class="edit-section-label">1. Избери нова смяна:</div>
+                <div class="shift-options-grid" id="shiftOptionsGrid">
+                    <button class="shift-option-btn" data-shift="1">
+                        <span class="shift-option-icon">☀️</span>
+                        <span class="shift-option-name">Смяна 1</span>
+                    </button>
+                    <button class="shift-option-btn" data-shift="2">
+                        <span class="shift-option-icon">🌙</span>
+                        <span class="shift-option-name">Смяна 2</span>
+                    </button>
+                    <button class="shift-option-btn" data-shift="М">
+                        <span class="shift-option-icon">🕐</span>
+                        <span class="shift-option-name">Междинна</span>
+                    </button>
+                    <button class="shift-option-btn" data-shift="П">
+                        <span class="shift-option-icon">😌</span>
+                        <span class="shift-option-name">Почивка</span>
+                    </button>
+                    <button class="shift-option-btn" data-shift="О">
+                        <span class="shift-option-icon">🏖️</span>
+                        <span class="shift-option-name">Отпуск</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="swap-wrapper">
+                <div class="edit-section-label" style="margin-bottom: 4px;">2. Или размени с колега:</div>
+                <div class="colleagues-swap-list" id="colleagueSwapList"></div>
+                <div class="swap-preview" id="swapPreview" style="display: none;">
+                    <span id="swapPreviewText"></span>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" id="modalCancel">Отказ</button>
+                <button class="btn-primary" id="modalSave">Запази промяната</button>
             </div>
         </div>
     </div>
 
-</div>
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toastNotification">Промяната е запазена!</div>
 
-<!-- EDIT MODAL -->
-<div class="modal-overlay" id="editModal">
-    <div class="modal-card">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modalTitle">Промяна на график</h3>
-            <button class="modal-close" id="modalClose">&times;</button>
-        </div>
-        
-        <button class="btn-remove-work" id="btnRemoveWork">
-            🚫 Свали от работа (Почивка 'П')
-        </button>
+    <script>
+        // ================================================================
+        // FIREBASE REALTIME DATABASE SETUP
+        // ================================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDt1jd5fEeWg-K9Qrx46Fr3xn8iQwDbGvk",
+            authDomain: "magic-club-grafik.firebaseapp.com",
+            databaseURL: "https://magic-club-grafik-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "magic-club-grafik",
+            storageBucket: "magic-club-grafik.firebasestorage.app",
+            messagingSenderId: "285610975628",
+            appId: "1:285610975628:web:be797e62e4375820d5b6a9"
+        };
 
-        <div style="margin-bottom: var(--space-md);">
-            <div class="edit-section-label">1. Избери нова смяна:</div>
-            <div class="shift-options-grid" id="shiftOptionsGrid">
-                <button class="shift-option-btn" data-shift="1">
-                    <span class="shift-option-icon">☀️</span>
-                    <span class="shift-option-name">Смяна 1</span>
-                </button>
-                <button class="shift-option-btn" data-shift="2">
-                    <span class="shift-option-icon">🌙</span>
-                    <span class="shift-option-name">Смяна 2</span>
-                </button>
-                <button class="shift-option-btn" data-shift="М">
-                    <span class="shift-option-icon">🕐</span>
-                    <span class="shift-option-name">Междинна</span>
-                </button>
-                <button class="shift-option-btn" data-shift="П">
-                    <span class="shift-option-icon">😌</span>
-                    <span class="shift-option-name">Почивка</span>
-                </button>
-                <button class="shift-option-btn" data-shift="О">
-                    <span class="shift-option-icon">🏖️</span>
-                    <span class="shift-option-name">Отпуск</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="swap-wrapper">
-            <div class="edit-section-label" style="margin-bottom: 4px;">2. Или размени с колега:</div>
-            <div class="colleagues-swap-list" id="colleagueSwapList"></div>
-            <div class="swap-preview" id="swapPreview" style="display: none;">
-                <span id="swapPreviewText"></span>
-            </div>
-        </div>
-
-        <div class="modal-actions">
-            <button class="btn-secondary" id="modalCancel">Отказ</button>
-            <button class="btn-primary" id="modalSave">Запази промяната</button>
-        </div>
-    </div>
-</div>
-
-<!-- TOAST NOTIFICATION -->
-<div class="toast" id="toastNotification">Промяната е запазена!</div>
-
-<script>
-// ================================================================
-// FIREBASE REALTIME DATABASE SETUP
-// ================================================================
-const firebaseConfig = {
-    apiKey: "AIzaSyDt1jd5fEeWg-K9Qrx46Fr3xn8iQwDbGvk",
-    authDomain: "magic-club-grafik.firebaseapp.com",
-    databaseURL: "https://magic-club-grafik-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "magic-club-grafik",
-    storageBucket: "magic-club-grafik.firebasestorage.app",
-    messagingSenderId: "285610975628",
-    appId: "1:285610975628:web:be797e62e4375820d5b6a9"
-};
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
-const database = firebase.database();
-const schedulesRef = database.ref("schedules");
-
-function updateSyncStatus(status, text) {
-    const badge = document.getElementById('syncStatus');
-    const label = document.getElementById('syncText');
-    if (!badge || !label) return;
-    badge.className = `sync-badge ${status}`;
-    label.textContent = text;
-}
-
-// ================================================================
-// EMBEDDED MULTI-MONTH SCHEDULE DATA
-// ================================================================
-const BULGARIAN_MONTHS = [
-    "Януари", "Февруари", "Март", "Април", "Май", "Юни",
-    "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"
-];
-
-function getMonthNameBG(yearMonthStr) {
-    if (!yearMonthStr || !yearMonthStr.includes('-')) return yearMonthStr;
-    const [year, month] = yearMonthStr.split('-');
-    const monthIndex = parseInt(month, 10) - 1;
-    return `${BULGARIAN_MONTHS[monthIndex]} ${year}`;
-}
-
-function getDaysInMonth(yearMonthStr) {
-    if (!yearMonthStr || !yearMonthStr.includes('-')) return 31;
-    const [year, month] = yearMonthStr.split('-').map(Number);
-    return new Date(year, month, 0).getDate();
-}
-
-const DEFAULT_ALL_SCHEDULES = {
-    "2026-08": {
-        "Джордж":    ["П","2","2","П","1","1","2","П","П","1","2","П","1","1","П","П","О","О","О","О","О","П","П","2","2","П","М","1","П","П","1"],
-        "Жасмина":   ["М","П","П","2","2","П","О","О","О","О","О","О","О","О","2","2","П","П","М","2","П","М","2","2","П","П","1","П","1","М","П"],
-        "Алекс":     ["1","1","2","П","П","П","1","2","2","П","П","1","2","2","П","П","П","1","1","П","2","2","П","П","1","2","П","П","2","П","1"],
-        "Мерлин":    ["П","М","1","2","П","П","1","1","П","П","1","2","П","П","1","М","2","П","П","1","2","2","П","П","М","2","П","П","М","1","2"],
-        "Кристиян":  ["П","П","М","1","П","2","2","П","1","П","М","2","П","П","М","1","2","П","П","М","1","П","1","1","П","М","2","2","П","П","2"],
-        "Хриска":    ["2","2","П","П","М","М","П","2","П","2","П","М","2","2","П","П","1","2","2","П","О","П","П","О","О","О","О","О","2","2","П"],
-        "Джан":      ["П","П","О","О","О","О","О","М","2","2","П","П","М","П","2","П","М","2","П","П","М","1","2","П","П","1","2","2","П","П","П"],
-        "Виктор":    ["2","П","П","М","2","2","П","П","М","М","2","П","П","М","П","2","П","М","2","2","П","М","П","М","2","П","М","М","М","2","П"]
-    },
-    "2026-09": {
-        "Джордж":    ["2","2","П","1","1","2","П","П","1","2","П","1","1","П","П","О","О","О","О","О","П","П","2","2","П","М","1","П","П","1"],
-        "Жасмина":   ["П","П","2","2","П","О","О","О","О","О","О","О","О","2","2","П","П","М","2","П","М","2","2","П","П","1","П","1","М","П"],
-        "Алекс":     ["1","2","П","П","П","1","2","2","П","П","1","2","2","П","П","П","1","1","П","2","2","П","П","1","2","П","П","2","П","1"],
-        "Мерлин":    ["М","1","2","П","П","1","1","П","П","1","2","П","П","1","М","2","П","П","1","2","2","П","П","М","2","П","П","М","1","2"],
-        "Кристиян":  ["П","М","1","П","2","2","П","1","П","М","2","П","П","М","1","2","П","П","М","1","П","1","1","П","М","2","2","П","П","2"],
-        "Хриска":    ["2","П","П","М","М","П","2","П","2","П","М","2","2","П","П","1","2","2","П","О","П","П","О","О","О","О","О","2","2","П"],
-        "Джан":      ["П","О","О","О","О","О","М","2","2","П","П","М","П","2","П","М","2","П","П","М","1","2","П","П","1","2","2","П","П","П"],
-        "Виктор":    ["П","П","М","2","2","П","П","М","М","2","П","П","М","П","2","П","М","2","2","П","М","П","М","2","П","М","М","М","2","П"]
-    }
-};
-
-function loadLocalSchedules() {
-    const saved = localStorage.getItem('magic_club_all_schedules_v3');
-    if (saved) {
-        try {
-            return JSON.parse(saved);
-        } catch (e) {
-            console.error("Local schedule parse failed", e);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
         }
-    }
-    return JSON.parse(JSON.stringify(DEFAULT_ALL_SCHEDULES));
-}
+        const database = firebase.database();
+        const schedulesRef = database.ref("schedules");
 
-let ALL_SCHEDULES = loadLocalSchedules();
-let selectedMonthKey = "2026-08";
-let selectedPerson = "Виктор";
-let activeEditDayIndex = null;
-let activeSelectedShift = null;
-let activeFilter = 'all';
+        function updateSyncStatus(status, text) {
+            const badge = document.getElementById('syncStatus');
+            const label = document.getElementById('syncText');
+            if (!badge || !label) return;
+            badge.className = `sync-badge ${status}`;
+            label.textContent = text;
+        }
 
-function saveAllSchedules() {
-    localStorage.setItem('magic_club_all_schedules_v3', JSON.stringify(ALL_SCHEDULES));
-    updateSyncStatus('syncing', 'Синхронизиране...');
-    schedulesRef.set(ALL_SCHEDULES)
-        .then(() => {
-            updateSyncStatus('', 'Свързан (Облак ✅)');
-        })
-        .catch((err) => {
-            console.error("Firebase write error:", err);
-            updateSyncStatus('error', 'Грешка при запис (Офлайн)');
-        });
-}
+        // ================================================================
+        // EMBEDDED MULTI-MONTH SCHEDULE DATA
+        // ================================================================
+        const BULGARIAN_MONTHS = [
+            "Януари", "Февруари", "Март", "Април", "Май", "Юни",
+            "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"
+        ];
 
-function initRealtimeSync() {
-    updateSyncStatus('syncing', 'Свързване с облака...');
-    schedulesRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            ALL_SCHEDULES = data;
+        function getMonthNameBG(yearMonthStr) {
+            if (!yearMonthStr || !yearMonthStr.includes('-')) return yearMonthStr;
+            const [year, month] = yearMonthStr.split('-');
+            const monthIndex = parseInt(month, 10) - 1;
+            return `${BULGARIAN_MONTHS[monthIndex]} ${year}`;
+        }
+
+        function getDaysInMonth(yearMonthStr) {
+            if (!yearMonthStr || !yearMonthStr.includes('-')) return 31;
+            const [year, month] = yearMonthStr.split('-').map(Number);
+            return new Date(year, month, 0).getDate();
+        }
+
+        const DEFAULT_ALL_SCHEDULES = {
+            "2026-08": {
+                "Джордж": ["П", "2", "2", "П", "1", "1", "2", "П", "П", "1", "2", "П", "1", "1", "П", "П", "О", "О", "О", "О", "О", "П", "П", "2", "2", "П", "М", "1", "П", "П", "1"],
+                "Жасмина": ["М", "П", "П", "2", "2", "П", "О", "О", "О", "О", "О", "О", "О", "О", "2", "2", "П", "П", "М", "2", "П", "М", "2", "2", "П", "П", "1", "П", "1", "М", "П"],
+                "Алекс": ["1", "1", "2", "П", "П", "П", "1", "2", "2", "П", "П", "1", "2", "2", "П", "П", "П", "1", "1", "П", "2", "2", "П", "П", "1", "2", "П", "П", "2", "П", "1"],
+                "Мерлин": ["П", "М", "1", "2", "П", "П", "1", "1", "П", "П", "1", "2", "П", "П", "1", "М", "2", "П", "П", "1", "2", "2", "П", "П", "М", "2", "П", "П", "М", "1", "2"],
+                "Кристиян": ["П", "П", "М", "1", "П", "2", "2", "П", "1", "П", "М", "2", "П", "П", "М", "1", "2", "П", "П", "М", "1", "П", "1", "1", "П", "М", "2", "2", "П", "П", "2"],
+                "Хриска": ["2", "2", "П", "П", "М", "М", "П", "2", "П", "2", "П", "М", "2", "2", "П", "П", "1", "2", "2", "П", "О", "П", "П", "О", "О", "О", "О", "О", "2", "2", "П"],
+                "Джан": ["П", "П", "О", "О", "О", "О", "О", "М", "2", "2", "П", "П", "М", "П", "2", "П", "М", "2", "П", "П", "М", "1", "2", "П", "П", "1", "2", "2", "П", "П", "П"],
+                "Виктор": ["2", "П", "П", "М", "2", "2", "П", "П", "М", "М", "2", "П", "П", "М", "П", "2", "П", "М", "2", "2", "П", "М", "П", "М", "2", "П", "М", "М", "М", "2", "П"]
+            },
+            "2026-09": {
+                "Джордж": ["2", "2", "П", "1", "1", "2", "П", "П", "1", "2", "П", "1", "1", "П", "П", "О", "О", "О", "О", "О", "П", "П", "2", "2", "П", "М", "1", "П", "П", "1"],
+                "Жасмина": ["П", "П", "2", "2", "П", "О", "О", "О", "О", "О", "О", "О", "О", "2", "2", "П", "П", "М", "2", "П", "М", "2", "2", "П", "П", "1", "П", "1", "М", "П"],
+                "Алекс": ["1", "2", "П", "П", "П", "1", "2", "2", "П", "П", "1", "2", "2", "П", "П", "П", "1", "1", "П", "2", "2", "П", "П", "1", "2", "П", "П", "2", "П", "1"],
+                "Мерлин": ["М", "1", "2", "П", "П", "1", "1", "П", "П", "1", "2", "П", "П", "1", "М", "2", "П", "П", "1", "2", "2", "П", "П", "М", "2", "П", "П", "М", "1", "2"],
+                "Кристиян": ["П", "М", "1", "П", "2", "2", "П", "1", "П", "М", "2", "П", "П", "М", "1", "2", "П", "П", "М", "1", "П", "1", "1", "П", "М", "2", "2", "П", "П", "2"],
+                "Хриска": ["2", "П", "П", "М", "М", "П", "2", "П", "2", "П", "М", "2", "2", "П", "П", "1", "2", "2", "П", "О", "П", "П", "О", "О", "О", "О", "О", "2", "2", "П"],
+                "Джан": ["П", "О", "О", "О", "О", "О", "М", "2", "2", "П", "П", "М", "П", "2", "П", "М", "2", "П", "П", "М", "1", "2", "П", "П", "1", "2", "2", "П", "П", "П"],
+                "Виктор": ["П", "П", "М", "2", "2", "П", "П", "М", "М", "2", "П", "П", "М", "П", "2", "П", "М", "2", "2", "П", "М", "П", "М", "2", "П", "М", "М", "М", "2", "П"]
+            }
+        };
+
+        function loadLocalSchedules() {
+            const saved = localStorage.getItem('magic_club_all_schedules_v3');
+            if (saved) {
+                try {
+                    return JSON.parse(saved);
+                } catch (e) {
+                    console.error("Local schedule parse failed", e);
+                }
+            }
+            return JSON.parse(JSON.stringify(DEFAULT_ALL_SCHEDULES));
+        }
+
+        let ALL_SCHEDULES = loadLocalSchedules();
+        let selectedMonthKey = "2026-08";
+        let selectedPerson = "Виктор";
+        let activeEditDayIndex = null;
+        let activeSelectedShift = null;
+        let activeFilter = 'all';
+
+        function saveAllSchedules() {
             localStorage.setItem('magic_club_all_schedules_v3', JSON.stringify(ALL_SCHEDULES));
-        } else {
-            // First time setup in Firebase
-            schedulesRef.set(ALL_SCHEDULES);
+            updateSyncStatus('syncing', 'Синхронизиране...');
+            schedulesRef.set(ALL_SCHEDULES)
+                .then(() => {
+                    updateSyncStatus('', 'Свързан (Облак ✅)');
+                })
+                .catch((err) => {
+                    console.error("Firebase write error:", err);
+                    updateSyncStatus('error', 'Грешка при запис (Офлайн)');
+                });
         }
-        updateSyncStatus('', 'Свързан (Облак ✅)');
-        refreshUI();
-    }, (error) => {
-        console.error("Firebase sync error:", error);
-        updateSyncStatus('error', 'Офлайн режим');
-    });
-}
 
-function refreshUI() {
-    if (!ALL_SCHEDULES[selectedMonthKey]) {
-        selectedMonthKey = Object.keys(ALL_SCHEDULES).sort()[0] || "2026-08";
-    }
-    setupMonthSelector();
-    setupPersonSelector();
-    buildStats();
-    buildDayCards();
-    applyFilter(activeFilter);
-    setupTodayJump();
-}
-
-// Shift metadata
-const SHIFTS = {
-    "1": { label: "Смяна 1", hours: "08:00 – 20:00", cls: "1", icon: "☀️", start: 8, end: 20 },
-    "2": { label: "Смяна 2", hours: "20:00 – 08:00", cls: "2", icon: "🌙", start: 20, end: 32 },
-    "М": { label: "Междинна", hours: "12:00 – 20:00", cls: "m", icon: "🕐", start: 12, end: 20 },
-    "П": { label: "Почивка", hours: "Неработен ден", cls: "p", icon: "😌", start: null, end: null },
-    "О": { label: "Отпуск", hours: "Платен отпуск", cls: "o", icon: "🏖️", start: null, end: null }
-};
-
-const DOW_BG = ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
-const DOW_FULL = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
-const NOW = new Date();
-
-function normalizeShift(val) {
-    if (val === null || val === undefined) return "П";
-    let s = String(val).trim();
-    if (s === 'M') s = 'М';
-    return s;
-}
-
-function getCurrentSchedule() {
-    return ALL_SCHEDULES[selectedMonthKey] || {};
-}
-
-function getPersonShifts(person = selectedPerson) {
-    const sched = getCurrentSchedule();
-    return (sched[person] || []).map(normalizeShift);
-}
-
-function isWorkShift(s) {
-    return s === "1" || s === "2" || s === "М";
-}
-
-function shiftsOverlap(a, b) {
-    const sa = SHIFTS[a], sb = SHIFTS[b];
-    if (!sa || !sb || sa.start === null || sb.start === null) return false;
-    return sa.start < sb.end && sb.start < sa.end;
-}
-
-function getColleagues(dayIndex, myShift) {
-    const colleagues = [];
-    const currentSched = getCurrentSchedule();
-    for (const [name, shifts] of Object.entries(currentSched)) {
-        if (name === selectedPerson) continue;
-        const theirShift = normalizeShift(shifts[dayIndex]);
-        if (isWorkShift(theirShift)) {
-            const overlap = shiftsOverlap(myShift, theirShift);
-            colleagues.push({ name, shift: theirShift, overlap });
+        function initRealtimeSync() {
+            updateSyncStatus('syncing', 'Свързване с облака...');
+            schedulesRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    ALL_SCHEDULES = data;
+                    localStorage.setItem('magic_club_all_schedules_v3', JSON.stringify(ALL_SCHEDULES));
+                } else {
+                    // First time setup in Firebase
+                    schedulesRef.set(ALL_SCHEDULES);
+                }
+                updateSyncStatus('', 'Свързан (Облак ✅)');
+                refreshUI();
+            }, (error) => {
+                console.error("Firebase sync error:", error);
+                updateSyncStatus('error', 'Офлайн режим');
+            });
         }
-    }
-    colleagues.sort((a, b) => {
-        if (a.overlap !== b.overlap) return a.overlap ? -1 : 1;
-        return a.name.localeCompare(b.name, 'bg');
-    });
-    return colleagues;
-}
 
-function getInitials(name) {
-    return name.charAt(0).toUpperCase();
-}
-
-// ================================================================
-// NAVIGATION TABS
-// ================================================================
-function setupNavigation() {
-    const btnView = document.getElementById('navViewSchedule');
-    const btnManage = document.getElementById('navManageSchedule');
-    const viewTab = document.getElementById('viewScheduleTab');
-    const manageTab = document.getElementById('manageScheduleTab');
-
-    if (btnView && btnManage && viewTab && manageTab) {
-        btnView.onclick = () => {
-            btnView.classList.add('active');
-            btnManage.classList.remove('active');
-            viewTab.style.display = 'block';
-            manageTab.style.display = 'none';
-
+        function refreshUI() {
+            if (!ALL_SCHEDULES[selectedMonthKey]) {
+                selectedMonthKey = Object.keys(ALL_SCHEDULES).sort()[0] || "2026-08";
+            }
+            setupMonthSelector();
+            setupPersonSelector();
             buildStats();
             buildDayCards();
             applyFilter(activeFilter);
             setupTodayJump();
+        }
+
+        // Shift metadata
+        const SHIFTS = {
+            "1": { label: "Смяна 1", hours: "08:00 – 20:00", cls: "1", icon: "☀️", start: 8, end: 20 },
+            "2": { label: "Смяна 2", hours: "20:00 – 08:00", cls: "2", icon: "🌙", start: 20, end: 32 },
+            "М": { label: "Междинна", hours: "12:00 – 20:00", cls: "m", icon: "🕐", start: 12, end: 20 },
+            "П": { label: "Почивка", hours: "Неработен ден", cls: "p", icon: "😌", start: null, end: null },
+            "О": { label: "Отпуск", hours: "Платен отпуск", cls: "o", icon: "🏖️", start: null, end: null }
         };
 
-        btnManage.onclick = () => {
-            btnManage.classList.add('active');
-            btnView.classList.remove('active');
-            manageTab.style.display = 'block';
-            viewTab.style.display = 'none';
+        const DOW_BG = ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+        const DOW_FULL = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
+        const NOW = new Date();
 
-            renderManagerPage();
-        };
-    }
-}
-
-// ================================================================
-// MONTH SELECTOR
-// ================================================================
-function setupMonthSelector() {
-    const select = document.getElementById('monthSelect');
-    if (!select) return;
-    select.innerHTML = '';
-    const keys = Object.keys(ALL_SCHEDULES).sort();
-    keys.forEach(key => {
-        const option = document.createElement('option');
-        option.value = key;
-        option.textContent = getMonthNameBG(key);
-        if (key === selectedMonthKey) {
-            option.selected = true;
+        function normalizeShift(val) {
+            if (val === null || val === undefined) return "П";
+            let s = String(val).trim();
+            if (s === 'M') s = 'М';
+            return s;
         }
-        select.appendChild(option);
-    });
 
-    select.onchange = (e) => {
-        selectedMonthKey = e.target.value;
-        const totalHoursTitle = document.getElementById('totalHoursTitle');
-        if (totalHoursTitle) {
-            totalHoursTitle.textContent = `Общо работни часове (${getMonthNameBG(selectedMonthKey)})`;
+        function getCurrentSchedule() {
+            return ALL_SCHEDULES[selectedMonthKey] || {};
         }
-        setupPersonSelector();
-        buildStats();
-        buildDayCards();
-        applyFilter(activeFilter);
-        setupTodayJump();
-    };
 
-    const totalHoursTitle = document.getElementById('totalHoursTitle');
-    if (totalHoursTitle) {
-        totalHoursTitle.textContent = `Общо работни часове (${getMonthNameBG(selectedMonthKey)})`;
-    }
-}
-
-// ================================================================
-// PERSON SELECTOR
-// ================================================================
-function setupPersonSelector() {
-    const select = document.getElementById('personSelect');
-    if (!select) return;
-    select.innerHTML = '';
-    const sched = getCurrentSchedule();
-    const names = Object.keys(sched);
-
-    if (names.length > 0 && !names.includes(selectedPerson)) {
-        selectedPerson = names[0];
-    }
-
-    names.forEach(name => {
-        const option = document.createElement('option');
-        option.value = name;
-        option.textContent = name;
-        if (name === selectedPerson) {
-            option.selected = true;
+        function getPersonShifts(person = selectedPerson) {
+            const sched = getCurrentSchedule();
+            return (sched[person] || []).map(normalizeShift);
         }
-        select.appendChild(option);
-    });
 
-    select.onchange = (e) => {
-        selectedPerson = e.target.value;
-        buildStats();
-        buildDayCards();
-        applyFilter(activeFilter);
-        setupTodayJump();
-    };
-}
+        function isWorkShift(s) {
+            return s === "1" || s === "2" || s === "М";
+        }
 
-// ================================================================
-// STATS BAR
-// ================================================================
-function buildStats() {
-    const shifts = getPersonShifts(selectedPerson);
-    let s1 = 0, s2 = 0, sm = 0, rest = 0;
-    shifts.forEach(s => {
-        if (s === "1") s1++;
-        else if (s === "2") s2++;
-        else if (s === "М") sm++;
-        else rest++;
-    });
+        function shiftsOverlap(a, b) {
+            const sa = SHIFTS[a], sb = SHIFTS[b];
+            if (!sa || !sb || sa.start === null || sb.start === null) return false;
+            return sa.start < sb.end && sb.start < sa.end;
+        }
 
-    const totalHours = (s1 * 12) + (s2 * 12) + (sm * 8);
-    const totalHoursElem = document.getElementById('totalHoursVal');
-    if (totalHoursElem) totalHoursElem.textContent = `${totalHours} ч.`;
+        function getColleagues(dayIndex, myShift) {
+            const colleagues = [];
+            const currentSched = getCurrentSchedule();
+            for (const [name, shifts] of Object.entries(currentSched)) {
+                if (name === selectedPerson) continue;
+                const theirShift = normalizeShift(shifts[dayIndex]);
+                if (isWorkShift(theirShift)) {
+                    const overlap = shiftsOverlap(myShift, theirShift);
+                    colleagues.push({ name, shift: theirShift, overlap });
+                }
+            }
+            colleagues.sort((a, b) => {
+                if (a.overlap !== b.overlap) return a.overlap ? -1 : 1;
+                return a.name.localeCompare(b.name, 'bg');
+            });
+            return colleagues;
+        }
 
-    const statsBar = document.getElementById('statsBar');
-    statsBar.innerHTML = `
+        function getInitials(name) {
+            return name.charAt(0).toUpperCase();
+        }
+
+        // ================================================================
+        // NAVIGATION TABS
+        // ================================================================
+        function setupNavigation() {
+            const btnView = document.getElementById('navViewSchedule');
+            const btnManage = document.getElementById('navManageSchedule');
+            const viewTab = document.getElementById('viewScheduleTab');
+            const manageTab = document.getElementById('manageScheduleTab');
+
+            if (btnView && btnManage && viewTab && manageTab) {
+                btnView.onclick = () => {
+                    btnView.classList.add('active');
+                    btnManage.classList.remove('active');
+                    viewTab.style.display = 'block';
+                    manageTab.style.display = 'none';
+
+                    buildStats();
+                    buildDayCards();
+                    applyFilter(activeFilter);
+                    setupTodayJump();
+                };
+
+                btnManage.onclick = () => {
+                    btnManage.classList.add('active');
+                    btnView.classList.remove('active');
+                    manageTab.style.display = 'block';
+                    viewTab.style.display = 'none';
+
+                    renderManagerPage();
+                };
+            }
+        }
+
+        // ================================================================
+        // MONTH SELECTOR
+        // ================================================================
+        function setupMonthSelector() {
+            const select = document.getElementById('monthSelect');
+            if (!select) return;
+            select.innerHTML = '';
+            const keys = Object.keys(ALL_SCHEDULES).sort();
+            keys.forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = getMonthNameBG(key);
+                if (key === selectedMonthKey) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+
+            select.onchange = (e) => {
+                selectedMonthKey = e.target.value;
+                const totalHoursTitle = document.getElementById('totalHoursTitle');
+                if (totalHoursTitle) {
+                    totalHoursTitle.textContent = `Общо работни часове (${getMonthNameBG(selectedMonthKey)})`;
+                }
+                setupPersonSelector();
+                buildStats();
+                buildDayCards();
+                applyFilter(activeFilter);
+                setupTodayJump();
+            };
+
+            const totalHoursTitle = document.getElementById('totalHoursTitle');
+            if (totalHoursTitle) {
+                totalHoursTitle.textContent = `Общо работни часове (${getMonthNameBG(selectedMonthKey)})`;
+            }
+        }
+
+        // ================================================================
+        // PERSON SELECTOR
+        // ================================================================
+        function setupPersonSelector() {
+            const select = document.getElementById('personSelect');
+            if (!select) return;
+            select.innerHTML = '';
+            const sched = getCurrentSchedule();
+            const names = Object.keys(sched);
+
+            if (names.length > 0 && !names.includes(selectedPerson)) {
+                selectedPerson = names[0];
+            }
+
+            names.forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                if (name === selectedPerson) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+
+            select.onchange = (e) => {
+                selectedPerson = e.target.value;
+                buildStats();
+                buildDayCards();
+                applyFilter(activeFilter);
+                setupTodayJump();
+            };
+        }
+
+        // ================================================================
+        // STATS BAR
+        // ================================================================
+        function buildStats() {
+            const shifts = getPersonShifts(selectedPerson);
+            let s1 = 0, s2 = 0, sm = 0, rest = 0;
+            shifts.forEach(s => {
+                if (s === "1") s1++;
+                else if (s === "2") s2++;
+                else if (s === "М") sm++;
+                else rest++;
+            });
+
+            const totalHours = (s1 * 12) + (s2 * 12) + (sm * 8);
+            const totalHoursElem = document.getElementById('totalHoursVal');
+            if (totalHoursElem) totalHoursElem.textContent = `${totalHours} ч.`;
+
+            const statsBar = document.getElementById('statsBar');
+            statsBar.innerHTML = `
         <div class="stat-item shift-1 ${activeFilter === '1' ? 'active' : ''}" data-filter="1" title="Филтър Смяна 1">
             <div class="stat-number">${s1}</div>
             <div class="stat-label">Смяна 1</div>
@@ -1908,67 +2118,67 @@ function buildStats() {
         </div>
     `;
 
-    setupStatFilters();
-}
-
-function setupStatFilters() {
-    const items = document.querySelectorAll('.stat-item');
-    items.forEach(item => {
-        item.addEventListener('click', () => {
-            const filter = item.dataset.filter;
-            activeFilter = (activeFilter === filter) ? 'all' : filter;
-            updateStatActiveState();
-            applyFilter(activeFilter);
-        });
-    });
-}
-
-function updateStatActiveState() {
-    const items = document.querySelectorAll('.stat-item');
-    items.forEach(item => {
-        if (item.dataset.filter === activeFilter) {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
+            setupStatFilters();
         }
-    });
-}
 
-// ================================================================
-// BUILD DAY CARDS
-// ================================================================
-function buildDayCards() {
-    const [year, month] = selectedMonthKey.split('-').map(Number);
-    const totalDaysInMonth = getDaysInMonth(selectedMonthKey);
-    const shifts = getPersonShifts(selectedPerson);
-    const daysList = document.getElementById('daysList');
-    daysList.innerHTML = '';
+        function setupStatFilters() {
+            const items = document.querySelectorAll('.stat-item');
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const filter = item.dataset.filter;
+                    activeFilter = (activeFilter === filter) ? 'all' : filter;
+                    updateStatActiveState();
+                    applyFilter(activeFilter);
+                });
+            });
+        }
 
-    for (let i = 0; i < totalDaysInMonth; i++) {
-        const dayNum = i + 1;
-        const date = new Date(year, month - 1, dayNum);
-        const dow = date.getDay();
-        const dowText = DOW_BG[dow];
-        const isWeekend = (dow === 0 || dow === 6);
-        const isToday = (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month && NOW.getDate() === dayNum);
-        const myShift = shifts[i] || "П";
-        const shiftMeta = SHIFTS[myShift] || SHIFTS["П"];
-        const working = isWorkShift(myShift);
+        function updateStatActiveState() {
+            const items = document.querySelectorAll('.stat-item');
+            items.forEach(item => {
+                if (item.dataset.filter === activeFilter) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
 
-        const card = document.createElement('div');
-        card.className = `day-card shift-${shiftMeta.cls}${isToday ? ' is-today' : ''}${!working ? ' is-rest' : ''}${isWeekend ? ' weekend' : ''}`;
-        card.dataset.day = dayNum;
-        card.dataset.shift = myShift;
-        card.dataset.working = working ? 'yes' : 'no';
-        card.style.animationDelay = `${i * 0.015}s`;
+        // ================================================================
+        // BUILD DAY CARDS
+        // ================================================================
+        function buildDayCards() {
+            const [year, month] = selectedMonthKey.split('-').map(Number);
+            const totalDaysInMonth = getDaysInMonth(selectedMonthKey);
+            const shifts = getPersonShifts(selectedPerson);
+            const daysList = document.getElementById('daysList');
+            daysList.innerHTML = '';
 
-        let colleaguesHTML = '';
-        if (working) {
-            const colleagues = getColleagues(i, myShift);
-            if (colleagues.length > 0) {
-                const rows = colleagues.map(c => {
-                    const sm = SHIFTS[c.shift];
-                    return `
+            for (let i = 0; i < totalDaysInMonth; i++) {
+                const dayNum = i + 1;
+                const date = new Date(year, month - 1, dayNum);
+                const dow = date.getDay();
+                const dowText = DOW_BG[dow];
+                const isWeekend = (dow === 0 || dow === 6);
+                const isToday = (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month && NOW.getDate() === dayNum);
+                const myShift = shifts[i] || "П";
+                const shiftMeta = SHIFTS[myShift] || SHIFTS["П"];
+                const working = isWorkShift(myShift);
+
+                const card = document.createElement('div');
+                card.className = `day-card shift-${shiftMeta.cls}${isToday ? ' is-today' : ''}${!working ? ' is-rest' : ''}${isWeekend ? ' weekend' : ''}`;
+                card.dataset.day = dayNum;
+                card.dataset.shift = myShift;
+                card.dataset.working = working ? 'yes' : 'no';
+                card.style.animationDelay = `${i * 0.015}s`;
+
+                let colleaguesHTML = '';
+                if (working) {
+                    const colleagues = getColleagues(i, myShift);
+                    if (colleagues.length > 0) {
+                        const rows = colleagues.map(c => {
+                            const sm = SHIFTS[c.shift];
+                            return `
                         <div class="colleague-row">
                             <div class="colleague-avatar av-${sm.cls}">${getInitials(c.name)}</div>
                             <span class="colleague-name">${c.name}</span>
@@ -1977,9 +2187,9 @@ function buildDayCards() {
                             <button class="colleague-swap-btn" data-name="${c.name}">🔄 Размени</button>
                         </div>
                     `;
-                }).join('');
+                        }).join('');
 
-                colleaguesHTML = `
+                        colleaguesHTML = `
                     <div class="colleagues-panel">
                         <div class="colleagues-inner">
                             <div class="colleagues-header">
@@ -1990,8 +2200,8 @@ function buildDayCards() {
                         </div>
                     </div>
                 `;
-            } else {
-                colleaguesHTML = `
+                    } else {
+                        colleaguesHTML = `
                     <div class="colleagues-panel">
                         <div class="colleagues-inner">
                             <div class="colleagues-header">
@@ -2002,10 +2212,10 @@ function buildDayCards() {
                         </div>
                     </div>
                 `;
-            }
-        }
+                    }
+                }
 
-        card.innerHTML = `
+                card.innerHTML = `
             <div class="day-card-main">
                 <div class="day-date">
                     <span class="day-date-num">${dayNum}</span>
@@ -2032,77 +2242,77 @@ function buildDayCards() {
             ${colleaguesHTML}
         `;
 
-        const editBtn = card.querySelector('.day-edit-btn');
-        if (editBtn) {
-            editBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openEditModal(i, dayNum);
-            });
+                const editBtn = card.querySelector('.day-edit-btn');
+                if (editBtn) {
+                    editBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openEditModal(i, dayNum);
+                    });
+                }
+
+                const swapBtns = card.querySelectorAll('.colleague-swap-btn');
+                swapBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openEditModal(i, dayNum, btn.dataset.name);
+                    });
+                });
+
+                if (working) {
+                    card.querySelector('.day-card-main').addEventListener('click', () => {
+                        card.classList.toggle('expanded');
+                    });
+                }
+
+                daysList.appendChild(card);
+            }
         }
 
-        const swapBtns = card.querySelectorAll('.colleague-swap-btn');
-        swapBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openEditModal(i, dayNum, btn.dataset.name);
-            });
-        });
+        // ================================================================
+        // EDIT MODAL
+        // ================================================================
+        let selectedSwapColleague = "";
 
-        if (working) {
-            card.querySelector('.day-card-main').addEventListener('click', () => {
-                card.classList.toggle('expanded');
+        function openEditModal(dayIndex, dayNum, preselectedColleague = "") {
+            activeEditDayIndex = dayIndex;
+            const currentShift = getPersonShifts(selectedPerson)[dayIndex];
+            activeSelectedShift = currentShift;
+            selectedSwapColleague = preselectedColleague || "";
+
+            const monthName = getMonthNameBG(selectedMonthKey);
+            document.getElementById('modalTitle').textContent = `График: ${selectedPerson} (${dayNum} ${monthName})`;
+
+            const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
+            shiftOptionBtns.forEach(btn => {
+                if (!selectedSwapColleague && btn.dataset.shift === currentShift) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
             });
+
+            renderColleagueSwapList(dayIndex);
+            updateSwapPreview();
+            document.getElementById('editModal').classList.add('active');
         }
 
-        daysList.appendChild(card);
-    }
-}
+        function renderColleagueSwapList(dayIndex) {
+            const container = document.getElementById('colleagueSwapList');
+            if (!container) return;
+            container.innerHTML = '';
 
-// ================================================================
-// EDIT MODAL
-// ================================================================
-let selectedSwapColleague = "";
+            const currentSched = getCurrentSchedule();
+            Object.keys(currentSched).forEach(name => {
+                if (name !== selectedPerson) {
+                    const colleagueShiftVal = normalizeShift(currentSched[name][dayIndex]);
+                    const shiftMeta = SHIFTS[colleagueShiftVal] || SHIFTS["П"];
+                    const isSelected = (name === selectedSwapColleague);
 
-function openEditModal(dayIndex, dayNum, preselectedColleague = "") {
-    activeEditDayIndex = dayIndex;
-    const currentShift = getPersonShifts(selectedPerson)[dayIndex];
-    activeSelectedShift = currentShift;
-    selectedSwapColleague = preselectedColleague || "";
+                    const item = document.createElement('div');
+                    item.className = `colleague-swap-item${isSelected ? ' selected' : ''}`;
+                    item.dataset.name = name;
 
-    const monthName = getMonthNameBG(selectedMonthKey);
-    document.getElementById('modalTitle').textContent = `График: ${selectedPerson} (${dayNum} ${monthName})`;
-
-    const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
-    shiftOptionBtns.forEach(btn => {
-        if (!selectedSwapColleague && btn.dataset.shift === currentShift) {
-            btn.classList.add('selected');
-        } else {
-            btn.classList.remove('selected');
-        }
-    });
-
-    renderColleagueSwapList(dayIndex);
-    updateSwapPreview();
-    document.getElementById('editModal').classList.add('active');
-}
-
-function renderColleagueSwapList(dayIndex) {
-    const container = document.getElementById('colleagueSwapList');
-    if (!container) return;
-    container.innerHTML = '';
-
-    const currentSched = getCurrentSchedule();
-    Object.keys(currentSched).forEach(name => {
-        if (name !== selectedPerson) {
-            const colleagueShiftVal = normalizeShift(currentSched[name][dayIndex]);
-            const shiftMeta = SHIFTS[colleagueShiftVal] || SHIFTS["П"];
-            const isSelected = (name === selectedSwapColleague);
-
-            const item = document.createElement('div');
-            item.className = `colleague-swap-item${isSelected ? ' selected' : ''}`;
-            item.dataset.name = name;
-
-            item.innerHTML = `
+                    item.innerHTML = `
                 <div class="swap-item-left">
                     <div class="swap-item-avatar av-${shiftMeta.cls}">${getInitials(name)}</div>
                     <span class="swap-item-name">${name}</span>
@@ -2115,179 +2325,179 @@ function renderColleagueSwapList(dayIndex) {
                 </div>
             `;
 
-            item.addEventListener('click', () => {
-                if (selectedSwapColleague === name) {
-                    selectedSwapColleague = "";
-                } else {
-                    selectedSwapColleague = name;
-                    const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
-                    shiftOptionBtns.forEach(b => b.classList.remove('selected'));
+                    item.addEventListener('click', () => {
+                        if (selectedSwapColleague === name) {
+                            selectedSwapColleague = "";
+                        } else {
+                            selectedSwapColleague = name;
+                            const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
+                            shiftOptionBtns.forEach(b => b.classList.remove('selected'));
+                        }
+                        renderColleagueSwapList(dayIndex);
+                        updateSwapPreview();
+                    });
+
+                    container.appendChild(item);
                 }
-                renderColleagueSwapList(dayIndex);
-                updateSwapPreview();
+            });
+        }
+
+        function updateSwapPreview() {
+            const previewBox = document.getElementById('swapPreview');
+            const previewText = document.getElementById('swapPreviewText');
+            const currentSched = getCurrentSchedule();
+
+            if (selectedSwapColleague && activeEditDayIndex !== null && currentSched[selectedPerson]) {
+                const colleagueName = selectedSwapColleague;
+                const myShiftVal = normalizeShift(currentSched[selectedPerson][activeEditDayIndex]);
+                const colleagueShiftVal = normalizeShift(currentSched[colleagueName][activeEditDayIndex]);
+
+                const myMeta = SHIFTS[myShiftVal] || SHIFTS["П"];
+                const colMeta = SHIFTS[colleagueShiftVal] || SHIFTS["П"];
+
+                previewText.textContent = `${selectedPerson} (${myMeta.icon} ${myMeta.label}) ⇄ ${colleagueName} (${colMeta.icon} ${colMeta.label})`;
+                previewBox.style.display = 'block';
+            } else if (previewBox) {
+                previewBox.style.display = 'none';
+            }
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            activeEditDayIndex = null;
+            selectedSwapColleague = "";
+            const previewBox = document.getElementById('swapPreview');
+            if (previewBox) previewBox.style.display = 'none';
+        }
+
+        function saveModalChanges() {
+            if (activeEditDayIndex === null) return;
+            const dayNum = activeEditDayIndex + 1;
+            const currentSched = ALL_SCHEDULES[selectedMonthKey];
+
+            if (selectedSwapColleague && currentSched[selectedPerson] && currentSched[selectedSwapColleague]) {
+                const personShift = currentSched[selectedPerson][activeEditDayIndex];
+                const colleagueShift = currentSched[selectedSwapColleague][activeEditDayIndex];
+
+                currentSched[selectedPerson][activeEditDayIndex] = colleagueShift;
+                currentSched[selectedSwapColleague][activeEditDayIndex] = personShift;
+
+                saveAllSchedules();
+                closeEditModal();
+                buildStats();
+                buildDayCards();
+                setupTodayJump();
+                showToast(`Разменена смяна: ${selectedPerson} ⇄ ${selectedSwapColleague} (${dayNum} ден)!`);
+            } else if (currentSched[selectedPerson]) {
+                currentSched[selectedPerson][activeEditDayIndex] = activeSelectedShift;
+
+                saveAllSchedules();
+                closeEditModal();
+                buildStats();
+                buildDayCards();
+                setupTodayJump();
+                showToast(`Обновена смяна за ${selectedPerson} (${dayNum} ден)!`);
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            if (!toast) return;
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function setupModalListeners() {
+            document.getElementById('modalClose').addEventListener('click', closeEditModal);
+            document.getElementById('modalCancel').addEventListener('click', closeEditModal);
+            document.getElementById('modalSave').addEventListener('click', saveModalChanges);
+
+            const removeWorkBtn = document.getElementById('btnRemoveWork');
+            if (removeWorkBtn) {
+                removeWorkBtn.addEventListener('click', () => {
+                    activeSelectedShift = 'П';
+                    selectedSwapColleague = "";
+                    saveModalChanges();
+                });
+            }
+
+            const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
+            shiftOptionBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    shiftOptionBtns.forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    activeSelectedShift = btn.dataset.shift;
+                    selectedSwapColleague = "";
+                    if (activeEditDayIndex !== null) {
+                        renderColleagueSwapList(activeEditDayIndex);
+                    }
+                    updateSwapPreview();
+                });
             });
 
-            container.appendChild(item);
+            document.getElementById('editModal').addEventListener('click', (e) => {
+                if (e.target.id === 'editModal') closeEditModal();
+            });
         }
-    });
-}
 
-function updateSwapPreview() {
-    const previewBox = document.getElementById('swapPreview');
-    const previewText = document.getElementById('swapPreviewText');
-    const currentSched = getCurrentSchedule();
-
-    if (selectedSwapColleague && activeEditDayIndex !== null && currentSched[selectedPerson]) {
-        const colleagueName = selectedSwapColleague;
-        const myShiftVal = normalizeShift(currentSched[selectedPerson][activeEditDayIndex]);
-        const colleagueShiftVal = normalizeShift(currentSched[colleagueName][activeEditDayIndex]);
-
-        const myMeta = SHIFTS[myShiftVal] || SHIFTS["П"];
-        const colMeta = SHIFTS[colleagueShiftVal] || SHIFTS["П"];
-
-        previewText.textContent = `${selectedPerson} (${myMeta.icon} ${myMeta.label}) ⇄ ${colleagueName} (${colMeta.icon} ${colMeta.label})`;
-        previewBox.style.display = 'block';
-    } else if (previewBox) {
-        previewBox.style.display = 'none';
-    }
-}
-
-function closeEditModal() {
-    document.getElementById('editModal').classList.remove('active');
-    activeEditDayIndex = null;
-    selectedSwapColleague = "";
-    const previewBox = document.getElementById('swapPreview');
-    if (previewBox) previewBox.style.display = 'none';
-}
-
-function saveModalChanges() {
-    if (activeEditDayIndex === null) return;
-    const dayNum = activeEditDayIndex + 1;
-    const currentSched = ALL_SCHEDULES[selectedMonthKey];
-
-    if (selectedSwapColleague && currentSched[selectedPerson] && currentSched[selectedSwapColleague]) {
-        const personShift = currentSched[selectedPerson][activeEditDayIndex];
-        const colleagueShift = currentSched[selectedSwapColleague][activeEditDayIndex];
-
-        currentSched[selectedPerson][activeEditDayIndex] = colleagueShift;
-        currentSched[selectedSwapColleague][activeEditDayIndex] = personShift;
-
-        saveAllSchedules();
-        closeEditModal();
-        buildStats();
-        buildDayCards();
-        setupTodayJump();
-        showToast(`Разменена смяна: ${selectedPerson} ⇄ ${selectedSwapColleague} (${dayNum} ден)!`);
-    } else if (currentSched[selectedPerson]) {
-        currentSched[selectedPerson][activeEditDayIndex] = activeSelectedShift;
-
-        saveAllSchedules();
-        closeEditModal();
-        buildStats();
-        buildDayCards();
-        setupTodayJump();
-        showToast(`Обновена смяна за ${selectedPerson} (${dayNum} ден)!`);
-    }
-}
-
-function showToast(msg) {
-    const toast = document.getElementById('toastNotification');
-    if (!toast) return;
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-}
-
-function setupModalListeners() {
-    document.getElementById('modalClose').addEventListener('click', closeEditModal);
-    document.getElementById('modalCancel').addEventListener('click', closeEditModal);
-    document.getElementById('modalSave').addEventListener('click', saveModalChanges);
-
-    const removeWorkBtn = document.getElementById('btnRemoveWork');
-    if (removeWorkBtn) {
-        removeWorkBtn.addEventListener('click', () => {
-            activeSelectedShift = 'П';
-            selectedSwapColleague = "";
-            saveModalChanges();
-        });
-    }
-
-    const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
-    shiftOptionBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            shiftOptionBtns.forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            activeSelectedShift = btn.dataset.shift;
-            selectedSwapColleague = "";
-            if (activeEditDayIndex !== null) {
-                renderColleagueSwapList(activeEditDayIndex);
-            }
-            updateSwapPreview();
-        });
-    });
-
-    document.getElementById('editModal').addEventListener('click', (e) => {
-        if (e.target.id === 'editModal') closeEditModal();
-    });
-}
-
-function setupResetListener() {
-    const btn = document.getElementById('resetScheduleBtn');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-        if (confirm("Сигурни ли сте, че искате да върнете началния график? Това ще се отрази за всички в базата данни.")) {
-            ALL_SCHEDULES = JSON.parse(JSON.stringify(DEFAULT_ALL_SCHEDULES));
-            activeFilter = 'all';
-            saveAllSchedules();
-            refreshUI();
-            showToast("Графикът е върнат към началния!");
+        function setupResetListener() {
+            const btn = document.getElementById('resetScheduleBtn');
+            if (!btn) return;
+            btn.addEventListener('click', () => {
+                if (confirm("Сигурни ли сте, че искате да върнете началния график? Това ще се отрази за всички в базата данни.")) {
+                    ALL_SCHEDULES = JSON.parse(JSON.stringify(DEFAULT_ALL_SCHEDULES));
+                    activeFilter = 'all';
+                    saveAllSchedules();
+                    refreshUI();
+                    showToast("Графикът е върнат към началния!");
+                }
+            });
         }
-    });
-}
 
-// ================================================================
-// MANAGER TAB
-// ================================================================
-function renderManagerPage() {
-    const monthSelect = document.getElementById('manageMonthSelect');
-    if (!monthSelect) return;
-    monthSelect.innerHTML = '';
-    const keys = Object.keys(ALL_SCHEDULES).sort();
-    keys.forEach(key => {
-        const option = document.createElement('option');
-        option.value = key;
-        option.textContent = getMonthNameBG(key);
-        if (key === selectedMonthKey) {
-            option.selected = true;
+        // ================================================================
+        // MANAGER TAB
+        // ================================================================
+        function renderManagerPage() {
+            const monthSelect = document.getElementById('manageMonthSelect');
+            if (!monthSelect) return;
+            monthSelect.innerHTML = '';
+            const keys = Object.keys(ALL_SCHEDULES).sort();
+            keys.forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = getMonthNameBG(key);
+                if (key === selectedMonthKey) {
+                    option.selected = true;
+                }
+                monthSelect.appendChild(option);
+            });
+
+            monthSelect.onchange = (e) => {
+                selectedMonthKey = e.target.value;
+                renderEmployeeInputs(selectedMonthKey);
+            };
+
+            renderEmployeeInputs(selectedMonthKey);
         }
-        monthSelect.appendChild(option);
-    });
 
-    monthSelect.onchange = (e) => {
-        selectedMonthKey = e.target.value;
-        renderEmployeeInputs(selectedMonthKey);
-    };
+        function renderEmployeeInputs(monthKey) {
+            const container = document.getElementById('employeeInputsContainer');
+            if (!container) return;
+            container.innerHTML = '';
 
-    renderEmployeeInputs(selectedMonthKey);
-}
+            const daysCount = getDaysInMonth(monthKey);
+            const monthSched = ALL_SCHEDULES[monthKey] || {};
 
-function renderEmployeeInputs(monthKey) {
-    const container = document.getElementById('employeeInputsContainer');
-    if (!container) return;
-    container.innerHTML = '';
+            Object.keys(monthSched).forEach(name => {
+                const shifts = monthSched[name] || [];
+                const shiftsStr = shifts.join(', ');
 
-    const daysCount = getDaysInMonth(monthKey);
-    const monthSched = ALL_SCHEDULES[monthKey] || {};
-
-    Object.keys(monthSched).forEach(name => {
-        const shifts = monthSched[name] || [];
-        const shiftsStr = shifts.join(', ');
-
-        const card = document.createElement('div');
-        card.className = 'employee-input-card';
-        card.innerHTML = `
+                const card = document.createElement('div');
+                card.className = 'employee-input-card';
+                card.innerHTML = `
             <div class="employee-input-header">
                 <span class="employee-input-name">${name}</span>
                 <span class="employee-input-count" id="count_${name}">${shifts.length} / ${daysCount} дни</span>
@@ -2302,203 +2512,202 @@ function renderEmployeeInputs(monthKey) {
                 <button class="quick-tool-btn" type="button" data-name="${name}" data-val="clear" style="color:#ef4444;">Изчисти</button>
             </div>
         `;
-        container.appendChild(card);
+                container.appendChild(card);
 
-        const textarea = card.querySelector('textarea');
-        textarea.addEventListener('input', () => {
-            const parsed = parseShiftsInput(textarea.value);
-            document.getElementById(`count_${name}`).textContent = `${parsed.length} / ${daysCount} дни`;
-        });
-    });
-
-    container.querySelectorAll('.quick-tool-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const name = btn.dataset.name;
-            const val = btn.dataset.val;
-            if (val === 'clear') {
-                clearShifts(name);
-            } else {
-                appendShift(name, val);
-            }
-        });
-    });
-}
-
-function parseShiftsInput(str) {
-    if (!str) return [];
-    return str.split(/[\s,\n]+/).map(s => s.trim()).filter(Boolean).map(normalizeShift);
-}
-
-function appendShift(name, shiftVal) {
-    const textarea = document.getElementById(`input_${name}`);
-    if (!textarea) return;
-    let current = textarea.value.trim();
-    current = current ? (current + ', ' + shiftVal) : shiftVal;
-    textarea.value = current;
-    textarea.dispatchEvent(new Event('input'));
-}
-
-function clearShifts(name) {
-    const textarea = document.getElementById(`input_${name}`);
-    if (!textarea) return;
-    textarea.value = '';
-    textarea.dispatchEvent(new Event('input'));
-}
-
-function setupManagerListeners() {
-    const btnCreate = document.getElementById('btnCreateMonth');
-    if (btnCreate) {
-        btnCreate.onclick = () => {
-            const newMonthInput = document.getElementById('newMonthInput');
-            if (!newMonthInput || !newMonthInput.value) return;
-            const newKey = newMonthInput.value;
-
-            if (ALL_SCHEDULES[newKey]) {
-                alert(`Месец ${getMonthNameBG(newKey)} вече съществува!`);
-                return;
-            }
-
-            const newMonthSched = {};
-            const staff = Object.keys(ALL_SCHEDULES[selectedMonthKey] || DEFAULT_ALL_SCHEDULES["2026-08"]);
-            staff.forEach(name => {
-                newMonthSched[name] = [];
-            });
-
-            ALL_SCHEDULES[newKey] = newMonthSched;
-            selectedMonthKey = newKey;
-            saveAllSchedules();
-            refreshUI();
-            renderManagerPage();
-            showToast(`Създаден е нов месец: ${getMonthNameBG(newKey)}!`);
-        };
-    }
-
-    const btnSave = document.getElementById('btnSaveManager');
-    if (btnSave) {
-        btnSave.onclick = () => {
-            const monthKey = selectedMonthKey;
-            const daysCount = getDaysInMonth(monthKey);
-            const monthSched = ALL_SCHEDULES[monthKey] || {};
-
-            Object.keys(monthSched).forEach(name => {
-                const textarea = document.getElementById(`input_${name}`);
-                if (textarea) {
+                const textarea = card.querySelector('textarea');
+                textarea.addEventListener('input', () => {
                     const parsed = parseShiftsInput(textarea.value);
-                    while (parsed.length < daysCount) {
-                        parsed.push('П');
-                    }
-                    monthSched[name] = parsed.slice(0, daysCount);
-                }
+                    document.getElementById(`count_${name}`).textContent = `${parsed.length} / ${daysCount} дни`;
+                });
             });
 
-            ALL_SCHEDULES[monthKey] = monthSched;
-            saveAllSchedules();
-            refreshUI();
-            showToast(`Графикът за ${getMonthNameBG(monthKey)} е запазен в облака!`);
-        };
-    }
+            container.querySelectorAll('.quick-tool-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const name = btn.dataset.name;
+                    const val = btn.dataset.val;
+                    if (val === 'clear') {
+                        clearShifts(name);
+                    } else {
+                        appendShift(name, val);
+                    }
+                });
+            });
+        }
 
-    const btnDelete = document.getElementById('btnDeleteMonth');
-    if (btnDelete) {
-        btnDelete.onclick = () => {
-            const keys = Object.keys(ALL_SCHEDULES);
-            if (keys.length <= 1) {
-                alert("Не можете да изтриете единствения месец!");
+        function parseShiftsInput(str) {
+            if (!str) return [];
+            return str.split(/[\s,\n]+/).map(s => s.trim()).filter(Boolean).map(normalizeShift);
+        }
+
+        function appendShift(name, shiftVal) {
+            const textarea = document.getElementById(`input_${name}`);
+            if (!textarea) return;
+            let current = textarea.value.trim();
+            current = current ? (current + ', ' + shiftVal) : shiftVal;
+            textarea.value = current;
+            textarea.dispatchEvent(new Event('input'));
+        }
+
+        function clearShifts(name) {
+            const textarea = document.getElementById(`input_${name}`);
+            if (!textarea) return;
+            textarea.value = '';
+            textarea.dispatchEvent(new Event('input'));
+        }
+
+        function setupManagerListeners() {
+            const btnCreate = document.getElementById('btnCreateMonth');
+            if (btnCreate) {
+                btnCreate.onclick = () => {
+                    const newMonthInput = document.getElementById('newMonthInput');
+                    if (!newMonthInput || !newMonthInput.value) return;
+                    const newKey = newMonthInput.value;
+
+                    if (ALL_SCHEDULES[newKey]) {
+                        alert(`Месец ${getMonthNameBG(newKey)} вече съществува!`);
+                        return;
+                    }
+
+                    const newMonthSched = {};
+                    const staff = Object.keys(ALL_SCHEDULES[selectedMonthKey] || DEFAULT_ALL_SCHEDULES["2026-08"]);
+                    staff.forEach(name => {
+                        newMonthSched[name] = []; // Starts completely empty
+                    });
+
+                    ALL_SCHEDULES[newKey] = newMonthSched;
+                    selectedMonthKey = newKey;
+                    saveAllSchedules();
+                    refreshUI();
+                    renderManagerPage();
+                    showToast(`Създаден е нов месец: ${getMonthNameBG(newKey)}! (Полетата са празни)`);
+                };
+            }
+
+            const btnSave = document.getElementById('btnSaveManager');
+            if (btnSave) {
+                btnSave.onclick = () => {
+                    const monthKey = selectedMonthKey;
+                    const daysCount = getDaysInMonth(monthKey);
+                    const monthSched = ALL_SCHEDULES[monthKey] || {};
+
+                    Object.keys(monthSched).forEach(name => {
+                        const textarea = document.getElementById(`input_${name}`);
+                        if (textarea) {
+                            const parsed = parseShiftsInput(textarea.value);
+                            // Saves exactly what was typed without padding with 'П'
+                            monthSched[name] = parsed.slice(0, daysCount);
+                        }
+                    });
+
+                    ALL_SCHEDULES[monthKey] = monthSched;
+                    saveAllSchedules();
+                    refreshUI();
+                    showToast(`Графикът за ${getMonthNameBG(monthKey)} е запазен!`);
+                };
+            }
+
+            const btnDelete = document.getElementById('btnDeleteMonth');
+            if (btnDelete) {
+                btnDelete.onclick = () => {
+                    const keys = Object.keys(ALL_SCHEDULES);
+                    if (keys.length <= 1) {
+                        alert("Не можете да изтриете единствения месец!");
+                        return;
+                    }
+                    if (confirm(`Сигурни ли сте, че искате да изтриете месец ${getMonthNameBG(selectedMonthKey)}?`)) {
+                        delete ALL_SCHEDULES[selectedMonthKey];
+                        selectedMonthKey = Object.keys(ALL_SCHEDULES).sort()[0];
+                        saveAllSchedules();
+                        refreshUI();
+                        renderManagerPage();
+                        showToast("Месецът е изтрит!");
+                    }
+                };
+            }
+        }
+
+        // ================================================================
+        // FILTERS
+        // ================================================================
+        function applyFilter(filter) {
+            const cards = document.querySelectorAll('.day-card');
+            cards.forEach(card => {
+                const shift = card.dataset.shift;
+                const working = card.dataset.working === 'yes';
+
+                let show = true;
+                if (filter === 'work') show = working;
+                else if (filter === 'rest') show = !working;
+                else if (filter === '1') show = shift === '1';
+                else if (filter === '2') show = shift === '2';
+                else if (filter === 'М') show = shift === 'М';
+
+                card.classList.toggle('hidden', !show);
+            });
+        }
+
+        // ================================================================
+        // TODAY JUMP
+        // ================================================================
+        function setupTodayJump() {
+            const [year, month] = selectedMonthKey.split('-').map(Number);
+            const isCurrentMonth = (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month);
+
+            const jumpBtn = document.getElementById('todayJump');
+            if (!jumpBtn) return;
+
+            if (!isCurrentMonth) {
+                jumpBtn.style.display = 'none';
                 return;
             }
-            if (confirm(`Сигурни ли сте, че искате да изтриете месец ${getMonthNameBG(selectedMonthKey)}?`)) {
-                delete ALL_SCHEDULES[selectedMonthKey];
-                selectedMonthKey = Object.keys(ALL_SCHEDULES).sort()[0];
-                saveAllSchedules();
-                refreshUI();
-                renderManagerPage();
-                showToast("Месецът е изтрит!");
-            }
-        };
-    }
-}
 
-// ================================================================
-// FILTERS
-// ================================================================
-function applyFilter(filter) {
-    const cards = document.querySelectorAll('.day-card');
-    cards.forEach(card => {
-        const shift = card.dataset.shift;
-        const working = card.dataset.working === 'yes';
+            const todayDay = NOW.getDate();
+            const shifts = getPersonShifts(selectedPerson);
+            const myShift = shifts[todayDay - 1] || "П";
+            const shiftMeta = SHIFTS[myShift] || SHIFTS["П"];
+            const jumpText = document.getElementById('todayJumpText');
 
-        let show = true;
-        if (filter === 'work') show = working;
-        else if (filter === 'rest') show = !working;
-        else if (filter === '1') show = shift === '1';
-        else if (filter === '2') show = shift === '2';
-        else if (filter === 'М') show = shift === 'М';
+            jumpText.textContent = `Днес: ${DOW_FULL[NOW.getDay()]}, ${todayDay} ${getMonthNameBG(selectedMonthKey)} — ${shiftMeta.icon} ${shiftMeta.label}`;
+            jumpBtn.style.display = 'flex';
 
-        card.classList.toggle('hidden', !show);
-    });
-}
-
-// ================================================================
-// TODAY JUMP
-// ================================================================
-function setupTodayJump() {
-    const [year, month] = selectedMonthKey.split('-').map(Number);
-    const isCurrentMonth = (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month);
-
-    const jumpBtn = document.getElementById('todayJump');
-    if (!jumpBtn) return;
-
-    if (!isCurrentMonth) {
-        jumpBtn.style.display = 'none';
-        return;
-    }
-
-    const todayDay = NOW.getDate();
-    const shifts = getPersonShifts(selectedPerson);
-    const myShift = shifts[todayDay - 1] || "П";
-    const shiftMeta = SHIFTS[myShift] || SHIFTS["П"];
-    const jumpText = document.getElementById('todayJumpText');
-
-    jumpText.textContent = `Днес: ${DOW_FULL[NOW.getDay()]}, ${todayDay} ${getMonthNameBG(selectedMonthKey)} — ${shiftMeta.icon} ${shiftMeta.label}`;
-    jumpBtn.style.display = 'flex';
-
-    jumpBtn.onclick = () => {
-        const todayCard = document.querySelector('.day-card.is-today');
-        if (todayCard) {
-            todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            todayCard.style.transition = 'box-shadow 0.3s';
-            todayCard.style.boxShadow = '0 0 40px rgba(124, 92, 252, 0.4), inset 0 0 30px rgba(124, 92, 252, 0.05)';
-            setTimeout(() => {
-                todayCard.style.boxShadow = '';
-            }, 1200);
+            jumpBtn.onclick = () => {
+                const todayCard = document.querySelector('.day-card.is-today');
+                if (todayCard) {
+                    todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    todayCard.style.transition = 'box-shadow 0.3s';
+                    todayCard.style.boxShadow = '0 0 40px rgba(124, 92, 252, 0.4), inset 0 0 30px rgba(124, 92, 252, 0.05)';
+                    setTimeout(() => {
+                        todayCard.style.boxShadow = '';
+                    }, 1200);
+                }
+            };
         }
-    };
-}
 
-// ================================================================
-// INITIALIZATION
-// ================================================================
-function init() {
-    setupNavigation();
-    setupModalListeners();
-    setupResetListener();
-    setupManagerListeners();
-    refreshUI();
-    initRealtimeSync();
+        // ================================================================
+        // INITIALIZATION
+        // ================================================================
+        function init() {
+            setupNavigation();
+            setupModalListeners();
+            setupResetListener();
+            setupManagerListeners();
+            refreshUI();
+            initRealtimeSync();
 
-    const [year, month] = selectedMonthKey.split('-').map(Number);
-    if (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month) {
-        setTimeout(() => {
-            const todayCard = document.querySelector('.day-card.is-today');
-            if (todayCard) {
-                todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const [year, month] = selectedMonthKey.split('-').map(Number);
+            if (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month) {
+                setTimeout(() => {
+                    const todayCard = document.querySelector('.day-card.is-today');
+                    if (todayCard) {
+                        todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 500);
             }
-        }, 500);
-    }
-}
+        }
 
-document.addEventListener('DOMContentLoaded', init);
-</script>
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 
 </body>
+
 </html>
