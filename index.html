@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Firebase Realtime Database Compat SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
     <style>
         /* ========== RESET & BASE ========== */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -164,10 +167,39 @@
             margin-bottom: var(--space-xs);
         }
 
-        .header-sub {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            font-weight: 400;
+        /* Sync Status Badge */
+        .sync-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.72rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .sync-badge.syncing {
+            background: rgba(240, 180, 41, 0.1);
+            color: var(--shift-1);
+            border-color: rgba(240, 180, 41, 0.25);
+        }
+
+        .sync-badge.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        .sync-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
         }
 
         /* ========== PERSON & MONTH SELECTORS ========== */
@@ -503,16 +535,12 @@
             transform: translateY(0) scale(1);
         }
 
-        <div class="modal-header">
-            <h3 class="modal-title" id="modalTitle">Промяна на график</h3>
-            <button class="modal-close" id="modalClose">&times;</button>
-        </div>
-        
-        <button class="btn-remove-work" id="btnRemoveWork">
-            🚫 Свали от работа (Почивка 'П')
-        </button>
-
-        <div style="margin-bottom: var(--space-md);">
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
 
         .modal-title {
             font-family: 'Outfit', sans-serif;
@@ -1021,7 +1049,6 @@
             display: none;
         }
 
-        /* Specific styles for shifts on the card level */
         .day-card.shift-1 { border-left: 4px solid var(--shift-1); background: linear-gradient(90deg, rgba(240, 180, 41, 0.08) 0%, var(--bg-card) 20%); }
         .day-card.shift-1 .day-date { background: rgba(240, 180, 41, 0.1); border-color: rgba(240, 180, 41, 0.2); }
         .day-card.shift-1 .day-date-num { color: var(--shift-1); }
@@ -1053,7 +1080,6 @@
             width: 100%;
         }
 
-        /* Date circle */
         .day-date {
             flex-shrink: 0;
             width: 50px; height: 50px;
@@ -1091,7 +1117,6 @@
             color: rgba(255,255,255,0.7);
         }
 
-        /* Shift badge & info */
         .day-info {
             flex: 1;
             min-width: 0;
@@ -1126,7 +1151,6 @@
             border-radius: 50%;
         }
 
-        /* Badge colors per shift type */
         .badge-1 { background: var(--shift-1-bg); color: var(--shift-1); border: 1px solid rgba(240, 180, 41, 0.2); }
         .badge-1 .badge-dot { background: var(--shift-1); box-shadow: 0 0 6px var(--shift-1-glow); }
 
@@ -1142,13 +1166,6 @@
         .badge-o { background: var(--shift-o-bg); color: var(--shift-o); border: 1px solid rgba(16, 185, 129, 0.2); }
         .badge-o .badge-dot { background: var(--shift-o); box-shadow: 0 0 6px var(--shift-o-glow); }
 
-        .day-hours {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        /* Chevron */
         .day-chevron {
             flex-shrink: 0;
             width: 28px; height: 28px;
@@ -1271,7 +1288,6 @@
             font-style: italic;
         }
 
-        /* ========== WEEKEND MARKER ========== */
         .weekend .day-date {
             border-color: rgba(240, 180, 41, 0.15);
         }
@@ -1376,25 +1392,12 @@
                 gap: 3px;
             }
 
-            .day-edit-btn svg {
-                width: 12px;
-                height: 12px;
-            }
-
             .stat-number {
                 font-size: 1.15rem;
             }
 
             .stat-label {
                 font-size: 0.58rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .day-edit-btn {
-                padding: 4px 6px;
-                font-size: 0.68rem;
             }
         }
     </style>
@@ -1426,6 +1429,12 @@
             </div>
             <h1>Работен График</h1>
             
+            <div id="syncStatus" class="sync-badge">
+                <span class="sync-dot"></span>
+                <span id="syncText">Свързване с облака...</span>
+            </div>
+
+            <br>
             <div class="month-select-wrapper">
                 <span class="month-select-label">📅 Месец:</span>
                 <select id="monthSelect" class="month-select"></select>
@@ -1479,7 +1488,7 @@
                 <span>⚙️</span> Въвеждане и Управление на График
             </div>
             <div class="manager-subtitle">
-                Въведете или редактирайте графика за всеки нов месец. Можете бързо да поставяте смените за служителите (разделени със запетая или интервал, напр. <code>1, 2, П, М...</code>).
+                Въведете или редактирайте графика за всеки нов месец. Промените се синхронизират в реално време за всички колеги.
             </div>
 
             <div class="month-picker-row">
@@ -1515,6 +1524,10 @@
             <button class="modal-close" id="modalClose">&times;</button>
         </div>
         
+        <button class="btn-remove-work" id="btnRemoveWork">
+            🚫 Свали от работа (Почивка 'П')
+        </button>
+
         <div style="margin-bottom: var(--space-md);">
             <div class="edit-section-label">1. Избери нова смяна:</div>
             <div class="shift-options-grid" id="shiftOptionsGrid">
@@ -1561,6 +1574,33 @@
 
 <script>
 // ================================================================
+// FIREBASE REALTIME DATABASE SETUP
+// ================================================================
+const firebaseConfig = {
+    apiKey: "AIzaSyDt1jd5fEeWg-K9Qrx46Fr3xn8iQwDbGvk",
+    authDomain: "magic-club-grafik.firebaseapp.com",
+    databaseURL: "https://magic-club-grafik-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "magic-club-grafik",
+    storageBucket: "magic-club-grafik.firebasestorage.app",
+    messagingSenderId: "285610975628",
+    appId: "1:285610975628:web:be797e62e4375820d5b6a9"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const database = firebase.database();
+const schedulesRef = database.ref("schedules");
+
+function updateSyncStatus(status, text) {
+    const badge = document.getElementById('syncStatus');
+    const label = document.getElementById('syncText');
+    if (!badge || !label) return;
+    badge.className = `sync-badge ${status}`;
+    label.textContent = text;
+}
+
+// ================================================================
 // EMBEDDED MULTI-MONTH SCHEDULE DATA
 // ================================================================
 const BULGARIAN_MONTHS = [
@@ -1604,28 +1644,19 @@ const DEFAULT_ALL_SCHEDULES = {
     }
 };
 
-function loadAllSchedules() {
+function loadLocalSchedules() {
     const saved = localStorage.getItem('magic_club_all_schedules_v3');
     if (saved) {
         try {
             return JSON.parse(saved);
         } catch (e) {
-            console.error("Failed to load saved all schedules", e);
+            console.error("Local schedule parse failed", e);
         }
-    }
-    const v2 = localStorage.getItem('magic_club_schedule_v2');
-    if (v2) {
-        try {
-            const parsedV2 = JSON.parse(v2);
-            const copy = JSON.parse(JSON.stringify(DEFAULT_ALL_SCHEDULES));
-            copy["2026-08"] = parsedV2;
-            return copy;
-        } catch (e) {}
     }
     return JSON.parse(JSON.stringify(DEFAULT_ALL_SCHEDULES));
 }
 
-let ALL_SCHEDULES = loadAllSchedules();
+let ALL_SCHEDULES = loadLocalSchedules();
 let selectedMonthKey = "2026-08";
 let selectedPerson = "Виктор";
 let activeEditDayIndex = null;
@@ -1634,6 +1665,46 @@ let activeFilter = 'all';
 
 function saveAllSchedules() {
     localStorage.setItem('magic_club_all_schedules_v3', JSON.stringify(ALL_SCHEDULES));
+    updateSyncStatus('syncing', 'Синхронизиране...');
+    schedulesRef.set(ALL_SCHEDULES)
+        .then(() => {
+            updateSyncStatus('', 'Свързан (Облак ✅)');
+        })
+        .catch((err) => {
+            console.error("Firebase write error:", err);
+            updateSyncStatus('error', 'Грешка при запис (Офлайн)');
+        });
+}
+
+function initRealtimeSync() {
+    updateSyncStatus('syncing', 'Свързване с облака...');
+    schedulesRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            ALL_SCHEDULES = data;
+            localStorage.setItem('magic_club_all_schedules_v3', JSON.stringify(ALL_SCHEDULES));
+        } else {
+            // First time setup in Firebase
+            schedulesRef.set(ALL_SCHEDULES);
+        }
+        updateSyncStatus('', 'Свързан (Облак ✅)');
+        refreshUI();
+    }, (error) => {
+        console.error("Firebase sync error:", error);
+        updateSyncStatus('error', 'Офлайн режим');
+    });
+}
+
+function refreshUI() {
+    if (!ALL_SCHEDULES[selectedMonthKey]) {
+        selectedMonthKey = Object.keys(ALL_SCHEDULES).sort()[0] || "2026-08";
+    }
+    setupMonthSelector();
+    setupPersonSelector();
+    buildStats();
+    buildDayCards();
+    applyFilter(activeFilter);
+    setupTodayJump();
 }
 
 // Shift metadata
@@ -1648,10 +1719,6 @@ const SHIFTS = {
 const DOW_BG = ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
 const DOW_FULL = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
 const NOW = new Date();
-
-// ================================================================
-// HELPER FUNCTIONS
-// ================================================================
 
 function normalizeShift(val) {
     if (val === null || val === undefined) return "П";
@@ -1735,7 +1802,7 @@ function setupNavigation() {
 }
 
 // ================================================================
-// MONTH SELECTOR (MAIN VIEW)
+// MONTH SELECTOR
 // ================================================================
 function setupMonthSelector() {
     const select = document.getElementById('monthSelect');
@@ -1805,7 +1872,7 @@ function setupPersonSelector() {
 }
 
 // ================================================================
-// BUILD STATS (CALCULATOR & FILTERS)
+// STATS BAR
 // ================================================================
 function buildStats() {
     const shifts = getPersonShifts(selectedPerson);
@@ -1823,19 +1890,19 @@ function buildStats() {
 
     const statsBar = document.getElementById('statsBar');
     statsBar.innerHTML = `
-        <div class="stat-item shift-1 ${activeFilter === '1' ? 'active' : ''}" data-filter="1" title="Натисни за филтриране Смяна 1">
+        <div class="stat-item shift-1 ${activeFilter === '1' ? 'active' : ''}" data-filter="1" title="Филтър Смяна 1">
             <div class="stat-number">${s1}</div>
             <div class="stat-label">Смяна 1</div>
         </div>
-        <div class="stat-item shift-2 ${activeFilter === '2' ? 'active' : ''}" data-filter="2" title="Натисни за филтриране Смяна 2">
+        <div class="stat-item shift-2 ${activeFilter === '2' ? 'active' : ''}" data-filter="2" title="Филтър Смяна 2">
             <div class="stat-number">${s2}</div>
             <div class="stat-label">Смяна 2</div>
         </div>
-        <div class="stat-item shift-m ${activeFilter === 'М' ? 'active' : ''}" data-filter="М" title="Натисни за филтриране Междинна">
+        <div class="stat-item shift-m ${activeFilter === 'М' ? 'active' : ''}" data-filter="М" title="Филтър Междинна">
             <div class="stat-number">${sm}</div>
             <div class="stat-label">Междинна</div>
         </div>
-        <div class="stat-item shift-rest ${activeFilter === 'rest' ? 'active' : ''}" data-filter="rest" title="Натисни за филтриране Почивка">
+        <div class="stat-item shift-rest ${activeFilter === 'rest' ? 'active' : ''}" data-filter="rest" title="Филтър Почивка">
             <div class="stat-number">${rest}</div>
             <div class="stat-label">Почивка</div>
         </div>
@@ -1849,11 +1916,7 @@ function setupStatFilters() {
     items.forEach(item => {
         item.addEventListener('click', () => {
             const filter = item.dataset.filter;
-            if (activeFilter === filter) {
-                activeFilter = 'all';
-            } else {
-                activeFilter = filter;
-            }
+            activeFilter = (activeFilter === filter) ? 'all' : filter;
             updateStatActiveState();
             applyFilter(activeFilter);
         });
@@ -1892,7 +1955,6 @@ function buildDayCards() {
         const shiftMeta = SHIFTS[myShift] || SHIFTS["П"];
         const working = isWorkShift(myShift);
 
-        // Card element
         const card = document.createElement('div');
         card.className = `day-card shift-${shiftMeta.cls}${isToday ? ' is-today' : ''}${!working ? ' is-rest' : ''}${isWeekend ? ' weekend' : ''}`;
         card.dataset.day = dayNum;
@@ -1900,7 +1962,6 @@ function buildDayCards() {
         card.dataset.working = working ? 'yes' : 'no';
         card.style.animationDelay = `${i * 0.015}s`;
 
-        // Colleagues (only for working days)
         let colleaguesHTML = '';
         if (working) {
             const colleagues = getColleagues(i, myShift);
@@ -1971,7 +2032,6 @@ function buildDayCards() {
             ${colleaguesHTML}
         `;
 
-        // Edit button handler
         const editBtn = card.querySelector('.day-edit-btn');
         if (editBtn) {
             editBtn.addEventListener('click', (e) => {
@@ -1980,7 +2040,6 @@ function buildDayCards() {
             });
         }
 
-        // Quick colleague swap buttons inside expanded panel
         const swapBtns = card.querySelectorAll('.colleague-swap-btn');
         swapBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -1989,7 +2048,6 @@ function buildDayCards() {
             });
         });
 
-        // Toggle expand on click (only working days)
         if (working) {
             card.querySelector('.day-card-main').addEventListener('click', () => {
                 card.classList.toggle('expanded');
@@ -2001,7 +2059,7 @@ function buildDayCards() {
 }
 
 // ================================================================
-// EDIT & SWAP MODAL
+// EDIT MODAL
 // ================================================================
 let selectedSwapColleague = "";
 
@@ -2014,7 +2072,6 @@ function openEditModal(dayIndex, dayNum, preselectedColleague = "") {
     const monthName = getMonthNameBG(selectedMonthKey);
     document.getElementById('modalTitle').textContent = `График: ${selectedPerson} (${dayNum} ${monthName})`;
 
-    // Select shift option button
     const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
     shiftOptionBtns.forEach(btn => {
         if (!selectedSwapColleague && btn.dataset.shift === currentShift) {
@@ -2063,7 +2120,6 @@ function renderColleagueSwapList(dayIndex) {
                     selectedSwapColleague = "";
                 } else {
                     selectedSwapColleague = name;
-                    // Deselect shift buttons if a colleague card is selected
                     const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
                     shiftOptionBtns.forEach(b => b.classList.remove('selected'));
                 }
@@ -2079,7 +2135,6 @@ function renderColleagueSwapList(dayIndex) {
 function updateSwapPreview() {
     const previewBox = document.getElementById('swapPreview');
     const previewText = document.getElementById('swapPreviewText');
-
     const currentSched = getCurrentSchedule();
 
     if (selectedSwapColleague && activeEditDayIndex !== null && currentSched[selectedPerson]) {
@@ -2111,7 +2166,6 @@ function saveModalChanges() {
     const currentSched = ALL_SCHEDULES[selectedMonthKey];
 
     if (selectedSwapColleague && currentSched[selectedPerson] && currentSched[selectedSwapColleague]) {
-        // Swap shifts between selectedPerson and selectedSwapColleague
         const personShift = currentSched[selectedPerson][activeEditDayIndex];
         const colleagueShift = currentSched[selectedSwapColleague][activeEditDayIndex];
 
@@ -2123,9 +2177,8 @@ function saveModalChanges() {
         buildStats();
         buildDayCards();
         setupTodayJump();
-        showToast(`Разменена смяна между ${selectedPerson} и ${selectedSwapColleague} за ${dayNum} ден!`);
+        showToast(`Разменена смяна: ${selectedPerson} ⇄ ${selectedSwapColleague} (${dayNum} ден)!`);
     } else if (currentSched[selectedPerson]) {
-        // Direct shift update
         currentSched[selectedPerson][activeEditDayIndex] = activeSelectedShift;
 
         saveAllSchedules();
@@ -2133,7 +2186,7 @@ function saveModalChanges() {
         buildStats();
         buildDayCards();
         setupTodayJump();
-        showToast(`Обновена смяна за ${selectedPerson} за ${dayNum} ден!`);
+        showToast(`Обновена смяна за ${selectedPerson} (${dayNum} ден)!`);
     }
 }
 
@@ -2184,24 +2237,18 @@ function setupResetListener() {
     const btn = document.getElementById('resetScheduleBtn');
     if (!btn) return;
     btn.addEventListener('click', () => {
-        if (confirm("Сигурни ли сте, че искате да върнете началния график за всички месеци?")) {
-            localStorage.removeItem('magic_club_all_schedules_v3');
-            localStorage.removeItem('magic_club_schedule_v2');
+        if (confirm("Сигурни ли сте, че искате да върнете началния график? Това ще се отрази за всички в базата данни.")) {
             ALL_SCHEDULES = JSON.parse(JSON.stringify(DEFAULT_ALL_SCHEDULES));
             activeFilter = 'all';
-            setupMonthSelector();
-            setupPersonSelector();
-            buildStats();
-            buildDayCards();
-            applyFilter('all');
-            setupTodayJump();
+            saveAllSchedules();
+            refreshUI();
             showToast("Графикът е върнат към началния!");
         }
     });
 }
 
 // ================================================================
-// SCHEDULE MANAGER PAGE LOGIC
+// MANAGER TAB
 // ================================================================
 function renderManagerPage() {
     const monthSelect = document.getElementById('manageMonthSelect');
@@ -2245,7 +2292,7 @@ function renderEmployeeInputs(monthKey) {
                 <span class="employee-input-name">${name}</span>
                 <span class="employee-input-count" id="count_${name}">${shifts.length} / ${daysCount} дни</span>
             </div>
-            <textarea class="employee-shift-textarea" id="input_${name}" placeholder="Въведете смени разделени със запетая: 1, 2, П, М...">${shiftsStr}</textarea>
+            <textarea class="employee-shift-textarea" id="input_${name}" placeholder="1, 2, П, М...">${shiftsStr}</textarea>
             <div class="quick-shift-tools">
                 <button class="quick-tool-btn" type="button" data-name="${name}" data-val="1">+ Смяна 1</button>
                 <button class="quick-tool-btn" type="button" data-name="${name}" data-val="2">+ Смяна 2</button>
@@ -2257,7 +2304,6 @@ function renderEmployeeInputs(monthKey) {
         `;
         container.appendChild(card);
 
-        // Update count live as user types
         const textarea = card.querySelector('textarea');
         textarea.addEventListener('input', () => {
             const parsed = parseShiftsInput(textarea.value);
@@ -2265,7 +2311,6 @@ function renderEmployeeInputs(monthKey) {
         });
     });
 
-    // Delegate quick tool buttons
     container.querySelectorAll('.quick-tool-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const name = btn.dataset.name;
@@ -2288,11 +2333,7 @@ function appendShift(name, shiftVal) {
     const textarea = document.getElementById(`input_${name}`);
     if (!textarea) return;
     let current = textarea.value.trim();
-    if (current) {
-        current += ', ' + shiftVal;
-    } else {
-        current = shiftVal;
-    }
+    current = current ? (current + ', ' + shiftVal) : shiftVal;
     textarea.value = current;
     textarea.dispatchEvent(new Event('input'));
 }
@@ -2310,14 +2351,13 @@ function setupManagerListeners() {
         btnCreate.onclick = () => {
             const newMonthInput = document.getElementById('newMonthInput');
             if (!newMonthInput || !newMonthInput.value) return;
-            const newKey = newMonthInput.value; // e.g. "2026-10"
+            const newKey = newMonthInput.value;
 
             if (ALL_SCHEDULES[newKey]) {
                 alert(`Месец ${getMonthNameBG(newKey)} вече съществува!`);
                 return;
             }
 
-            const daysCount = getDaysInMonth(newKey);
             const newMonthSched = {};
             const staff = Object.keys(ALL_SCHEDULES[selectedMonthKey] || DEFAULT_ALL_SCHEDULES["2026-08"]);
             staff.forEach(name => {
@@ -2327,9 +2367,9 @@ function setupManagerListeners() {
             ALL_SCHEDULES[newKey] = newMonthSched;
             selectedMonthKey = newKey;
             saveAllSchedules();
-            setupMonthSelector();
+            refreshUI();
             renderManagerPage();
-            showToast(`Създаден е нов месец: ${getMonthNameBG(newKey)}! (Въведете смени от Ден 1)`);
+            showToast(`Създаден е нов месец: ${getMonthNameBG(newKey)}!`);
         };
     }
 
@@ -2353,9 +2393,8 @@ function setupManagerListeners() {
 
             ALL_SCHEDULES[monthKey] = monthSched;
             saveAllSchedules();
-            setupMonthSelector();
-            setupPersonSelector();
-            showToast(`Графикът за ${getMonthNameBG(monthKey)} е запазен успешно!`);
+            refreshUI();
+            showToast(`Графикът за ${getMonthNameBG(monthKey)} е запазен в облака!`);
         };
     }
 
@@ -2369,10 +2408,9 @@ function setupManagerListeners() {
             }
             if (confirm(`Сигурни ли сте, че искате да изтриете месец ${getMonthNameBG(selectedMonthKey)}?`)) {
                 delete ALL_SCHEDULES[selectedMonthKey];
-                saveAllSchedules();
                 selectedMonthKey = Object.keys(ALL_SCHEDULES).sort()[0];
-                setupMonthSelector();
-                setupPersonSelector();
+                saveAllSchedules();
+                refreshUI();
                 renderManagerPage();
                 showToast("Месецът е изтрит!");
             }
@@ -2401,7 +2439,7 @@ function applyFilter(filter) {
 }
 
 // ================================================================
-// TODAY JUMP BUTTON
+// TODAY JUMP
 // ================================================================
 function setupTodayJump() {
     const [year, month] = selectedMonthKey.split('-').map(Number);
@@ -2438,20 +2476,16 @@ function setupTodayJump() {
 }
 
 // ================================================================
-// INIT
+// INITIALIZATION
 // ================================================================
 function init() {
     setupNavigation();
-    setupMonthSelector();
-    setupPersonSelector();
-    buildStats();
-    buildDayCards();
-    setupTodayJump();
     setupModalListeners();
     setupResetListener();
     setupManagerListeners();
+    refreshUI();
+    initRealtimeSync();
 
-    // Auto-scroll to today on load
     const [year, month] = selectedMonthKey.split('-').map(Number);
     if (NOW.getFullYear() === year && (NOW.getMonth() + 1) === month) {
         setTimeout(() => {
