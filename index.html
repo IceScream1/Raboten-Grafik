@@ -598,18 +598,91 @@
             border: 1px solid var(--border);
         }
 
-        .swap-select {
-            width: 100%;
-            padding: 10px;
+        .colleagues-swap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 220px;
+            overflow-y: auto;
+            margin-top: 6px;
+            margin-bottom: 8px;
+            padding-right: 2px;
+        }
+
+        .colleague-swap-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            outline: none;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            margin-top: 6px;
+            transition: all 0.2s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .colleague-swap-item:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(124, 92, 252, 0.3);
+        }
+
+        .colleague-swap-item.selected {
+            border-color: var(--shift-2);
+            background: rgba(124, 92, 252, 0.18);
+            box-shadow: 0 0 15px rgba(124, 92, 252, 0.2);
+        }
+
+        .swap-item-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .swap-item-avatar {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .swap-item-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .swap-item-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: var(--radius-full);
+            font-size: 0.72rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .swap-item-check {
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: var(--shift-2);
+            color: #ffffff;
+            font-size: 0.65rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
         }
 
         .modal-actions {
@@ -1469,10 +1542,8 @@
         </div>
 
         <div class="swap-wrapper">
-            <div class="edit-section-label" style="margin-bottom: 2px;">2. Или размени с колега:</div>
-            <select class="swap-select" id="swapColleagueSelect">
-                <option value="">-- Избери колега за размяна --</option>
-            </select>
+            <div class="edit-section-label" style="margin-bottom: 4px;">2. Или размени с колега:</div>
+            <div class="colleagues-swap-list" id="colleagueSwapList"></div>
             <div class="swap-preview" id="swapPreview" style="display: none;">
                 <span id="swapPreviewText"></span>
             </div>
@@ -1932,10 +2003,13 @@ function buildDayCards() {
 // ================================================================
 // EDIT & SWAP MODAL
 // ================================================================
+let selectedSwapColleague = "";
+
 function openEditModal(dayIndex, dayNum, preselectedColleague = "") {
     activeEditDayIndex = dayIndex;
     const currentShift = getPersonShifts(selectedPerson)[dayIndex];
     activeSelectedShift = currentShift;
+    selectedSwapColleague = preselectedColleague || "";
 
     const monthName = getMonthNameBG(selectedMonthKey);
     document.getElementById('modalTitle').textContent = `График: ${selectedPerson} (${dayNum} ${monthName})`;
@@ -1943,45 +2017,73 @@ function openEditModal(dayIndex, dayNum, preselectedColleague = "") {
     // Select shift option button
     const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
     shiftOptionBtns.forEach(btn => {
-        if (btn.dataset.shift === currentShift) {
+        if (!selectedSwapColleague && btn.dataset.shift === currentShift) {
             btn.classList.add('selected');
         } else {
             btn.classList.remove('selected');
         }
     });
 
-    // Populate swap colleague dropdown
-    const swapSelect = document.getElementById('swapColleagueSelect');
-    swapSelect.innerHTML = '<option value="">-- Избери колега за размяна --</option>';
+    renderColleagueSwapList(dayIndex);
+    updateSwapPreview();
+    document.getElementById('editModal').classList.add('active');
+}
+
+function renderColleagueSwapList(dayIndex) {
+    const container = document.getElementById('colleagueSwapList');
+    if (!container) return;
+    container.innerHTML = '';
 
     const currentSched = getCurrentSchedule();
     Object.keys(currentSched).forEach(name => {
         if (name !== selectedPerson) {
             const colleagueShiftVal = normalizeShift(currentSched[name][dayIndex]);
             const shiftMeta = SHIFTS[colleagueShiftVal] || SHIFTS["П"];
-            const option = document.createElement('option');
-            option.value = name;
-            option.textContent = `${name} (${shiftMeta.icon} ${shiftMeta.label})`;
-            if (name === preselectedColleague) {
-                option.selected = true;
-            }
-            swapSelect.appendChild(option);
+            const isSelected = (name === selectedSwapColleague);
+
+            const item = document.createElement('div');
+            item.className = `colleague-swap-item${isSelected ? ' selected' : ''}`;
+            item.dataset.name = name;
+
+            item.innerHTML = `
+                <div class="swap-item-left">
+                    <div class="swap-item-avatar av-${shiftMeta.cls}">${getInitials(name)}</div>
+                    <span class="swap-item-name">${name}</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="swap-item-badge badge-${shiftMeta.cls}">
+                        ${shiftMeta.icon} ${shiftMeta.label}
+                    </span>
+                    ${isSelected ? '<span class="swap-item-check">✓</span>' : ''}
+                </div>
+            `;
+
+            item.addEventListener('click', () => {
+                if (selectedSwapColleague === name) {
+                    selectedSwapColleague = "";
+                } else {
+                    selectedSwapColleague = name;
+                    // Deselect shift buttons if a colleague card is selected
+                    const shiftOptionBtns = document.querySelectorAll('.shift-option-btn');
+                    shiftOptionBtns.forEach(b => b.classList.remove('selected'));
+                }
+                renderColleagueSwapList(dayIndex);
+                updateSwapPreview();
+            });
+
+            container.appendChild(item);
         }
     });
-
-    updateSwapPreview();
-    document.getElementById('editModal').classList.add('active');
 }
 
 function updateSwapPreview() {
-    const swapSelect = document.getElementById('swapColleagueSelect');
     const previewBox = document.getElementById('swapPreview');
     const previewText = document.getElementById('swapPreviewText');
 
     const currentSched = getCurrentSchedule();
 
-    if (swapSelect && swapSelect.value && activeEditDayIndex !== null && currentSched[selectedPerson]) {
-        const colleagueName = swapSelect.value;
+    if (selectedSwapColleague && activeEditDayIndex !== null && currentSched[selectedPerson]) {
+        const colleagueName = selectedSwapColleague;
         const myShiftVal = normalizeShift(currentSched[selectedPerson][activeEditDayIndex]);
         const colleagueShiftVal = normalizeShift(currentSched[colleagueName][activeEditDayIndex]);
 
@@ -1998,31 +2100,30 @@ function updateSwapPreview() {
 function closeEditModal() {
     document.getElementById('editModal').classList.remove('active');
     activeEditDayIndex = null;
+    selectedSwapColleague = "";
     const previewBox = document.getElementById('swapPreview');
     if (previewBox) previewBox.style.display = 'none';
 }
 
 function saveModalChanges() {
     if (activeEditDayIndex === null) return;
-    const swapSelect = document.getElementById('swapColleagueSelect');
-    const swapColleague = swapSelect ? swapSelect.value : "";
     const dayNum = activeEditDayIndex + 1;
     const currentSched = ALL_SCHEDULES[selectedMonthKey];
 
-    if (swapColleague && currentSched[selectedPerson] && currentSched[swapColleague]) {
-        // Swap shifts between selectedPerson and swapColleague
+    if (selectedSwapColleague && currentSched[selectedPerson] && currentSched[selectedSwapColleague]) {
+        // Swap shifts between selectedPerson and selectedSwapColleague
         const personShift = currentSched[selectedPerson][activeEditDayIndex];
-        const colleagueShift = currentSched[swapColleague][activeEditDayIndex];
+        const colleagueShift = currentSched[selectedSwapColleague][activeEditDayIndex];
 
         currentSched[selectedPerson][activeEditDayIndex] = colleagueShift;
-        currentSched[swapColleague][activeEditDayIndex] = personShift;
+        currentSched[selectedSwapColleague][activeEditDayIndex] = personShift;
 
         saveAllSchedules();
         closeEditModal();
         buildStats();
         buildDayCards();
         setupTodayJump();
-        showToast(`Разменена смяна между ${selectedPerson} и ${swapColleague} за ${dayNum} ден!`);
+        showToast(`Разменена смяна между ${selectedPerson} и ${selectedSwapColleague} за ${dayNum} ден!`);
     } else if (currentSched[selectedPerson]) {
         // Direct shift update
         currentSched[selectedPerson][activeEditDayIndex] = activeSelectedShift;
@@ -2055,8 +2156,7 @@ function setupModalListeners() {
     if (removeWorkBtn) {
         removeWorkBtn.addEventListener('click', () => {
             activeSelectedShift = 'П';
-            const swapSelect = document.getElementById('swapColleagueSelect');
-            if (swapSelect) swapSelect.value = "";
+            selectedSwapColleague = "";
             saveModalChanges();
         });
     }
@@ -2067,17 +2167,12 @@ function setupModalListeners() {
             shiftOptionBtns.forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
             activeSelectedShift = btn.dataset.shift;
-            const swapSelect = document.getElementById('swapColleagueSelect');
-            if (swapSelect) swapSelect.value = "";
+            selectedSwapColleague = "";
+            if (activeEditDayIndex !== null) {
+                renderColleagueSwapList(activeEditDayIndex);
+            }
             updateSwapPreview();
         });
-    });
-
-    document.getElementById('swapColleagueSelect').addEventListener('change', (e) => {
-        if (e.target.value) {
-            shiftOptionBtns.forEach(b => b.classList.remove('selected'));
-        }
-        updateSwapPreview();
     });
 
     document.getElementById('editModal').addEventListener('click', (e) => {
